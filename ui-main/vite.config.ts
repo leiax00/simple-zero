@@ -43,10 +43,10 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 12790,
-    strictPort: true,  // 端口占用则不进行下一个端口尝试
-    proxy: {},
-    // headers: {
-    //   'Access-Control-Allow-Origin': '*'
-    // }
+    strictPort: false, // 端口占用是否进行下一个端口尝试
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    },
+    proxy: {}
   }
 })
