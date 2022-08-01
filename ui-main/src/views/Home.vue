@@ -2,6 +2,7 @@
   <div class="div-home">
     {{ msg }}
   </div>
+  <el-button v-ripple>hello</el-button>
 </template>
 
 <script setup lang="ts">
