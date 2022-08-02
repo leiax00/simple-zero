@@ -1,8 +1,8 @@
 <template>
-  <div class="div-home">
+  <div class="div-home bg-fuchsia-600 text-gray-100">
     {{ msg }}
   </div>
-  <el-button v-ripple>hello</el-button>
+  <el-button v-ripple type="primary">hello</el-button>
 </template>
 
 <script setup lang="ts">
