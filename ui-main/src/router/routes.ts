@@ -1,4 +1,4 @@
-import Layout from '@/layout/index.vue'
+import Layout from '@/components/layout/index.vue'
 import { RouteRecordRaw } from 'vue-router'
 
 export const routes: Array<RouteRecordRaw> = [
