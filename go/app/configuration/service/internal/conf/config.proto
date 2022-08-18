@@ -1,0 +1,4 @@
+syntax = "proto3";
+
+package configuration.conf;
+option go_package = "github.com/simple-zero/app-configuration/app/service/internal/conf;conf";

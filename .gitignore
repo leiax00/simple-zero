@@ -25,3 +25,6 @@
 /**/*.njsproj
 /**/*.sln
 /**/*.sw?
+
+# go
+/**/go.sum
