@@ -1,4 +1,20 @@
 syntax = "proto3";
 
-package configuration.conf;
-option go_package = "github.com/simple-zero/app-configuration/app/service/internal/conf;conf";
+package sz.api.conf;
+option go_package = "github.com/simple-zero/app/configuration/service/internal/conf;conf";
+import "logger/log_conf.proto";
+import "google/protobuf/duration.proto";
+
+message Config {
+  LogConf log = 1;
+  Server server = 2;
+}
+
+message Server {
+  message Http {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+  }
+  Http http = 1;
+}

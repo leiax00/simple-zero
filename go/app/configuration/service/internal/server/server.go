@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"github.com/google/wire"
 	"net/http"
 )
 
@@ -23,3 +24,7 @@ func (h *HttpServer) Start(ctx context.Context) error {
 func (h *HttpServer) Stop(ctx context.Context) error {
 	return h.Shutdown(ctx)
 }
+
+var ProvideSet = wire.NewSet(
+	NewHttpServer,
+)

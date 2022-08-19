@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package sz.api.conf;
+option go_package = "github.com/simple-zero/pkg/logger;logger";
+
+message LogConf {
+  string level = 1;
+  string log_file = 2;
+  int64 max_size = 3;
+  int64 max_age = 4;
+  int64 max_backup = 5;
+}

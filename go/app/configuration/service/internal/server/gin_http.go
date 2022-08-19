@@ -15,7 +15,7 @@ import (
 	"time"
 )
 
-func NewHttpServer(logger *logger.Logger) Server {
+func NewHttpServer(logger *logger.Logger) *HttpServer {
 	engine := gin.New()
 	engine.Use(GinLogger(logger), GinRecovery(logger, true))
 	router.RegisterRoutesTo(engine)

@@ -3,7 +3,9 @@ package main
 import (
 	"context"
 	"errors"
+	"github.com/simple-zero/app/configuration/service/internal/conf"
 	"github.com/simple-zero/app/configuration/service/internal/server"
+	logger2 "github.com/simple-zero/pkg/logger"
 	"golang.org/x/sync/errgroup"
 	"os"
 	"os/signal"
@@ -13,14 +15,21 @@ import (
 )
 
 type App struct {
+	conf    *conf.Config
+	log     *logger2.Logger
 	ctx     context.Context
 	cancel  func()
 	servers []server.Server
 }
 
-func NewApp() *App {
+func NewApp(conf *conf.Config, logger *logger2.Logger) *App {
 	ctx, cancel := context.WithCancel(context.Background())
-	return &App{ctx: ctx, cancel: cancel}
+	return &App{
+		conf:   conf,
+		log:    logger,
+		ctx:    ctx,
+		cancel: cancel,
+	}
 }
 
 func (app *App) RegisterServ(serv server.Server) {
