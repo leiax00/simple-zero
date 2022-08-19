@@ -33,7 +33,9 @@ var (
 
 func init() {
 	flag.StringVar(&cfg.conf, "conf", "./app/configuration/service/configs", "config path, eg: -conf config.yaml")
+	// cat confi_file | etcdctl put <key> 写入配置文件
 	flag.StringVar(&cfg.etcd, "etcd", "", "etcd server, eg: ip1:port;ip2:port")
+	//flag.StringVar(&cfg.etcd, "etcd", "127.0.0.1:2379;127.0.0.1:2381;127.0.0.1:2383", "etcd server, eg: ip1:port;ip2:port")
 }
 
 func newApp(conf *conf.Config, logger *logger2.Logger, httpServer *server.HttpServer) *App {
@@ -46,7 +48,7 @@ func loadConf(client *clientV3.Client) *conf.Config {
 	var sourceList []config.Source
 	sourceList = append(sourceList, file.NewSource(cfg.conf))
 	if lo.IsNotEmpty(client) {
-		source, err := etcd.New(client, etcd.WithPath("/app-config"), etcd.WithPrefix(true))
+		source, err := etcd.New(client, etcd.WithPath("/app-config/configuration"), etcd.WithPrefix(true))
 		if err == nil {
 			sourceList = append(sourceList, source)
 		}
