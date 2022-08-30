@@ -19,4 +19,4 @@ EXPOSE 13000
 VOLUME /data
 
 RUN pip install -r requirement.txt
-CMD ["python", 'app.py']
+CMD ["python", "app.py"]
