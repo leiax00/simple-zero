@@ -1,0 +1,9 @@
+Flask
+flask-cors
+gevent
+aiofiles
+aiohttp
+PyYAML
+pymongo
+apscheduler
+pypinyin
