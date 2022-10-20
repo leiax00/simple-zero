@@ -3,13 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --mode=development",
+    "prod": "vite --mode=production",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@micro-zoe/micro-app": "^0.8.5",
-    "@vueuse/core": "^8.7.5",
+    "@vueuse/core": "^9.3.1",
     "dayjs": "^1.11.3",
     "element-plus": "^2.2.6",
     "gitter-sidecar": "^1.5.0",
@@ -22,8 +23,8 @@
     "@types/node": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
-    "@vitejs/plugin-vue": "^2.3.3",
-    "@vitejs/plugin-vue-jsx": "^1.3.10",
+    "@vitejs/plugin-vue": "^3.1.2",
+    "@vitejs/plugin-vue-jsx": "^2.0.1",
     "autoprefixer": "^10.4.8",
     "eslint": "^8.18.0",
     "eslint-config-standard": "^17.0.0",
@@ -38,7 +39,7 @@
     "unplugin-auto-import": "^0.9.1",
     "unplugin-vue-components": "^0.20.1",
     "unplugin-vue-define-options": "^0.6.1",
-    "vite": "^2.9.9",
+    "vite": "^3.1.8",
     "vite-plugin-eslint": "^1.6.1",
     "vue-tsc": "^0.34.7"
   }
