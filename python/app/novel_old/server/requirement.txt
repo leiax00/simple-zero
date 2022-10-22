@@ -7,3 +7,4 @@ PyYAML
 pymongo
 apscheduler
 pypinyin
+etcd3
