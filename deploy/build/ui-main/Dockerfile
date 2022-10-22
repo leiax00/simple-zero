@@ -10,10 +10,11 @@ FROM node:lts-alpine3.15
 MAINTAINER "leiax00@outlook.com"
 
 ARG SOURCE_PREFFIX="ui-main"
-COPY --from=builder /src/${SOURCE_PREFFIX}/ /home/web/
-COPY --from=builder /src/deploy/bash/start_web.sh /home/web/
+ARG WORK_DIR="/home/web"
+COPY --from=builder /src/${SOURCE_PREFFIX}/ ${WORK_DIR}/
+COPY --from=builder /src/deploy/bash/start_web.sh ${WORK_DIR}/
 
 EXPOSE 10000
-WORKDIR /home/web
+WORKDIR ${WORK_DIR}
 
-ENTRYPOINT ["./start_app.sh"]
+ENTRYPOINT ["sh", "/home/web/start_web.sh"]
