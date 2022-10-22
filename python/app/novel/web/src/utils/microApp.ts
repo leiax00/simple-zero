@@ -15,7 +15,6 @@ export function startMicroApp4Main() {
             // 这里 /basename/ 需要和子应用vite.config.js中base的配置保持一致
             const reg = new RegExp(`(from|import)(\\s*['"])(${item.prefix})`, 'g')
             code = code.replace(reg, (all: string) => {
-              console.log(all.replace(item.prefix, `${item.domain}${item.prefix}`))
               return all.replace(item.prefix, `${item.domain}${item.prefix}`)
             })
           }

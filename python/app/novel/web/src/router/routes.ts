@@ -1,21 +1,14 @@
-import Layout from '@/components/layout/index.vue'
 import { RouteRecordRaw } from 'vue-router'
 
 export const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    component: Layout,
-    redirect: '/index',
+    redirect: '/home',
     children: [
       {
-        path: '/index',
+        path: '/home',
         component: () => import('@/views/Home.vue'),
         meta: { title: 'Home', roles: [] }
-      },
-      {
-        path: '/novel',
-        component: () => import('@/views/novel/Novel.vue'),
-        meta: { title: 'Novel', roles: [] }
       }
     ]
   },

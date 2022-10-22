@@ -19,3 +19,8 @@ headers:
   - id: 'novel'
     name: '小说'
     path: /novel
+
+services:
+  - name: novel-app
+    prefix: /novel/
+    domain: http://localhost:10001
