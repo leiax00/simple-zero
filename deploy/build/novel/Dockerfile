@@ -1,22 +1,19 @@
 FROM python:3.9 as builder
 MAINTAINER "leiax00@outlook.com"
 
-ARG SOURCE_PREFFIX="python"
-
 COPY . /src
 
 FROM python:3.9
 MAINTAINER "leiax00@outlook.com"
 
-ARG SOURCE_PREFFIX="python"
+ENV WORK_DIR="/home/serve"
+ENV PATH="${WORK_DIR}:${PATH}"
 
-COPY --from=builder /src/${SOURCE_PREFFIX}/app/novel/server /app
-COPY --from=builder /src/${SOURCE_PREFFIX}/pkg /app
-WORKDIR /app
+COPY --from=builder /src/deploy/bash/start_py.sh ${WORK_DIR}/
+COPY --from=builder /src/python/app/novel/server ${WORK_DIR}/
+COPY --from=builder /src/python/pkg ${WORK_DIR}
 
-EXPOSE 13000
+WORKDIR $WORK_DIR
+EXPOSE 11000
 
-VOLUME /data
-
-RUN pip install -r requirement.txt
-CMD ["python", "app.py"]
+ENTRYPOINT ["sh", "/home/serve/start_py.sh"]
