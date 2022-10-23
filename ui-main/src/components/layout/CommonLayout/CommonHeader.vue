@@ -15,7 +15,7 @@
         <div class="nav-item header-right-nav">right nav</div>
       </div>
     </el-col>
-    <el-col :span="24" class="header-title">
+    <el-col v-if="showTitle" :span="24" class="header-title">
       <common-title />
       <wave />
     </el-col>
@@ -43,9 +43,14 @@ const clazz = computed(() => {
   }
 })
 
+const showTitle = computed(() => {
+  // const route = useRoute()
+  return false
+})
+
 const titleBg = ref(`url(${appConf.getPicUrl('bg-load.png')})`)
 
-const handleScroll = function() {
+const handleScroll = function () {
   navState.preScrollTop = navState.scrollTop
   navState.scrollTop = document.documentElement.scrollTop || document.body.scrollTop
 }
@@ -61,15 +66,19 @@ onBeforeUnmount(() => {
     a {
       @apply leading-8;
     }
+
     .main-nav {
-      @apply px-6 h-16 w-full;  // 1.5rem == 24px
+      @apply px-6 h-16 w-full;
+      // 1.5rem == 24px
       @apply flex;
       @apply top-0 left-0 fixed z-10;
       &.with-bg {
         @apply bg-neutral-700 opacity-80  ;
       }
+
       &.fixed-top {
-        @apply -top-16; // 隐藏nav, 设置为nav高度
+        @apply -top-16;
+        // 隐藏nav, 设置为nav高度
       }
 
       .nav-item {
@@ -79,10 +88,12 @@ onBeforeUnmount(() => {
       .header-logo {
         @apply max-w-logo flex-logo;
       }
+
       .header-link {
         &.nav-item {
           @apply py-0;
         }
+
         @apply flex-grow px-6;
         .route-item {
           @apply text-teal-500 px-4 py-4 cursor-pointer;
@@ -91,6 +102,7 @@ onBeforeUnmount(() => {
           }
         }
       }
+
       .header-right-nav {
         @apply max-w-px-200 flex-px-200
       }

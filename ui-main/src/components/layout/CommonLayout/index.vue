@@ -29,10 +29,11 @@ defineOptions({ name: 'CommonLayout' })
 </script>
 
 <style lang="scss" scoped>
+$headerH: 4rem;
 .layout-header {
-  height: 528px;
+  height: $headerH;
 }
 .layout-content {
-  min-height: calc(100vh - 528px - 12px); // 去除header + 底部的gap
+  min-height: calc(100vh - #{$headerH} - 12px); // 去除header + 底部的gap
 }
 </style>
