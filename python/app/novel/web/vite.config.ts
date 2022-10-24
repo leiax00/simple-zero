@@ -65,6 +65,11 @@ export default defineConfig({
     headers: {
       'Access-Control-Allow-Origin': '*'
     },
-    proxy: {}
+    proxy: {
+      '/novel/v1/api/': {
+        target: 'http://localhost:11000/',
+        changeOrigin: true
+      }
+    }
   }
 })

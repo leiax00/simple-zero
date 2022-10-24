@@ -33,7 +33,6 @@ export function startMicroApp4Main() {
 
 export function startMicroApp4Child () {
   const appConf = useApp()
-  console.log('微应用child-vite渲染了')
   const eventCenterForApp = (window as any).eventCenterForApp
   handleMicroData(router)
 

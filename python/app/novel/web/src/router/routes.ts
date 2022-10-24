@@ -7,7 +7,7 @@ export const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '/home',
-        component: () => import('@/views/Home.vue'),
+        component: () => import('@/views/home/Home.vue'),
         meta: { title: 'Home', roles: [] }
       }
     ]

@@ -1,7 +1,7 @@
 <template>
   <micro-app
     name="novel-app"
-    url="http://localhost:10001/novel/"
+    url="http://10.1.0.1:10001/novel/"
   />
 </template>
 

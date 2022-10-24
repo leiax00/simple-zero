@@ -23,4 +23,4 @@ headers:
 services:
   - name: novel-app
     prefix: /novel/
-    domain: http://localhost:10001
+    domain: http://10.1.0.1:10001
