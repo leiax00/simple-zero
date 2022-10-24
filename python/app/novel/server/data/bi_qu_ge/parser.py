@@ -15,7 +15,6 @@ class BiQuHtmlParser:
 
     def with_html(self, html: str):
         self.html = html
-        print(self.html)
         return self
 
     def get_book_id_by_search_rst(self):
