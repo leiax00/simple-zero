@@ -11,13 +11,15 @@ module.exports = {
     './src/**/*.{vue,js,ts,jsx,tsx}'
   ],
   theme: {
-    maxWidth: {
-      logo: constObj.LOGO_MAX_WIDTH,
-      'px-200': constObj.RIGHT_NAV_PX
-    },
-    flex: {
-      logo: `0 0 ${constObj.LOGO_MAX_WIDTH}`,
-      'px-200': `0 0 ${constObj.RIGHT_NAV_PX}`
+    extend: {
+      maxWidth: {
+        logo: constObj.LOGO_MAX_WIDTH,
+        'px-200': constObj.RIGHT_NAV_PX
+      },
+      flex: {
+        logo: `0 0 ${constObj.LOGO_MAX_WIDTH}`,
+        'px-200': `0 0 ${constObj.RIGHT_NAV_PX}`
+      }
     }
   },
   variants: {

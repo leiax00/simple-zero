@@ -15,5 +15,6 @@ rules:
   'vue/max-attributes-per-line': off
   'vue/singleline-html-element-content-newline': off
   space-before-function-paren: off
+  'vue/no-v-html': off
 globals:
   defineOptions: readonly

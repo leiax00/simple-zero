@@ -25,7 +25,7 @@ export interface Chapter {
   bid: string
   cid: string
   name: string
-  prev: string,
-  next: string
+  prev: string | number,
+  next: string | number
   content: string
 }

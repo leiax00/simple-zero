@@ -9,7 +9,7 @@
       <!--      </el-aside>-->
       <el-container class="layout-content">
         <el-main>
-          <router-view />
+          <router-view :key="$route.fullPath" />
         </el-main>
         <el-footer>
           <common-footer />
@@ -25,7 +25,6 @@ import CommonHeader from '@/components/layout/CommonLayout/CommonHeader.vue'
 import CommonFooter from '@/components/layout/CommonLayout/CommonFooter.vue'
 
 defineOptions({ name: 'CommonLayout' })
-
 </script>
 
 <style lang="scss" scoped>

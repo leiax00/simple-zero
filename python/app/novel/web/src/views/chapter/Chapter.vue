@@ -2,6 +2,24 @@
   <div class="main-chapter">
     <div class="chapter-name">{{ pageData.chapter.name }}</div>
     <div class="chapter-text" v-html="chapterText" />
+    <div class="btn-group">
+      <el-button
+        v-ripple
+        type="primary"
+        :disabled="pageData.chapter.prev === -1"
+        @click="openPage(true)"
+      >
+        上一章
+      </el-button>
+      <el-button
+        v-ripple
+        type="primary"
+        :disabled="pageData.chapter.next === -1"
+        @click="openPage(false)"
+      >
+        下一章
+      </el-button>
+    </div>
   </div>
 </template>
 
@@ -9,8 +27,11 @@
 import { computed, onMounted, reactive, toRefs } from 'vue'
 import common from '@/common'
 import { Chapter } from '@/views/bean'
+import { defineOptions } from 'unplugin-vue-define-options/macros'
+import { useRouter } from 'vue-router'
 
 defineOptions({ name: 'Chapter' })
+
 const props = defineProps<{
   bid: string,
   cid: string
@@ -28,6 +49,14 @@ onMounted(() => {
   })
 })
 
+const router = useRouter()
+const openPage = (isPrev) => {
+  router.push({
+    path: `/chapter/${bid.value}/${
+    isPrev ? pageData.chapter.prev : pageData.chapter.next}`
+  })
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -39,6 +68,8 @@ onMounted(() => {
     @apply mt-6;
     @apply font-normal leading-8;
   }
-  .btn-group {}
+  .btn-group {
+    @apply text-center mt-9;
+  }
 }
 </style>

@@ -16,5 +16,6 @@ rules:
   'vue/singleline-html-element-content-newline': off
   space-before-function-paren: off
   comma-dangle: off
+  'vue/no-v-html': off
 globals:
   defineOptions: readonly

@@ -12,6 +12,7 @@ export const routes: Array<RouteRecordRaw> = [
       },
       {
         path: '/chapter/:bid/:cid',
+        name: 'chapter',
         component: () => import('@/views/chapter/Chapter.vue'),
         // props: route => ({ bid: route.params.bid, cid: route.params.cid }),
         props: true,

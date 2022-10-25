@@ -58,7 +58,11 @@ const refreshRunInfo = function () {
 onMounted(refreshRunInfo)
 </script>
 <style lang="scss" scoped>
-.footer-text {
-  @apply mx-2;
+.uv-footer {
+  @apply font-light text-xs text-gray-500 italic;
+  .footer-text {
+    @apply mx-2;
+  }
 }
+
 </style>
