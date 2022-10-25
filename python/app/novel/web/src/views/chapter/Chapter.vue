@@ -38,7 +38,16 @@ const props = defineProps<{
 }>()
 const { bid, cid } = toRefs(props)
 
-const pageData = reactive<{chapter: Chapter}>({ chapter: {} })
+const pageData = reactive<{chapter: Chapter}>({
+  chapter: {
+    bid: bid.value,
+    cid: cid.value,
+    name: cid.value,
+    prev: -1,
+    next: -1,
+    content: ''
+  }
+})
 const chapterText = computed(() => {
   return pageData.chapter.content ? pageData.chapter.content.replaceAll('\n', '<br/>') : ''
 })
@@ -50,7 +59,7 @@ onMounted(() => {
 })
 
 const router = useRouter()
-const openPage = (isPrev) => {
+const openPage = (isPrev: Boolean) => {
   router.push({
     path: `/chapter/${bid.value}/${
     isPrev ? pageData.chapter.prev : pageData.chapter.next}`

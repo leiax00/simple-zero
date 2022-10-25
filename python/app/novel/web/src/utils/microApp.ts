@@ -64,8 +64,10 @@ export function startMicroApp4Child () {
 
       // 向基座发送数据
       setTimeout(() => {
-        eventCenterForApp.dispatch({ myname: 'child-vite' })
+        eventCenterForApp.dispatch({ myname: 'novel-ui' })
       }, 3000)
+    } else {
+      router.push({ path: '/' })
     }
   }
 }

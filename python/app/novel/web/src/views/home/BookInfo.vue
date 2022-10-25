@@ -46,7 +46,8 @@
 <script lang="ts" setup>
 import { computed, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
-import { BookInfo } from '@/views/bean'
+import { BookInfo, CatalogBase } from '@/views/bean'
+import { defineOptions } from 'unplugin-vue-define-options/macros'
 defineOptions({ name: 'BookInfo' })
 
 const props = defineProps<{
@@ -60,8 +61,7 @@ const catalogList = computed(() => {
 })
 
 const router = useRouter()
-const openChapter = ({ bid, cid }) => {
-  console.log(bid, cid)
+const openChapter = ({ bid, cid }: CatalogBase) => {
   router.push({ path: `/chapter/${bid}/${cid}` })
 }
 

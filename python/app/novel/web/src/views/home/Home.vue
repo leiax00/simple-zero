@@ -31,7 +31,6 @@ const pageData: UnwrapNestedRefs<{
 const searchBook = function () {
   common.apis.searchBookByName(pageData.searchVal).then(resp => {
     pageData.rst = resp.data
-    console.log(pageData.rst)
   })
 }
 </script>
