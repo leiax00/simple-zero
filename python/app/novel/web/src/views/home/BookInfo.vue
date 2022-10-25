@@ -2,8 +2,6 @@
   <el-row :gutter="64" justify="start" class="main-book">
     <el-col :span="6" class="book-icon">
       <img :src="bookInfo.book.icon" :alt="bookInfo.book.name">
-      <!--      <div>-->
-      <!--      </div>-->
     </el-col>
     <el-col :span="18" class="book-base-info ">
       <div class="item">
@@ -46,8 +44,9 @@
 </template>
 
 <script lang="ts" setup>
-import { BookInfo } from '@/views/home/bean'
 import { computed, toRefs } from 'vue'
+import { useRouter } from 'vue-router'
+import { BookInfo } from '@/views/bean'
 defineOptions({ name: 'BookInfo' })
 
 const props = defineProps<{
@@ -60,8 +59,10 @@ const catalogList = computed(() => {
   return catalogs.reverse()
 })
 
+const router = useRouter()
 const openChapter = ({ bid, cid }) => {
   console.log(bid, cid)
+  router.push({ path: `/chapter/${bid}/${cid}` })
 }
 
 </script>

@@ -20,3 +20,12 @@ export interface BookInfo {
   book: BookBase
   catalogs: Array<CatalogBase>
 }
+
+export interface Chapter {
+  bid: string
+  cid: string
+  name: string
+  prev: string,
+  next: string
+  content: string
+}

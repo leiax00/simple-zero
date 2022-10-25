@@ -9,6 +9,13 @@ export const routes: Array<RouteRecordRaw> = [
         path: '/home',
         component: () => import('@/views/home/Home.vue'),
         meta: { title: 'Home', roles: [] }
+      },
+      {
+        path: '/chapter/:bid/:cid',
+        component: () => import('@/views/chapter/Chapter.vue'),
+        // props: route => ({ bid: route.params.bid, cid: route.params.cid }),
+        props: true,
+        meta: { title: '小说章节', roles: [] }
       }
     ]
   },
