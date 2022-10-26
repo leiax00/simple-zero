@@ -6,8 +6,8 @@ import ElementPlus from 'element-plus'
 // import '@/styles/element/index.scss'
 import '@/styles/index.scss'
 import ripple from '@/bean/directives/Ripple/ripple'
-import { useApp } from '@/store/app'
-import { startMicroApp4Main } from '@/utils/microApp'
+// import { useApp } from '@/store/app'
+// import { registerMicroApps, start } from 'qiankun'
 
 const app = createApp(App)
 app.directive('ripple', ripple)
@@ -16,6 +16,20 @@ app.use(router)
   .use(ElementPlus)
   .mount('#app')
 
-const appConf = useApp()
-appConf.setApp(app)
-startMicroApp4Main()
+// startQianQun()
+
+// function startQianQun() {
+//   const appConf = useApp()
+//   const qianQunServeList = []
+//   appConf.fetchAppList().forEach(item => {
+//     qianQunServeList.push({
+//       name: item.name,
+//       entry: item.domain,
+//       container: `#${item.name}`, // 和app.vue配置的节点
+//       activeRule: item.prefix,
+//       props: {}
+//     })
+//   })
+//   registerMicroApps(qianQunServeList)
+//   start()
+// }

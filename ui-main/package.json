@@ -9,12 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@micro-zoe/micro-app": "^0.8.5",
     "@vueuse/core": "^9.3.1",
     "dayjs": "^1.11.3",
     "element-plus": "^2.2.6",
     "gitter-sidecar": "^1.5.0",
     "pinia": "^2.0.14",
+    "qiankun": "^2.8.3",
     "vue": "^3.2.25",
     "vue-router": "^4.0.13"
   },

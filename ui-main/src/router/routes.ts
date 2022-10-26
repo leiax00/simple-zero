@@ -1,5 +1,25 @@
 import Layout from '@/components/layout/index.vue'
 import { RouteRecordRaw } from 'vue-router'
+// @ts-ignore
+import settings from '@/settings.yaml'
+
+function getAppRoutes() {
+  const serveList = settings.services
+  const routes = []
+  serveList.forEach(item => {
+    routes.push({
+      path: item.prefix,
+      name: item.name,
+      component: () => import('@/views/appList/AppList.vue'),
+      meta: {
+        title: item.name,
+        roles: [],
+        serve: item
+      }
+    })
+  })
+  return routes
+}
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -12,11 +32,7 @@ export const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/Home.vue'),
         meta: { title: 'Home', roles: [] }
       },
-      {
-        path: '/novel',
-        component: () => import('@/views/novel/Novel.vue'),
-        meta: { title: 'Novel', roles: [] }
-      }
+      ...getAppRoutes()
     ]
   },
   {

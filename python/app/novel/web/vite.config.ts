@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import { resolve, join } from 'path'
+import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import eslintPlugin from 'vite-plugin-eslint'
@@ -7,12 +7,12 @@ import DefineOptions from 'unplugin-vue-define-options/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import { writeFileSync } from 'fs'
-
+import qiankun from 'vite-plugin-qiankun'
+import pkgInfo from './package.json'
 const resolvePath = (_path) => resolve(__dirname, _path)
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/novel/',
+  base: '/',
   resolve: {
     extensions: ['.js', '.ts', '.tsx', '.jsx'],
     alias: {
@@ -33,30 +33,9 @@ export default defineConfig({
     eslintPlugin({
       include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js']
     }),
-    (function () {
-      let basePath = ''
-      return {
-        name: 'vite:micro-app',
-        apply: 'build',
-        configResolved(config) {
-          basePath = `${config.base}${config.build.assetsDir}/`
-        },
-        writeBundle (options, bundle) {
-          for (const chunkName in bundle) {
-            if (Object.prototype.hasOwnProperty.call(bundle, chunkName)) {
-              const chunk = bundle[chunkName]
-              if (chunk.fileName && chunk.fileName.endsWith('.js')) {
-                chunk.code = chunk.code.replace(/(from|import\()(\s*['"])(\.\.?\/)/g, (all, $1, $2, $3) => {
-                  return all.replace($3, new URL($3, basePath))
-                })
-                const fullPath = join(options.dir, chunk.fileName)
-                writeFileSync(fullPath, chunk.code)
-              }
-            }
-          }
-        }
-      }
-    })()
+    qiankun(pkgInfo.name, {
+      useDevMode: true,
+    })
   ],
   server: {
     host: '0.0.0.0',
