@@ -20,10 +20,7 @@ headers:
     name: '小说'
     path: /novel
 
-services:
+serves:
   - name: novel-ui
     prefix: /novel
     domain: http://10.1.0.1:10001
-  - name: novel-ui1
-    prefix: /novel1
-    domain: http://10.1.0.1:10002

@@ -34,7 +34,10 @@ export const useApp = defineStore('app', {
       this.app = app
     },
     fetchAppList() {
-      return this.config.services || []
+      return this.config.serves || []
+    },
+    setConfig(conf: Object) {
+      this.config = conf
     },
     async loadSvgSrc(cb?: Function) {
       if (!this.uiCtl.isLoaded4svgSrc) {
@@ -50,7 +53,7 @@ export const useApp = defineStore('app', {
         this.uiCtl.isLoaded4svgSrc = true
       }
     },
-    getPicUrl(params: Object|string) {
+    getPicUrl(params: Object | string) {
       const { base, opts } = this.config.app.picCdn
       if (commonUtil.isEmptyStr(opts.pic) || opts.pic.trim() === '/') {
         return `${base}/${params}`

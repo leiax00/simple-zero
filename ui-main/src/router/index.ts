@@ -6,6 +6,21 @@ const router: Router = createRouter({
   routes
 })
 
+export function updateRouterByServes(serves: any[]) {
+  serves && serves.forEach(item => {
+    router.addRoute('main', {
+      path: item.prefix,
+      name: item.name,
+      component: () => import('@/views/appList/AppList.vue'),
+      meta: {
+        title: item.name,
+        roles: [],
+        serve: item
+      }
+    })
+  })
+}
+
 router.beforeEach(async (to, from, next) => {
   next()
 })
