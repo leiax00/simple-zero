@@ -20,13 +20,7 @@ export default defineConfig({
     }
   },
   plugins: [
-    vue({
-      template: {
-        compilerOptions: {
-          isCustomElement: tag => /^micro-app/.test(tag)
-        }
-      }
-    }),
+    vue(),
     vueJsx(),
     DefineOptions(),
     content(),
@@ -34,12 +28,21 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()]
     }),
     Components({
-      resolvers: [ElementPlusResolver()]
+      resolvers: [ElementPlusResolver({
+        importStyle: false
+      })]
     }),
     eslintPlugin({
       include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js']
     })
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@use "@/styles/element/index.scss";'
+      }
+    }
+  },
   server: {
     host: '0.0.0.0',
     port: 10000,

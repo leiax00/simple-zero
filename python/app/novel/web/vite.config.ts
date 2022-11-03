@@ -28,7 +28,9 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()]
     }),
     Components({
-      resolvers: [ElementPlusResolver()]
+      resolvers: [ElementPlusResolver({
+        importStyle: false
+      })]
     }),
     eslintPlugin({
       include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js']
@@ -37,6 +39,13 @@ export default defineConfig({
       useDevMode: true,
     })
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@use "@/styles/element/index.scss";'
+      },
+    }
+  },
   server: {
     host: '0.0.0.0',
     port: 10001,
@@ -46,7 +55,7 @@ export default defineConfig({
     },
     proxy: {
       '/novel/v1/api/': {
-        target: 'http://localhost:11000/',
+        target: 'http://10.1.0.4:11000/',
         changeOrigin: true
       }
     }
