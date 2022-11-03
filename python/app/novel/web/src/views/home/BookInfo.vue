@@ -1,53 +1,61 @@
 <template>
-  <el-row :gutter="64" justify="start" class="main-book">
-    <el-col :span="6" class="book-icon">
-      <img :src="bookInfo.book.icon" :alt="bookInfo.book.name">
-    </el-col>
-    <el-col :span="18" class="book-base-info ">
-      <div class="item">
-        <div class="font-bold">书籍名称: </div>
-        <div class="ml-3">{{ bookInfo.book.name }}</div>
+  <div class="main-book">
+    <div class="flex flex-wrap justify-start items-start space-y-6 sm:flex-nowrap sm:space-y-0">
+      <div class="w-sz-150 flex-shrink-0">
+        <img class="object-fill" :src="bookInfo.book.icon" :alt="bookInfo.book.name">
       </div>
-      <div class="item">
-        <div class="font-bold">作者: </div>
-        <div class="ml-3">{{ bookInfo.book.author }}</div>
-      </div>
-      <div class="item">
-        <div class="font-bold">书籍类型: </div>
-        <div class="ml-3">{{ bookInfo.book.type }}</div>
-      </div>
-      <div class="item">
-        <div class="font-bold">最新章节: </div>
-        <div class="ml-3">{{ bookInfo.book.latest_chapter }}</div>
-      </div>
-      <div class="item">
-        <div class="font-bold">更新时间: </div>
-        <div class="ml-3">{{ bookInfo.book.update_time }}</div>
-      </div>
-      <div class="item">
-        <div class="font-bold">书籍描述: </div>
-        <div class="ml-3 block">{{ bookInfo.book.desc }}</div>
-      </div>
-    </el-col>
-    <el-col :span="24" class="catalog-list-wrapper">
-      <div class="catalog-list">
-        <div
-          v-for="(item, index) in catalogList"
-          :key="index"
-          class="catalog-item"
-        >
-          <span @click="openChapter(item)">{{ item.name }}</span>
+      <div class="book-info text-left sm:ml-6 flex-grow">
+        <div class="item">
+          <div class="font-bold">书籍名称:</div>
+          <div class="ml-3">{{ bookInfo.book.name }}</div>
+        </div>
+        <div class="item">
+          <div class="font-bold">作者:</div>
+          <div class="ml-3">{{ bookInfo.book.author }}</div>
+        </div>
+        <div class="item">
+          <div class="font-bold">书籍类型:</div>
+          <div class="ml-3">{{ bookInfo.book.type }}</div>
+        </div>
+        <div class="item">
+          <div class="font-bold">最新章节:</div>
+          <div class="ml-3">{{ bookInfo.book.latest_chapter }}</div>
+        </div>
+        <div class="item">
+          <div class="font-bold">更新时间:</div>
+          <div class="ml-3">{{ bookInfo.book.update_time }}</div>
+        </div>
+        <div class="item">
+          <div class="font-bold">书籍描述:</div>
+          <div class="ml-3 block align-top">{{ bookInfo.book.desc }}</div>
         </div>
       </div>
-    </el-col>
-  </el-row>
+    </div>
+    <div class="w-full text-right">
+      <el-button-group class="mt-16">
+        <el-button v-ripple type="primary" @click="sort='desc'">逆序</el-button>
+        <el-button v-ripple type="primary" @click="sort='asc'">正序</el-button>
+      </el-button-group>
+    </div>
+    <div class="catalog-list mt-4">
+      <div
+        v-for="(item, index) in catalogList"
+        :key="index"
+        class="catalog-item"
+      >
+        <span @click="openChapter(item)">{{ item.name }}</span>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, toRefs } from 'vue'
+import { computed, ref, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
 import { BookInfo, CatalogBase } from '@/views/bean'
 import { defineOptions } from 'unplugin-vue-define-options/macros'
+import utils from '@/utils'
+
 defineOptions({ name: 'BookInfo' })
 
 const props = defineProps<{
@@ -55,9 +63,10 @@ const props = defineProps<{
 }>()
 
 const { bookInfo } = toRefs(props)
+const sort = ref('desc')
 const catalogList = computed(() => {
-  const catalogs = bookInfo.value.catalogs
-  return catalogs.reverse()
+  const catalogs = utils.clone(bookInfo.value.catalogs, true)
+  return sort.value === 'asc' ? catalogs : catalogs.reverse()
 })
 
 const router = useRouter()
@@ -69,37 +78,23 @@ const openChapter = ({ bid, cid }: CatalogBase) => {
 
 <style lang="scss" scoped>
 .main-book {
-  .book-icon {
-    @apply text-right;
-    text-align: -webkit-right;
-    img {
-      width: 180px;
-    }
-  }
-  .book-base-info {
-    @apply align-top text-left;
+  .book-info {
     .item {
-      &>div {
+      & > div {
         @apply inline-block;
       }
     }
   }
-  .catalog-list-wrapper {
-    @apply mt-16;
-    .catalog-list {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      flex-flow: row wrap;
-      .catalog-item {
-        @apply py-2 px-3 text-left;
-        width: 25%;
-        span {
-          @apply cursor-pointer;
-        }
+
+  .catalog-list {
+    @apply grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4;
+    .catalog-item {
+      @apply text-left;
+      span {
+        @apply cursor-pointer;
       }
     }
-
   }
+
 }
 </style>

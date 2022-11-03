@@ -4,9 +4,10 @@
       <el-input
         v-model="pageData.searchVal"
         placeholder="Come on, Baby! 书名搞起"
-        class="search-input rounded-2xl"
+        class="w-full rounded-2xl sm:w-sz-500"
         @keyup.enter="searchBook"
       />
+      <el-button v-ripple type="primary" class="mt-3 sm:mt-0 sm:ml-3" @click="searchBook">搜索</el-button>
     </el-col>
     <el-col v-if="pageData.rst" :span="24" class="search-book mt-24 text-center">
       <book-info :book-info="pageData.rst" />
@@ -39,9 +40,6 @@ const searchBook = function () {
 .main-novel {
   .search {
     @apply text-center;
-    .search-input{
-      width: 500px;
-    }
   }
   :deep(.el-input) {
     .el-input__wrapper {
