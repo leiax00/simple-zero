@@ -25,12 +25,27 @@ export default defineConfig({
     DefineOptions(),
     content(),
     AutoImport({
-      resolvers: [ElementPlusResolver()]
+      resolvers: []
     }),
     Components({
-      resolvers: [ElementPlusResolver({
-        importStyle: false
-      })]
+      dts: true,
+      deep: true,
+      resolvers: [
+        ElementPlusResolver({
+          importStyle: false
+        }),
+        {
+          type: 'component',
+          resolve: async (name) => {
+            if (name.toLowerCase().startsWith('sz')) {
+              return {
+                name,
+                from: '@leiax00/zero-ui'
+              }
+            }
+          }
+        }
+      ]
     }),
     eslintPlugin({
       include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js']

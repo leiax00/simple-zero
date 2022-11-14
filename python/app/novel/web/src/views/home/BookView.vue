@@ -8,6 +8,7 @@
         <div class="item">
           <div class="font-bold">书籍名称:</div>
           <div class="ml-3">{{ bookInfo.book.name }}</div>
+          <el-button type="primary">收藏</el-button>
         </div>
         <div class="item">
           <div class="font-bold">作者:</div>
@@ -52,14 +53,14 @@
 <script lang="ts" setup>
 import { computed, ref, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
-import { BookInfo, CatalogBase } from '@/views/bean'
+import { Book, CatalogBase } from '@/views/bean'
 import { defineOptions } from 'unplugin-vue-define-options/macros'
 import utils from '@/utils'
 
-defineOptions({ name: 'BookInfo' })
+defineOptions({ name: 'BookView' })
 
 const props = defineProps<{
-  bookInfo: BookInfo
+  bookInfo: Book
 }>()
 
 const { bookInfo } = toRefs(props)

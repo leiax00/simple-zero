@@ -2,7 +2,6 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import pinia from '@/store'
 import router, { updateRouterByServes } from '@/router'
-import ElementPlus from 'element-plus'
 import '@/styles/index.scss'
 import ripple from '@/bean/directives/Ripple/ripple'
 import { loadAppConf } from '@/config'
@@ -16,7 +15,7 @@ loadAppConf().then((conf: any) => {
   app.directive('ripple', ripple)
   app.use(pinia)
     .use(router)
-    .use(ElementPlus)
+    // .use(ZeroUi)
     .mount('#app')
 
   const appConf = useApp()

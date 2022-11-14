@@ -16,7 +16,7 @@ export interface CatalogBase {
   name: string
 }
 
-export interface BookInfo {
+export interface Book {
   book: BookBase
   catalogs: Array<CatalogBase>
 }

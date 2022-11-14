@@ -3,6 +3,7 @@
     {{ msg }}
   </div>
   <el-button v-ripple type="primary">hello</el-button>
+  <sz-icon />
 </template>
 
 <script setup lang="ts">
