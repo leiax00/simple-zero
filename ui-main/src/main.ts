@@ -13,7 +13,8 @@ loadAppConf().then((conf: any) => {
   updateRouterByServes(conf.serves || [])
   const app = createApp(App)
   app.directive('ripple', ripple)
-  app.use(pinia)
+  app
+    .use(pinia)
     .use(router)
     // .use(ZeroUi)
     .mount('#app')

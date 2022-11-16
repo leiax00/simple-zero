@@ -1,0 +1,9 @@
+node_modules
+dist
+pnpm-lock.yaml
+docs/components.d.ts
+ssr-testing/cases/*
+docs/.vitepress/i18n/*
+docs/.vitepress/crowdin/*
+!docs/.vitepress/crowdin/en-US
+!.*

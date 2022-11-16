@@ -1,20 +1,8 @@
 env:
   browser: true
   es2021: true
+root: true
 extends:
-  - plugin:vue/vue3-recommended
-  - standard
-parserOptions:
-  ecmaVersion: 13
-  parser: '@typescript-eslint/parser'
-plugins:
-  - vue
-  - '@typescript-eslint'
-rules:
-  'vue/multi-word-component-names': off
-  'vue/max-attributes-per-line': off
-  'vue/singleline-html-element-content-newline': off
-  space-before-function-paren: off
-  'vue/no-v-html': off
-globals:
-  defineOptions: readonly
+  - '@leiax00/eslint-config'
+
+rules: {}
