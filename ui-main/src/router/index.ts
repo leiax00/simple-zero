@@ -9,7 +9,7 @@ const router: Router = createRouter({
 export function updateRouterByServes(serves: any[]) {
   serves && serves.forEach(item => {
     router.addRoute('main', {
-      path: item.prefix,
+      path: `${item.prefix}/:chapters*`,
       name: item.name,
       component: () => import('@/views/appList/AppList.vue'),
       meta: {

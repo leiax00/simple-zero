@@ -9,7 +9,14 @@
       <!--      </el-aside>-->
       <el-container class="layout-content">
         <el-main>
-          <router-view :key="$route.fullPath" />
+          <router-view v-slot="{ Component, route }">
+            <transition name="fade" mode="out-in">
+              <div :key="route.fullPath">
+                <component :is="Component" />
+              </div>
+            </transition>
+          </router-view>
+          <!--          <router-view :key="$route.fullPath" />-->
         </el-main>
         <el-footer>
           <common-footer />
