@@ -30,7 +30,7 @@ export const useApp = defineStore('app', {
     },
   },
   actions: {
-    setApp(app: App<Element>) {
+    setApp(app: any) {
       this.app = app
     },
     fetchAppList() {

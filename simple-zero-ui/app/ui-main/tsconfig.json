@@ -1,5 +1,5 @@
 {
-  "extends": "./tsconfig.base.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "useDefineForClassFields": true,
     "isolatedModules": true,
@@ -9,11 +9,14 @@
     "types": [
       "vite/client",
       "unplugin-vue-define-options"
-    ]
+    ],
+    "paths": {
+      "@/*": ["src/*"],
+      "~@/*": ["src/*"]
+    }
   },
   "include": [
-    "packages",
-    "typings"
+    "src"
   ],
   "exclude": [
     "node_modules",
