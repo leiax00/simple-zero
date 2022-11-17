@@ -1,0 +1,8 @@
+.el-header, .el-footer {
+  --el-header-padding: 0;
+  height: auto;
+}
+
+.gitter-open-chat-button {
+  @apply px-4 py-1;
+}
