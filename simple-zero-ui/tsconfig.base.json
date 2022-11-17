@@ -1,0 +1,21 @@
+{
+  "outDir": "dist",
+  "target": "ESNext",
+  "module": "ESNext",
+  "baseUrl": ".",
+  "sourceMap": false,
+  "moduleResolution": "node",
+  "jsx": "preserve",
+  "allowJs": true,
+  "strict": true,
+  "noUnusedLocals": true,
+  "resolveJsonModule": true,
+  "allowSyntheticDefaultImports": true,
+  "esModuleInterop": true,
+  "removeComments": false,
+  "rootDir": ".",
+  "types": [],
+  "paths": {
+    "@zero/*": ["./*"]
+  }
+}

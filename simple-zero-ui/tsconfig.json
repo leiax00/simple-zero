@@ -1,0 +1,31 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "useDefineForClassFields": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "lib": ["esnext", "dom"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "ui-main/src/*",
+        "ui-novel/src/*"
+      ],
+      "~@/*": [
+        "ui-main/src/*",
+        "ui-novel/src/*"
+      ]
+    },
+    "types": [
+      "vite/client",
+      "unplugin-vue-define-options"
+    ]
+  },
+  "include": [
+    "**/*"
+  ],
+  "exclude": [
+    "**/node_modules",
+    "**/dist"
+  ]
+}
