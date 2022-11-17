@@ -11,6 +11,7 @@ router.beforeEach(async (to, from, next) => {
   next()
 })
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 router.afterEach(() => {})
 
 export default router
