@@ -6,26 +6,17 @@
     "skipLibCheck": true,
     "lib": ["esnext", "dom"],
     "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "ui-main/src/*",
-        "ui-novel/src/*"
-      ],
-      "~@/*": [
-        "ui-main/src/*",
-        "ui-novel/src/*"
-      ]
-    },
     "types": [
       "vite/client",
       "unplugin-vue-define-options"
     ]
   },
   "include": [
-    "**/*"
+    "packages"
   ],
   "exclude": [
-    "**/node_modules",
-    "**/dist"
+    "node_modules",
+    "dist",
+    "*.md"
   ]
 }

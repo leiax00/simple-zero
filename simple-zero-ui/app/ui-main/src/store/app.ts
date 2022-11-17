@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-// @ts-ignore
 import { useScriptTag } from '@vueuse/core'
 import type { App } from 'vue'
+// @ts-ignore
 import settings from '@/settings.yaml'
 import commonUtil from '@/utils/commonUtil'
 
@@ -36,10 +36,10 @@ export const useApp = defineStore('app', {
     fetchAppList() {
       return this.config.serves || []
     },
-    setConfig(conf: Object) {
+    setConfig(conf: any) {
       this.config = conf
     },
-    async loadSvgSrc(cb?: Function) {
+    async loadSvgSrc(cb?: () => void) {
       if (!this.uiCtl.isLoaded4svgSrc) {
         const { load } = useScriptTag(
           this.config.app.srcSvg,
@@ -53,7 +53,7 @@ export const useApp = defineStore('app', {
         this.uiCtl.isLoaded4svgSrc = true
       }
     },
-    getPicUrl(params: Object | string) {
+    getPicUrl(params: any) {
       const { base, opts } = this.config.app.picCdn
       if (commonUtil.isEmptyStr(opts.pic) || opts.pic.trim() === '/') {
         return `${base}/${params}`
