@@ -1,0 +1,31 @@
+{
+  "name": "@leiax00/resolvers",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "unplugin-vue-components": "^0.22.0"
+  },
+  "main": "index.ts",
+  "module": "index.ts",
+  "unpkg": "index.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/lib/index.js",
+      "import": "./dist/es/index.mjs",
+      "types": "./dist/es/index.d.ts"
+    },
+    "./es": "./es/index.mjs",
+    "./lib": "./lib/index.js",
+    "./es/*.mjs": "./es/*.mjs",
+    "./es/*": "./es/*.mjs",
+    "./lib/*.js": "./lib/*.js",
+    "./lib/*": "./lib/*.js",
+    "./*": "./*"
+  },
+  "publishConfig": {
+    "access": "public",
+    "directory": "."
+  }
+}

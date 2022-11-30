@@ -17,7 +17,7 @@
     "rootDir": ".",
     "types": [],
     "paths": {
-      "@leiax00/*": ["packages/*"]
+      "@leiax00/*": ["packages/*", "internal/*"]
     }
   }
 }

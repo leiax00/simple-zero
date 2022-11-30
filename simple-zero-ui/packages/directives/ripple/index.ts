@@ -1,7 +1,7 @@
 import './ripple.scss'
 import type { Directive, DirectiveBinding } from 'vue'
 
-const ripple: Directive = {
+const index: Directive = {
   mounted(el: Element, binding: DirectiveBinding<any>) {
     el.addEventListener(
       'click',
@@ -65,4 +65,4 @@ const ripple: Directive = {
   },
 }
 
-export default ripple
+export default index

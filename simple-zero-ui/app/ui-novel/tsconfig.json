@@ -16,7 +16,8 @@
     }
   },
   "include": [
-    "src"
+    "src",
+    "node_modules/@leiax00/resolvers"
   ],
   "exclude": [
     "node_modules",

@@ -4,13 +4,16 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "vite --mode=development",
+    "ui_main": "vite --mode=development",
     "prod": "vite --mode=production",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "gitter-sidecar": "^1.5.0"
+    "@notionhq/client": "^2.2.2",
+    "crypto-js": "^4.1.1",
+    "gitter-sidecar": "^1.5.0",
+    "qiankun": "^2.8.4"
   },
   "keywords": [],
   "author": "",

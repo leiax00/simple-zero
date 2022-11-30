@@ -47,7 +47,10 @@
     "element-plus": "^2.2.0"
   },
   "dependencies": {
-    "@vueuse/core": "^9.4.0"
+    "@vueuse/core": "^9.4.0",
+    "@leiax00/utils": "workspace:*",
+    "@leiax00/components": "workspace:*",
+    "@leiax00/directives": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "*",
