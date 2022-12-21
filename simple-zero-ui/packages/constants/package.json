@@ -1,6 +1,11 @@
 {
   "name": "@leiax00/constants",
-  "private": true,
-  "license": "MIT",
-  "main": "index.ts"
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

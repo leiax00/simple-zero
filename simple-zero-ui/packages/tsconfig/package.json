@@ -1,0 +1,8 @@
+{
+  "name": "@leiax00/tsconfig",
+  "private": true,
+  "files": [
+    "base.json",
+    "web.json"
+  ]
+}

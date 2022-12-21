@@ -14,6 +14,7 @@
 /**/*.local
 /**/auto-imports.d.ts
 /**/components.d.ts
+/**/packages/zero-ui/version.ts
 
 # Editor directories and files
 /**/.vscode/*

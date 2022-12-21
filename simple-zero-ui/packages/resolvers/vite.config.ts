@@ -4,7 +4,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 import dts from 'vite-plugin-dts'
-import DefineOptions from 'unplugin-vue-define-options/vite'
+import VueMacros from 'unplugin-vue-macros/vite'
 
 const resolve = (...uri: string[]) => {
   return path.resolve(__dirname, ...uri)
@@ -14,18 +14,18 @@ const join = (...uri: string[]) => {
 }
 const rootDir = resolve('../../')
 
-const pkgName = 'zeroUiResolver'
+const pkgName = 'uiResolvers'
 const outputDir = resolve('dist')
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),
-    DefineOptions(),
+    VueMacros({
+      plugins: {
+        vue: vue(),
+      },
+    }),
     dts({
-      root: rootDir,
-      tsConfigFilePath: join(rootDir, 'tsconfig.json'),
       outputDir: [join(outputDir, 'es')],
-      entryRoot: resolve(),
       afterBuild: mergeDts,
     }),
   ],

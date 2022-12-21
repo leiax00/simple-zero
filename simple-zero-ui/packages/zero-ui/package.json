@@ -1,70 +1,16 @@
 {
   "name": "@leiax00/zero-ui",
-  "version": "1.0.11",
-  "description": "A Component Library for Vue 3",
-  "keywords": [
-    "zero-ui",
-    "component library",
-    "ui",
-    "utils",
-    "vue"
-  ],
-  "homepage": "https://github.com/leiax00/zero-ui.git",
-  "bugs": {
-    "url": "https://github.com/leiax00/zero-ui/issues"
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "types": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/leiax00/zero-ui.git"
-  },
-  "publishConfig": {
-    "access": "public",
-    "directory": ".",
-    "linkDirectory": true,
-    "main": "lib/index.js",
-    "module": "es/index.mjs",
-    "unpkg": "umd/index.js",
-    "exports": {
-      ".": {
-        "require": "./lib/index.js",
-        "import": "./es/index.mjs",
-        "types": "./es/index.d.ts"
-      },
-      "./es": "./es/index.mjs",
-      "./lib": "./lib/index.js",
-      "./es/*.mjs": "./es/*.mjs",
-      "./es/*": "./es/*.mjs",
-      "./lib/*.js": "./lib/*.js",
-      "./lib/*": "./lib/*.js",
-      "./*": "./*"
-    }
-  },
-  "style": "dist/style.css",
-  "author": "leiax00",
-  "peerDependencies": {
-    "vue": "^3.2.0",
-    "element-plus": "^2.2.0"
-  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "@vueuse/core": "^9.4.0",
-    "@leiax00/utils": "workspace:*",
-    "@leiax00/components": "workspace:*",
-    "@leiax00/directives": "workspace:*"
-  },
-  "devDependencies": {
-    "@types/node": "*",
-    "element-plus": "^2.2.21",
-    "vue": "^3.2.41"
-  },
-  "vetur": {
-    "tags": "tags.json",
-    "attributes": "attributes.json"
-  },
-  "web-types": "web-types.json",
-  "browserslist": [
-    "> 1%",
-    "not ie 11",
-    "not op_mini all"
-  ]
+    "@leiax00/utils": "workspace:*"
+  }
 }

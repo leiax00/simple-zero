@@ -1,0 +1,53 @@
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  $colors: (
+    'primary': (
+      'base': #c67bd7,
+    ),
+    'success': (
+      'base': #21ba45,
+    ),
+    'warning': (
+      'base': #f2711c,
+    ),
+    'danger': (
+      'base': #db2828,
+    ),
+    'error': (
+      'base': #db2828,
+    ),
+    'info': (
+      'base': #42b8dd,
+    ),
+  ),
+  $button-padding-horizontal: (
+    'default': theme('spacing.20'),
+  ),
+  // Break-point
+  $sm: theme('screens.sm'),
+  $md: theme('screens.md'),
+  $lg: theme('screens.lg'),
+  $xl: theme('screens.xl'),
+  $header: (
+    height: 4rem,
+    padding: 0 theme('spacing.6')
+  ),
+  $main: (
+    padding: theme('spacing.6')
+  ),
+  $footer: (
+    height: 4rem,
+    padding: 0 theme('spacing.6')
+  )
+);
+
+// 同时scss混入报错?
+//@forward 'element-plus/theme-chalk/src/dark/var.scss' with (
+//  $colors: (
+//    'primary': (
+//      'base': #c67bd7,
+//    ),
+//  ),
+//);
+html.dark {
+  --el-bg-color: #8689af;
+}

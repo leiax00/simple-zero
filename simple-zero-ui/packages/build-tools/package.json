@@ -1,0 +1,38 @@
+{
+  "name": "@leiax00/build-tools",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "gen:version": "tsx scripts/gen-version.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "main": "index.ts",
+  "module": "index.ts",
+  "unpkg": "index.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/lib/index.js",
+      "import": "./dist/es/index.mjs",
+      "types": "./dist/es/index.d.ts"
+    },
+    "./es": "./es/index.mjs",
+    "./lib": "./lib/index.js",
+    "./es/*.mjs": "./es/*.mjs",
+    "./es/*": "./es/*.mjs",
+    "./lib/*.js": "./lib/*.js",
+    "./lib/*": "./lib/*.js",
+    "./*": "./*"
+  },
+  "publishConfig": {
+    "access": "public",
+    "directory": "."
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "consola": "^2.15.3",
+    "tsx": "^3.12.1"
+  }
+}

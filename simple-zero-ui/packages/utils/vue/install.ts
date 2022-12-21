@@ -17,10 +17,3 @@ export const withInstall = <T, E extends Record<string, any>>(
   }
   return main as SFCWithInstall<T> & E
 }
-
-export const withNoopInstall = <T>(component: T) => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  ;(component as SFCWithInstall<T>).install = () => {}
-
-  return component as SFCWithInstall<T>
-}

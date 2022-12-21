@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "web.js",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "es2018",
+    "module": "esnext",
+    "noEmit": true,
+    "jsx": "preserve",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "types": ["node", "unplugin-vue-macros/macros-global"]
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

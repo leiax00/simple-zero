@@ -1,0 +1,20 @@
+{
+  "name": "sz-main",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "start:main": "vite",
+    "build:main": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@leiax00/zero-ui": "workspace:*",
+    "crypto-js": "^4.1.1",
+    "gitter-sidecar": "^1.5.0",
+    "qiankun": "^2.8.4"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.1.1"
+  }
+}

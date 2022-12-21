@@ -1,0 +1,10 @@
+{
+  "extends": "@leiax00/tsconfig/web.json",
+  "include": [
+    "**/*.ts",
+    "**/*.d.ts",
+    "**/*.tsx",
+    "**/*.vue",
+    "../../typings"
+  ],
+}
