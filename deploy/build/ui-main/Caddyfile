@@ -1,0 +1,6 @@
+:10000 {
+  root * /home/serve
+  encode gzip
+  try_files {path} index.html
+  file_server browse
+}

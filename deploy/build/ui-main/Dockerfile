@@ -3,18 +3,19 @@ MAINTAINER "leiax00@outlook.com"
 
 ARG SOURCE_PREFFIX="ui-main"
 
-COPY . /src
-WORKDIR /src
+COPY ./simple-zero-ui /code
+COPY ./deploy/build/ui-main/Caddyfile /code/Caddyfile
+WORKDIR /code
+RUN ls -al && npm install -g pnpm && pnpm i && pnpm -F sz-main build:main
 
-FROM node:lts-alpine3.15
+FROM caddy:2.6.2-alpine
 MAINTAINER "leiax00@outlook.com"
 
 ARG SOURCE_PREFFIX="ui-main"
 ARG WORK_DIR="/home/serve"
-COPY --from=builder /src/${SOURCE_PREFFIX}/ ${WORK_DIR}/
-COPY --from=builder /src/deploy/bash/start_web.sh ${WORK_DIR}/
+COPY --from=builder /code/apps/main/dist ${WORK_DIR}/
+COPY --from=builder /code/Caddyfile /etc/caddy/Caddyfile
 
 EXPOSE 10000
 WORKDIR ${WORK_DIR}
-
-ENTRYPOINT ["sh", "/home/serve/start_web.sh"]
+RUN ls -al
