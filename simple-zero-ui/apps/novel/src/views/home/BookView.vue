@@ -40,12 +40,8 @@
     </div>
     <div class="w-full text-right">
       <el-button-group class="mt-16">
-        <el-button v-ripple type="primary" @click="sort = 'desc'"
-          >逆序</el-button
-        >
-        <el-button v-ripple type="primary" @click="sort = 'asc'"
-          >正序</el-button
-        >
+        <el-button type="primary" @click="sort = 'desc'">逆序</el-button>
+        <el-button type="primary" @click="sort = 'asc'">正序</el-button>
       </el-button-group>
     </div>
     <div class="catalog-list mt-4">
@@ -61,9 +57,9 @@
 </template>
 
 <script lang="ts" setup>
+import { computed, ref, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
 import type { Book, CatalogBase } from '@/views/bean'
-import utils from '@/utils'
 
 defineOptions({ name: 'BookView' })
 
@@ -74,7 +70,7 @@ const props = defineProps<{
 const { bookInfo } = toRefs(props)
 const sort = ref('desc')
 const catalogList = computed(() => {
-  const catalogs = utils.clone(bookInfo.value.catalogs, true)
+  const catalogs = JSON.parse(JSON.stringify(bookInfo.value.catalogs))
   return sort.value === 'asc' ? catalogs : catalogs.reverse()
 })
 

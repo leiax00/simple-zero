@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <el-button type="primary">Hello, novel</el-button>
+  <router-view :key="$route.fullPath" />
 </template>
 
 <style scoped></style>

@@ -1,7 +1,7 @@
 @forward 'element-plus/theme-chalk/src/common/var.scss' with (
   $colors: (
     'primary': (
-      'base': #c67bd7,
+      'base': #36bc98,
     ),
     'success': (
       'base': #21ba45,
@@ -20,7 +20,7 @@
     ),
   ),
   $button-padding-horizontal: (
-    'default': theme('spacing.20'),
+    'default': 16px,
   ),
   // Break-point
   $sm: theme('screens.sm'),

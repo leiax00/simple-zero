@@ -15,6 +15,7 @@ import pkgInfo from './package.json'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  base: '/',
   resolve: {
     // extensions: ['.js', '.ts', '.tsx', '.jsx'],
     alias: {
@@ -63,6 +64,11 @@ function getServer() {
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
-    proxy: {},
+    proxy: {
+      '/novel/v1/api/': {
+        target: 'http://10.1.0.4:11000/',
+        changeOrigin: true,
+      },
+    },
   }
 }

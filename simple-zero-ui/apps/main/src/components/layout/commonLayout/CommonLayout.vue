@@ -47,6 +47,7 @@ const route = useRoute()
     @apply w-full;
   }
   .layout-main {
+    overflow: unset;
   }
   .aside-main {
     @apply absolute z-50 h-full bg-white shadow-aside-red-right;
