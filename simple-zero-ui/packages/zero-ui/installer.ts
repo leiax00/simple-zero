@@ -1,5 +1,5 @@
 import { INSTALLED_KEY } from '@leiax00/constants'
-import { SzIcon } from './components'
+import { SzIcon } from './component'
 import { name, version } from './version'
 import type { App, Plugin } from '@vue/runtime-core'
 

@@ -7,7 +7,11 @@
         class="w-full rounded-2xl sm:w-sz-500"
         @keyup.enter="searchBook"
       />
-      <el-button type="primary" class="mt-3 sm:mt-0 sm:ml-3" @click="searchBook"
+      <el-button
+        v-ripple
+        type="primary"
+        class="mt-3 sm:mt-0 sm:ml-3"
+        @click="searchBook"
         >搜索</el-button
       >
     </el-col>

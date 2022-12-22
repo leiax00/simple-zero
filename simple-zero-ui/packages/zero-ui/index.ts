@@ -1,3 +1,4 @@
 import installer from './installer'
-export * from './components'
+export * from './component'
+export * from './directives'
 export default installer
