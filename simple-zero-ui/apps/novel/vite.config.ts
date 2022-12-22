@@ -9,6 +9,9 @@ import content from '@originjs/vite-plugin-content'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { SzResolver } from '@leiax00/resolvers'
+import qiankun from 'vite-plugin-qiankun'
+// @ts-ignore
+import pkgInfo from './package.json'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -35,12 +38,15 @@ function getPlugins(mode: string): any {
     vue(),
     vueJsx(),
     DefineOptions(),
-    content(),
+    // content(),
     AutoImport({
       imports: ['vue', 'vue-router'],
     }),
     Components({
       resolvers: [ElementPlusResolver({ importStyle: 'sass' }), SzResolver()],
+    }),
+    qiankun(pkgInfo.name, {
+      useDevMode: true,
     }),
   ]
   if (mode === 'development') {
@@ -52,7 +58,7 @@ function getPlugins(mode: string): any {
 function getServer() {
   return {
     host: '0.0.0.0',
-    port: 10000,
+    port: 10001,
     strictPort: false, // 端口占用是否进行下一个端口尝试
     headers: {
       'Access-Control-Allow-Origin': '*',

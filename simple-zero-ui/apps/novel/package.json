@@ -1,0 +1,16 @@
+{
+  "name": "sz-novel",
+  "private": true,
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start:novel": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "vite-plugin-qiankun": "^1.0.15"
+  }
+}
