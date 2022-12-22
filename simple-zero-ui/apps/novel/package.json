@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start:novel": "vite",
-    "build": "vue-tsc && vite build",
+    "build:novel": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {

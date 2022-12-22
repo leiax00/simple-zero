@@ -11,6 +11,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { SzResolver } from '@leiax00/resolvers'
 import qiankun from 'vite-plugin-qiankun'
 // @ts-ignore
+import viteCompression from 'vite-plugin-compression'
 import pkgInfo from './package.json'
 
 // https://vitejs.dev/config/
@@ -49,6 +50,7 @@ function getPlugins(mode: string): any {
     qiankun(pkgInfo.name, {
       useDevMode: true,
     }),
+    viteCompression({ threshold: 100 * 1024 }), // > 100kb则压缩
   ]
   if (mode === 'development') {
     plugins.push(Inspect())

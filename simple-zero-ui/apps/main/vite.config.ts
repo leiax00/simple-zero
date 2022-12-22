@@ -9,6 +9,7 @@ import content from '@originjs/vite-plugin-content'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { SzResolver } from '@leiax00/resolvers'
+import viteCompression from 'vite-plugin-compression'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -42,6 +43,7 @@ function getPlugins(mode: string): any {
     Components({
       resolvers: [ElementPlusResolver({ importStyle: 'sass' }), SzResolver()],
     }),
+    viteCompression({ threshold: 100 * 1024 }), // > 100kb则压缩
   ]
   if (mode === 'development') {
     plugins.push(Inspect())
