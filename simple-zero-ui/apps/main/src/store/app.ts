@@ -13,7 +13,7 @@ export const useApp = defineStore('app', {
       config: {},
       app: undefined,
       uiCtl: {
-        showArticle: false,
+        showAside: false,
         isLoaded4svgSrc: false,
       },
     }

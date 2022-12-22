@@ -19,6 +19,10 @@ module.exports = {
         logo: `0 0 ${constObj.LOGO_MAX_WIDTH}`,
         'px-200': `0 0 ${constObj.RIGHT_NAV_PX}`,
       },
+      boxShadow: {
+        'aside-red-right': '2px 0 8px -4px red',
+        'aside-red-top': '0 -2px 8px -4px red',
+      },
     },
     screens: {
       sm: '640px',

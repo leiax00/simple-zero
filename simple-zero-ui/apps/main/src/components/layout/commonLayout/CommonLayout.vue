@@ -1,60 +1,61 @@
 <template>
   <el-container ref="layout" class="common-layout">
-    <el-header :class="headerClazz">
-      <common-header />
-    </el-header>
-    <el-main class="layout-main">
-      <div ref="el">Main</div>
-    </el-main>
-    <el-footer>
-      <common-footer />
-    </el-footer>
+    <Transition name="el-fade-in-linear">
+      <el-aside
+        v-if="appStore.uiCtl.showAside"
+        ref="aside"
+        class="sm:hidden aside-main"
+      >
+        <common-aside />
+      </el-aside>
+    </Transition>
+    <el-container>
+      <el-header class="layout-header">
+        <common-header />
+      </el-header>
+      <el-main class="layout-main">
+        <router-view :key="route.path" />
+      </el-main>
+      <el-footer>
+        <common-footer />
+      </el-footer>
+    </el-container>
   </el-container>
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeUnmount, reactive } from 'vue'
+import { onClickOutside } from '@vueuse/core'
+import { useRoute } from 'vue-router'
 import CommonHeader from '@/components/layout/commonLayout/CommonHeader.vue'
 import CommonFooter from '@/components/layout/commonLayout/CommonFooter.vue'
+import { useApp } from '@/store/app'
 defineOptions({ name: 'CommonLayout' })
 
-const navState = reactive({ scrollTop: 0, preScrollTop: 0 })
-const headerClazz = computed(() => {
-  const needFixed =
-    navState.scrollTop < 64 || navState.scrollTop < navState.preScrollTopc
-  return {
-    'layout-header': true,
-    // 往下滚动时, 自动隐藏nav
-    'unfixed-top': !needFixed,
-  }
+const appStore = useApp()
+const aside = ref(null)
+onClickOutside(aside, () => {
+  appStore.uiCtl.showAside = false
 })
 
-const handleScroll = function () {
-  const curScrollTop =
-    document.documentElement.scrollTop || document.body.scrollTop
-  if (Math.abs(curScrollTop - navState.scrollTop) > 32) {
-    navState.preScrollTop = navState.scrollTop
-    navState.scrollTop = curScrollTop
-  }
-}
-document.addEventListener('scroll', handleScroll)
-onBeforeUnmount(() => {
-  document.removeEventListener('scroll', handleScroll)
-})
+const route = useRoute()
 </script>
 
 <style lang="scss" scoped>
 .common-layout {
   @apply h-full;
   .layout-header {
-    @apply top-0 left-0 fixed z-10;
     @apply w-full;
-    &.unfixed-top {
-      @apply -top-16;
-    }
   }
   .layout-main {
-    @apply mt-16;
   }
+  .aside-main {
+    @apply absolute z-50 h-full bg-white shadow-aside-red-right;
+  }
+  .el-footer {
+    height: unset;
+  }
+}
+:deep(.el-scrollbar__view) {
+  @apply h-full;
 }
 </style>

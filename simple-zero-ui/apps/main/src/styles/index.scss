@@ -1,3 +1,5 @@
+@use "common/icon";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,4 +7,8 @@
 html, body, #app {
   @apply h-full;
   @apply font-mono text-base font-normal antialiased ;
+}
+
+.gitter-open-chat-button {
+  @apply px-4 py-1;
 }

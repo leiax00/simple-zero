@@ -18,12 +18,15 @@ const { iconClass, className } = toRefs<IconProps>(props)
 const iconName = computed(() => `#sz-${iconClass?.value}`)
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .svg-icon {
   display: inline-block;
   width: 1rem;
   height: 1rem;
   fill: currentColor;
   overflow: hidden;
+  &.icon-24 {
+    @apply w-6 h-6;
+  }
 }
 </style>
