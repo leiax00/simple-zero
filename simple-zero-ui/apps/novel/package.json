@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@leiax00/zero-ui": "workspace:*"
   },
   "devDependencies": {
     "vite-plugin-qiankun": "^1.0.15"

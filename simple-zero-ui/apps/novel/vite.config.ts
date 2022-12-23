@@ -41,7 +41,7 @@ function getPlugins(mode: string): any {
     vue(),
     vueJsx(),
     DefineOptions(),
-    // content(),
+    content(),
     AutoImport({
       imports: ['vue', 'vue-router'],
     }),

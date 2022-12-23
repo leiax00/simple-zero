@@ -1,6 +1,6 @@
 <template>
-  <el-row class="main-novel">
-    <el-col :span="24" class="search">
+  <div class="main-novel">
+    <div class="search">
       <el-input
         v-model="pageData.searchVal"
         placeholder="Come on, Baby! 书名搞起"
@@ -14,11 +14,12 @@
         @click="searchBook"
         >搜索</el-button
       >
-    </el-col>
-    <el-col v-if="pageData.rst" :span="24" class="search-book mt-8 text-center">
-      <book-view :book-info="pageData.rst" />
-    </el-col>
-  </el-row>
+    </div>
+    <div class="search-book mt-8 text-center flex-grow">
+      <book-view v-if="pageData.rst" :book-info="pageData.rst" />
+      <div v-else>Book List</div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -26,7 +27,6 @@ import { reactive } from 'vue'
 import type { UnwrapNestedRefs } from 'vue'
 import type { Book } from '@/views/bean'
 import common from '@/common'
-import BookView from '@/views/home/BookView.vue'
 
 defineOptions({ name: 'Home' })
 const pageData: UnwrapNestedRefs<{
@@ -46,6 +46,7 @@ const searchBook = function () {
 
 <style lang="scss" scoped>
 .main-novel {
+  @apply h-full flex flex-col flex-nowrap;
   .search {
     @apply text-center;
     .search-input {
@@ -58,6 +59,10 @@ const searchBook = function () {
       .el-input__inner {
       }
     }
+  }
+
+  .book-list {
+    @apply mt-8 text-center;
   }
 }
 </style>

@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html, body, #novel-ui {
+  @apply h-full m-0;
+  @apply font-mono text-base font-normal antialiased;
+}
+
+#novel-ui {
+  &>div {
+    @apply h-full;
+  }
+}

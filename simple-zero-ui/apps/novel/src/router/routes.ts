@@ -13,7 +13,7 @@ export const routes: Array<RouteRecordRaw> = [
       {
         path: '/chapter/:bid/:cid',
         name: 'chapter',
-        component: () => import('@/views/chapter/Chapter.vue'),
+        component: () => import('@/components/book/Chapter.vue'),
         // props: route => ({ bid: route.params.bid, cid: route.params.cid }),
         props: true,
         meta: { title: '小说章节', roles: [] },

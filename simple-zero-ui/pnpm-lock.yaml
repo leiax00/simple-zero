@@ -88,7 +88,10 @@ importers:
 
   apps/novel:
     specifiers:
+      '@leiax00/zero-ui': workspace:*
       vite-plugin-qiankun: ^1.0.15
+    dependencies:
+      '@leiax00/zero-ui': link:../../packages/zero-ui
     devDependencies:
       vite-plugin-qiankun: 1.0.15
 
