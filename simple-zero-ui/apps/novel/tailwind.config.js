@@ -23,6 +23,9 @@ module.exports = {
         'aside-red-right': '2px 0 8px -4px red',
         'aside-red-top': '0 -2px 8px -4px red',
       },
+      width: {
+        'sz-500': '500px',
+      },
     },
     screens: {
       sm: '640px',

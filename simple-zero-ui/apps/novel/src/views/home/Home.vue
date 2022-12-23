@@ -4,7 +4,7 @@
       <el-input
         v-model="pageData.searchVal"
         placeholder="Come on, Baby! 书名搞起"
-        class="w-full rounded-2xl sm:w-sz-500"
+        class="search-input"
         @keyup.enter="searchBook"
       />
       <el-button
@@ -48,6 +48,9 @@ const searchBook = function () {
 .main-novel {
   .search {
     @apply text-center;
+    .search-input {
+      @apply w-full rounded-2xl sm:w-sz-500;
+    }
   }
   :deep(.el-input) {
     .el-input__wrapper {

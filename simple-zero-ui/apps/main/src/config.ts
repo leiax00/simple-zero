@@ -19,7 +19,9 @@ export async function loadAppConf() {
   const resp = await axios.post(
     'https://etcd.leiax00.cn/v3/kv/range',
     {
-      key: Base64.stringify(Utf8.parse('app.ui.ui-main')),
+      key: Base64.stringify(
+        Utf8.parse(import.meta.env.VITE_APP_CONFIG_ETCD_KEY)
+      ),
       // range_end: Base64.stringify(Utf8.parse('app.ui' + 1))
     },
     { headers }
