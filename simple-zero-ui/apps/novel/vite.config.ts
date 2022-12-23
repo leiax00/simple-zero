@@ -1,5 +1,5 @@
 import * as path from 'path'
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import DefineOptions from 'unplugin-vue-define-options/vite'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -10,13 +10,14 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { SzResolver } from '@leiax00/resolvers'
 import qiankun from 'vite-plugin-qiankun'
-// @ts-ignore
 import viteCompression from 'vite-plugin-compression'
+// @ts-ignore
 import pkgInfo from './package.json'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: '/',
+  base:
+    mode === 'development' ? '/' : loadEnv(mode, process.cwd()).VITE_APP_DOMAIN,
   resolve: {
     // extensions: ['.js', '.ts', '.tsx', '.jsx'],
     alias: {
@@ -48,7 +49,7 @@ function getPlugins(mode: string): any {
       resolvers: [ElementPlusResolver({ importStyle: 'sass' }), SzResolver()],
     }),
     qiankun(pkgInfo.name, {
-      useDevMode: true,
+      useDevMode: mode === 'development',
     }),
     viteCompression({ threshold: 100 * 1024 }), // > 100kb则压缩
   ]

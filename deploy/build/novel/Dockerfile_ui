@@ -1,20 +1,18 @@
 FROM node:lts-alpine3.15 as builder
 MAINTAINER "leiax00@outlook.com"
 
-ARG SOURCE_PREFFIX="python/app/novel/web"
+COPY ./simple-zero-ui /code
+COPY ./deploy/build/novel/Caddyfile /code/Caddyfile
+WORKDIR /code
+RUN ls -al && npm install -g pnpm && pnpm i && pnpm -F sz-novel build:novel
 
-COPY . /src
-WORKDIR /src
-
-FROM node:lts-alpine3.15
+FROM caddy:2.6.2-alpine
 MAINTAINER "leiax00@outlook.com"
 
-ARG SOURCE_PREFFIX="python/app/novel/web"
 ARG WORK_DIR="/home/serve"
-COPY --from=builder /src/${SOURCE_PREFFIX}/ ${WORK_DIR}/
-COPY --from=builder /src/deploy/bash/start_web.sh ${WORK_DIR}/
+COPY --from=builder /code/apps/novel/dist ${WORK_DIR}/
+COPY --from=builder /code/Caddyfile /etc/caddy/Caddyfile
 
 EXPOSE 10001
 WORKDIR ${WORK_DIR}
-
-ENTRYPOINT ["sh", "/home/serve/start_web.sh"]
+RUN ls -al
