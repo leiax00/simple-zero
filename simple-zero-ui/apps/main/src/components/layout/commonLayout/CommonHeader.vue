@@ -10,10 +10,12 @@
         </router-link>
       </div>
     </div>
-    <div class="flex-grow header-menu hidden sm:flex">Header Menu</div>
+    <div class="header-menu">
+      <common-h-menu />
+    </div>
     <div class="header-right">
-      <div class="block sm:hidden">SM Right Nav</div>
-      <div class="hidden sm:block">MD Right Nav</div>
+      <div class="header-lt-sm">SM Right Nav</div>
+      <div class="header-gt-sm">MD Right Nav</div>
     </div>
   </div>
 </template>
@@ -50,6 +52,17 @@ const changeAsideStatus = () => {
     }
     .logo {
       @apply mr-6;
+    }
+  }
+  .header-menu {
+    @apply flex-grow hidden sm:flex;
+  }
+  .header-right {
+    .header-lt-sm {
+      @apply block sm:hidden;
+    }
+    .header-gt-sm {
+      @apply hidden sm:block;
     }
   }
 }

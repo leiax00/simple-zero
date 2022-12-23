@@ -35,10 +35,22 @@ const appConf = useApp()
 const logoUrl = appConf.logoUrl
 
 const router = useRouter()
-let activeRoute = router.currentRoute.value.path
+const activeRoute = computed(() => {
+  let startRoutePath = '/'
+  for (const headerItem of appConf.config.headers) {
+    if (headerItem.path === router.currentRoute.value.path) {
+      return headerItem.path
+    }
+    if (router.currentRoute.value.path.startsWith(headerItem.path)) {
+      if (headerItem.path.length > startRoutePath.length) {
+        startRoutePath = headerItem.path
+      }
+    }
+  }
+  return startRoutePath
+})
 const openMenuItem = (item: { path: string }) => {
   router.push(item.path)
-  activeRoute = item.path
   appConf.uiCtl.showAside = false
 }
 </script>
