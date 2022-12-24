@@ -25,6 +25,12 @@ class NovelService(object):
     def get_chapter(self, bid, cid):
         return self.puller.get_book_chapter(bid, cid)
 
+    def subscribe_book(self, bid):
+        return True
+
+    def get_book_list(self):
+        return []
+
 
 if __name__ == '__main__':
     book = NovelService().get_book_by_name('择日飞升')

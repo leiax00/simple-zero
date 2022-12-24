@@ -30,3 +30,13 @@ def query_book_chapter(bid, cid):
     return jsonify(Response().with_ok(chapter))
 
 
+@api.route('/book/list')
+def get_book_list():
+    book_list = service.get_book_list()
+    return jsonify(Response.with_ok(book_list))
+
+
+@api.route('/book/subscribe/<bid>')
+def subscribe_book(bid):
+    ok = service.subscribe_book(bid)
+    return jsonify(Response.with_ok(ok))
