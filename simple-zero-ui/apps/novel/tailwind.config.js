@@ -24,6 +24,8 @@ module.exports = {
         'aside-red-top': '0 -2px 8px -4px red',
       },
       width: {
+        'sz-160': '160px',
+        'sz-240': '240px',
         'sz-500': '500px',
       },
     },

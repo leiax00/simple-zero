@@ -17,7 +17,7 @@
     </div>
     <div class="search-book mt-8 text-center flex-grow">
       <book-view v-if="pageData.rst" :book-info="pageData.rst" />
-      <div v-else>Book List</div>
+      <book-list v-else />
     </div>
   </div>
 </template>
