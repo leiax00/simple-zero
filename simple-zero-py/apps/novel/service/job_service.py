@@ -1,5 +1,7 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
+import logging
+
 from xxl_executor.Job import IJob
 from xxl_executor.executor import XxlExecutor
 
@@ -14,4 +16,4 @@ class JobService(IJob):
         })
 
     def add(self, params_str):
-        print('hello, job!')
+        logging.info('hello, job!')

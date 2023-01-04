@@ -1,6 +1,8 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
-from flask import Blueprint, jsonify, request, g
+import logging
+
+from flask import Blueprint, jsonify, request, g, current_app
 
 from config import xxl
 from domain.response import Response
@@ -54,5 +56,5 @@ def get_log():
     log_id = request.json.get('logId')
     log_time = request.json.get('logDateTim')
     log_line_num = request.json.get('fromLineNum')
-    print(log_id, log_time, log_line_num)
+    logging.info(f'{log_id}, {log_time}, {log_line_num}')
     return jsonify(Response().fill(200))
