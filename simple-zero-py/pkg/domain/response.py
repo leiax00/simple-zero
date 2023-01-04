@@ -6,10 +6,10 @@ from bean.book_domain import Serialize
 class Response(Serialize):
     def __init__(self):
         self.code = 0
-        self.msg = ''
+        self.msg = None
         self.data = None
 
-    def fill(self, code=0, msg='', data=None):
+    def fill(self, code=0, msg=None, data=None):
         self.code = code
         self.msg = msg
         self.data = data

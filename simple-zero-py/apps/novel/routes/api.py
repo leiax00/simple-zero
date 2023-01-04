@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from flask import Blueprint, jsonify
 
-from bean.response import Response
+from domain.response import Response
 from service.service import NovelService
 
 name = 'api'
@@ -30,10 +30,11 @@ def query_book_chapter(bid, cid):
     return jsonify(Response().with_ok(chapter))
 
 
-@api.route('/book/list')
-def get_book_list():
-    book_list = service.get_book_list()
-    return jsonify(Response.with_ok(book_list))
+@api.route('/book/list', defaults={'group_name': 'default'})
+@api.route('/book/list/<group_name>')
+def get_book_list(group_name):
+    book_list = service.get_book_list(group_name)
+    return jsonify(Response().with_ok(book_list))
 
 
 @api.route('/book/subscribe/<bid>')

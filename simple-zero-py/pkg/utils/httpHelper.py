@@ -3,6 +3,7 @@
 import abc
 from enum import Enum
 
+import aiohttp
 import chardet
 import requests
 
@@ -73,6 +74,23 @@ class HttpSession(requests.Session):
     def request(self, method: str, url, **kwargs):
         url = f'{self.base_url}/{url}'
         return super(HttpSession, self).request(method, url, **kwargs)
+
+
+class AioHttpClient:
+    def __init__(self, prefix_url='', client=None):
+        self.__client = client
+        self.base_url = prefix_url.strip("/")
+
+    def session(self) -> aiohttp.ClientSession:
+        if self.__client is None:
+            self.__client = aiohttp.ClientSession()
+        return self.__client
+
+    def _url(self, url: str) -> str:
+        return f'{self.base_url}/{url.strip("/")}'
+
+    def request(self, method: str, url, **kwargs):
+        return self.session().request(method, self._url(url), **kwargs)
 
 
 def content(resp):

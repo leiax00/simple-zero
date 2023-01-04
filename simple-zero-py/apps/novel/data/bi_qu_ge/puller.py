@@ -1,5 +1,9 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
+import asyncio
+
+import aiohttp
+
 from data.bi_qu_ge import config
 from utils.httpHelper import HttpSession, content
 
@@ -38,6 +42,19 @@ class BiQuPuller(object):
         params = self.config.APIS.search.value.get_request_params(params={'searchkey': book_name})
         with self.client.request(**params) as resp:
             return self.config.parser.with_html(content(resp)).get_book_id_by_search_rst()
+
+    def fetch_book_list(self, books):
+        semaphore = asyncio.Semaphore(20)
+
+        async def fetch_book(book, signal):
+            async with signal:
+                param = self.config.APIS.catalog.value.get_request_params(book_id=book.bid)
+                async with ac.request(param) as resp:
+                    latest_book = self.config.parser.with_html(await resp.text()).parse_book_info()
+
+
+        # async with aiohttp.ClientSession() as ac:
+        #     await asyncio.gather(*[])
 
 
 if __name__ == '__main__':

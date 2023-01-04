@@ -4,7 +4,6 @@ gevent
 aiofiles
 aiohttp
 PyYAML
-pymongo
 apscheduler
 pypinyin
 etcd3
@@ -12,3 +11,5 @@ beautifulsoup4
 requests
 chardet
 lxml
+peewee
+psycopg2

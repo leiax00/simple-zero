@@ -28,7 +28,7 @@ class SelfJsonProvider(DefaultJSONProvider):
         return json.dumps(obj, **kwargs)
 
     def loads(self, s: Union[str, bytes], **kwargs: t.Any) -> t.Any:
-        kwargs.setdefault("cls", self.cls)
+        # kwargs.setdefault("cls", self.cls)
         return json.loads(s, **kwargs)
 
 
@@ -58,10 +58,25 @@ def init_logger():
     })
 
 
-def register_routes(app, prefix, api_list):
+def register_routes(app, api_list, prefix='/', force_prefix=False):
     for item in api_list:
-        if (isinstance(item, tuple) or isinstance(item, list)) and len(item) >= 2:
-            app.register_blueprint(item[1], url_prefix=f'{prefix}/{item[0]}')
-        else:
-            item.url_prefix = f'{prefix}/{item.name}'
-            app.register_blueprint(item)
+        register_route(app, item, prefix, force_prefix)
+
+
+def register_route(app, api, prefix='/', force_prefix=False):
+    """
+    注册api
+    :param app: flask应用app
+    :param api: 要注册的API集合, Blueprint, 为元组时, 第一个为api的prefix, 第二个为api, 否则为api
+    :param prefix: api前缀
+    :param force_prefix: 是否强制使用prefix作为前缀, 否则为 prefix/{api[0] | api.name}
+    :return:
+    """
+    if (isinstance(api, tuple) or isinstance(api, list)) and len(api) >= 2:
+        prefix = f'{prefix}/{api[0]}' if not force_prefix else f'{prefix}'
+        api.url_prefix = prefix
+        app.register_blueprint(api[1])
+    else:
+        prefix = f'{prefix}/{api.name}' if not force_prefix else f'{prefix}'
+        api.url_prefix = prefix
+        app.register_blueprint(api)

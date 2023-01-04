@@ -2,15 +2,13 @@
 # -*- coding: utf-8 -*-
 import json
 from enum import Enum
-from json import JSONEncoder
-
-from bson import ObjectId
+from json import JSONEncoder, JSONDecoder
 
 
 class MyEncoder(JSONEncoder):
     def default(self, obj):
-        if isinstance(obj, ObjectId):
-            return str(obj)
+        # if isinstance(obj, ObjectId):
+        #     return str(obj)
         if isinstance(obj, Serialize):
             return obj.__dict__
         elif isinstance(obj, Enum):
@@ -18,7 +16,7 @@ class MyEncoder(JSONEncoder):
         elif isinstance(obj, object) and hasattr(obj, '__dict__'):
             return obj.__dict__
         else:
-            return obj
+            return JSONEncoder.default(self, obj)
 
 
 class Serialize(object):
@@ -30,3 +28,9 @@ class Serialize(object):
 
     def to_dict(self):
         return json.loads(self.__str__())
+
+
+if __name__ == '__main__':
+    test_str = b'{\r\n    "jobId": 43\r\n}'
+    test_str = '{"jobId":43}'
+    print(json.loads(test_str))
