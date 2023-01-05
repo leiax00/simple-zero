@@ -1,13 +1,18 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 import asyncio
+import logging
+import threading
 from enum import Enum
+from queue import Queue
+from time import sleep
 
-from flask import g
+import aiohttp
 
-from utils.httpHelper import AioHttpClient, Api, HttpMethod, Header
+from utils.async_utils import async_run, get_loop
+from utils.httpHelper import Api, HttpMethod, Header
 from xxl_executor.Job import IJob
-from xxl_executor.config import XxlConfig
+from xxl_executor.config import XxlConfig, XxlTask
 
 
 class XxlApi(Enum):
@@ -19,17 +24,26 @@ class XxlApi(Enum):
 class XxlExecutor:
     def __init__(self, conf: dict):
         self.conf = XxlConfig().fill(conf)
-        self.client = AioHttpClient(self.conf.admin_url)
         self._header = Header(**{
             'XXL-JOB-ACCESS-TOKEN': self.conf.access_token
         })
         self._jobs = {}
+        self._running_jobs = []
+        self.start_model()
 
     def _api(self, api: XxlApi):
-        return api.value.with_params(header=self._header)
+        return api.value.with_params(domain=self.conf.admin_url, header=self._header)
 
-    def task_callback(self, job_name, job_params, **kwargs):
-        return self.execute(job_name, job_params)
+    async def task_callback(self, rst, task: XxlTask):
+        code = 200 if rst is not False else 500
+        params = self._api(XxlApi.call_back).get_request_params([{
+            'logId': task.log_id,
+            'logDateTim': task.log_time,
+            'handleCode': code,
+            'handleMsg': f'{rst}',
+        }])
+        async with aiohttp.request(**params) as resp:
+            logging.info(f'xxl-job: {task.job_id} callback rst: {await resp.json()}')
 
     async def register(self):
         params = self._api(XxlApi.register).get_request_params({
@@ -37,8 +51,8 @@ class XxlExecutor:
             'registryKey': self.conf.executor_name,
             'registryValue': self.conf.registry_url,
         })
-        async with self.client.request(**params) as resp:
-            print(f'xxl-job registry result: {await resp.json()}')
+        async with aiohttp.request(**params) as resp:
+            logging.info(f'xxl-job registry result: {await resp.json()}')
 
     async def remove(self):
         params = self._api(XxlApi.remove).get_request_params({
@@ -46,25 +60,48 @@ class XxlExecutor:
             'registryKey': self.conf.executor_name,
             'registryValue': self.conf.registry_url,
         })
-        async with self.client.request(**params) as resp:
-            print(f'xxl-job remove registry result: {await resp.json()}')
+        async with aiohttp.request(**params) as resp:
+            logging.info(f'xxl-job remove registry result: {await resp.json()}')
 
     def join(self, job: IJob):
         job.revert_join(self)
         return self
 
-    def join_batch(self, jobs={}):
+    def join_batch(self, jobs: dict):
         self._jobs = {**self._jobs, **jobs}
         return self
 
-    def execute(self, job_name, job_params):
-        job = self._jobs.get(job_name)
-        if job is None:
-            print(f'no such job: {job_name}')
-            return False
-        return job(job_params)
+    async def execute(self, task: XxlTask):
+        logging.info(f'start to execute task: {task}')
+        job = self._jobs.get(task.job_name)
+        rst = False
+        if job is not None:
+            rst = job(task.job_params)
+        else:
+            logging.warning(f'no such job: {task.job_name}')
+        await self.task_callback(rst, task)
+        logging.info(f'end to execute task: {task.job_id}')
+        return rst
+
+    def produce_task(self, task: XxlTask):
+        self._running_jobs.append(task)
+        logging.info(f'push task to execute list, task: {task}')
+
+    def consume_task(self):
+        while True:
+            try:
+                if len(self._running_jobs) > 0:
+                    jobs, self._running_jobs = self._running_jobs, []
+                    loop = get_loop()
+                    loop.run_until_complete(asyncio.gather(*[loop.create_task(self.execute(item)) for item in jobs]))
+            except Exception as e:
+                logging.error(e)
+            sleep(self.conf.consume_period)
+
+    def start_model(self):
+        threading.Thread(target=self.consume_task, daemon=True, name='xxl-job-consumer').start()
 
 
-async def init_xxl(xxl: XxlApi, job: IJob):
+async def init_xxl(xxl: XxlExecutor, job: IJob):
     xxl.join(job)
     await asyncio.gather(asyncio.create_task(xxl.register()))

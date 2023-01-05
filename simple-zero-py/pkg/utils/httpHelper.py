@@ -40,7 +40,7 @@ class Api:
         return self
 
     def get_url(self, **kwargs):
-        return f'{self.domain.rstrip("/")}/{self.uri.lstrip("/")}'.format(**(kwargs or {}))
+        return f'{self.domain.strip("/")}/{self.uri.strip("/")}'.format(**(kwargs or {}))
 
     def get_request_params(self, json_=None, data=None, params=None, **kwargs):
         return {

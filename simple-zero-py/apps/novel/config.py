@@ -4,11 +4,14 @@ from utils.dbHelper import DbHelper
 from xxl_executor.executor import XxlExecutor
 
 config = {
+    'host': '0.0.0.0',
+    'port': 11000,
     'xxl-config': {
         'admin_url': 'http://10.1.0.7:15000/',
         'access_token': 'default_token',
         'executor_name': 'xxl-novel-executor',
-        'registry_url': 'http://10.1.0.1:11000/'
+        'registry_url': 'http://10.1.0.1:11000/',
+        'consume_period': 5
     }
 }
 

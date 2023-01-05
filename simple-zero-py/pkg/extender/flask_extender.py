@@ -36,7 +36,7 @@ def init_logger():
     dictConfig({
         'version': 1,
         'formatters': {'default': {
-            'format': '[%(levelname)s %(asctime)s] %(message)s -- [%(module)s.%(funcName)s(line:%(lineno)d)]',
+            'format': '[%(asctime)s %(levelname)s] %(message)s -- [%(module)s.%(funcName)s(line:%(lineno)d)]',
         }},
         'handlers': {
             'wsgi': {
