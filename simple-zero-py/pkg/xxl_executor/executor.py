@@ -35,12 +35,13 @@ class XxlExecutor:
         return api.value.with_params(domain=self.conf.admin_url, header=self._header)
 
     async def task_callback(self, rst, task: XxlTask):
-        code = 200 if rst is not False else 500
+        is_failed = isinstance(rst, str)
+        code = 200 if not is_failed else 500
         params = self._api(XxlApi.call_back).get_request_params([{
             'logId': task.log_id,
             'logDateTim': task.log_time,
             'handleCode': code,
-            'handleMsg': f'{rst}',
+            'handleMsg': f'{rst if is_failed else "Execute OK!"}',
         }])
         async with aiohttp.request(**params) as resp:
             logging.info(f'xxl-job: {task.job_id} callback rst: {await resp.json()}')
@@ -74,14 +75,15 @@ class XxlExecutor:
     async def execute(self, task: XxlTask, semaphore=None):
         async def execute_job():
             logging.info(f'start to execute task: {task}')
+            if task.glue_type != 'BEAN':
+                rst = f'current executor only support GLUE TYPE: BEAN, but real type: {task.glue_type}'
             job = self._jobs.get(task.job_name)
-            rst = False
-            if job is not None:
-                rst = job(task.job_params)
+            if job is None:
+                rst = f'no such job or job not registry: {task.job_name}'
             else:
-                logging.warning(f'no such job: {task.job_name}')
+                rst = job(task.job_params)
             await self.task_callback(rst, task)
-            logging.info(f'end to execute task! job_id: {task.job_id}, log_id: {task.log_id}')
+            logging.info(f'end to execute task! job_id: {task.job_id}, log_id: {task.log_id}, result: {rst}')
             return rst
 
         if semaphore is None:
