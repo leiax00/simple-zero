@@ -71,32 +71,45 @@ class XxlExecutor:
         self._jobs = {**self._jobs, **jobs}
         return self
 
-    async def execute(self, task: XxlTask):
-        logging.info(f'start to execute task: {task}')
-        job = self._jobs.get(task.job_name)
-        rst = False
-        if job is not None:
-            rst = job(task.job_params)
+    async def execute(self, task: XxlTask, semaphore=None):
+        async def execute_job():
+            logging.info(f'start to execute task: {task}')
+            job = self._jobs.get(task.job_name)
+            rst = False
+            if job is not None:
+                rst = job(task.job_params)
+            else:
+                logging.warning(f'no such job: {task.job_name}')
+            await self.task_callback(rst, task)
+            logging.info(f'end to execute task! job_id: {task.job_id}, log_id: {task.log_id}')
+            return rst
+
+        if semaphore is None:
+            return await execute_job()
         else:
-            logging.warning(f'no such job: {task.job_name}')
-        await self.task_callback(rst, task)
-        logging.info(f'end to execute task: {task.job_id}')
-        return rst
+            async with semaphore:
+                return await execute_job()
 
     def produce_task(self, task: XxlTask):
         self._running_jobs.append(task)
         logging.info(f'push task to execute list, task: {task}')
 
     def consume_task(self):
+        loop = get_loop()
+        semaphore = asyncio.Semaphore(self.conf.consume_async_num)
         while True:
             try:
                 if len(self._running_jobs) > 0:
                     jobs, self._running_jobs = self._running_jobs, []
-                    loop = get_loop()
-                    loop.run_until_complete(asyncio.gather(*[loop.create_task(self.execute(item)) for item in jobs]))
+                    loop.run_until_complete(
+                        asyncio.gather(*[
+                            loop.create_task(self.execute(item, semaphore)) for item in jobs
+                        ])
+                    )
+                else:
+                    sleep(self.conf.consume_period)
             except Exception as e:
                 logging.error(e)
-            sleep(self.conf.consume_period)
 
     def start_model(self):
         threading.Thread(target=self.consume_task, daemon=True, name='xxl-job-consumer').start()

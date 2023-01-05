@@ -9,7 +9,8 @@ class XxlConfig:
         self.access_token = None
         self.executor_name = None
         self.registry_url = None
-        self.consume_period = 0
+        self.consume_period = 5
+        self.consume_async_num = 20
 
     def fill(self, params: dict = {}):
         self.__dict__ = {**self.__dict__, **params}

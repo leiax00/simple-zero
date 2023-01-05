@@ -11,7 +11,8 @@ config = {
         'access_token': 'default_token',
         'executor_name': 'xxl-novel-executor',
         'registry_url': 'http://10.1.0.1:11000/',
-        'consume_period': 5
+        'consume_period': 5,  # xxl-jobx消费线程空转时检测周期
+        'consume_async_num': 20,  # xxl-job任务执行并发数量
     }
 }
 
