@@ -28,9 +28,8 @@ class NovelService(object):
     def get_chapter(self, bid, cid):
         return self.puller.get_book_chapter(bid, cid)
 
-    def subscribe_book(self, bid):
-        book, catalog = self.puller.get_book_by_id(bid)
-        return True
+    def subscribe_book(self, bid, cid=None):
+        return self.puller.subscribe_book(bid, cid)
 
     def get_book_list(self, group_name):
         books = DbBook.select().where(DbBook.group_name == group_name)
@@ -38,7 +37,12 @@ class NovelService(object):
 
         return
 
+    def update_bookshelf(self):
+        pass
+
+
+novel = NovelService()
 
 if __name__ == '__main__':
-    book = NovelService().get_book_by_name('择日飞升')
+    book = novel.get_book_by_name('择日飞升')
     print(book)

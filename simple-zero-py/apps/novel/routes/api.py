@@ -3,13 +3,13 @@
 from flask import Blueprint, jsonify
 
 from domain.response import Response
-from service.service import NovelService
+from service.service import novel
 
 name = 'api'
 
 api = Blueprint(name, __name__)
 
-service = NovelService()
+service = novel
 
 
 @api.route('/book/<bid>')
@@ -30,14 +30,21 @@ def query_book_chapter(bid, cid):
     return jsonify(Response().with_ok(chapter))
 
 
-@api.route('/book/list', defaults={'group_name': 'default'})
-@api.route('/book/list/<group_name>')
+@api.route('/bookshelf', defaults={'group_name': 'default'})
+@api.route('/bookshelf/<group_name>')
 def get_book_list(group_name):
     book_list = service.get_book_list(group_name)
     return jsonify(Response().with_ok(book_list))
 
 
-@api.route('/book/subscribe/<bid>')
-def subscribe_book(bid):
-    ok = service.subscribe_book(bid)
+@api.route('/book/subscribe/<bid>', defaults={'cid': None})
+@api.route('/book/subscribe/<bid>/<cid>')
+def subscribe_book(bid, cid):
+    """
+    收藏书籍, 如果传入了cid则表示在章节页面收藏, 否则为简介页面收藏
+    :param bid: 书籍id
+    :param cid: 章节id
+    :return: 收藏结果
+    """
+    ok = service.subscribe_book(bid, cid)
     return jsonify(Response.with_ok(ok))

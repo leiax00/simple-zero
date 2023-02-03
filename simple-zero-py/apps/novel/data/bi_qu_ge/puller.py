@@ -4,6 +4,8 @@ import asyncio
 
 import aiohttp
 
+from bean import book_db
+from bean.book_domain import Book, BookCatalog
 from data.bi_qu_ge import config
 from utils.httpHelper import HttpSession, content
 
@@ -25,7 +27,7 @@ class BiQuPuller(object):
         book, catalog = self.get_book_by_id(bid)
         return book, catalog
 
-    def get_book_by_id(self, bid):
+    def get_book_by_id(self, bid) -> tuple[Book, BookCatalog]:
         param = self.config.APIS.catalog.value.get_request_params(book_id=bid)
         with self.client.request(**param) as resp:
             return self.config.parser.with_html(content(resp)).parse_book_info()
@@ -43,18 +45,15 @@ class BiQuPuller(object):
         with self.client.request(**params) as resp:
             return self.config.parser.with_html(content(resp)).get_book_id_by_search_rst()
 
-    def fetch_book_list(self, books):
-        semaphore = asyncio.Semaphore(20)
-
-        async def fetch_book(book, signal):
-            async with signal:
-                param = self.config.APIS.catalog.value.get_request_params(book_id=book.bid)
-                async with ac.request(param) as resp:
-                    latest_book = self.config.parser.with_html(await resp.text()).parse_book_info()
-
-
-        # async with aiohttp.ClientSession() as ac:
-        #     await asyncio.gather(*[])
+    def subscribe_book(self, bid, cid):
+        tmp = book_db.Book.select().where(book_db.Book.bid == bid).first()
+        if tmp is None:
+            book, catalog = self.get_book_by_id(bid)
+            db_book = book.to_db()
+            db_catalogs = catalog.to_db()
+        else:
+            # 分组保存一条
+            pass
 
 
 if __name__ == '__main__':
