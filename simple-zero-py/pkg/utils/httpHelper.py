@@ -72,7 +72,7 @@ class HttpSession(requests.Session):
         self.base_url = prefix_url.rstrip("/")
 
     def request(self, method: str, url, **kwargs):
-        url = f'{self.base_url}/{url}'
+        url = f'{self.base_url}/{url}' if not url.startswith('http') else url
         return super(HttpSession, self).request(method, url, **kwargs)
 
 

@@ -7,8 +7,8 @@ from gevent import pywsgi
 import config
 from config import db
 from extender.flask_extender import *
-from routes.api import api
 from jobs.job_service import JobService
+from routes.api import api
 from xxl_executor.executor import init_xxl
 from xxl_executor.routes import api as xxl_api
 

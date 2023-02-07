@@ -1,10 +1,6 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
-import json
-
-from playhouse.shortcuts import model_to_dict
-
-from bean.book_domain import DbBook
+from bean.book_db import Book
 from data.bi_qu_ge.puller import BiQuPuller
 
 
@@ -32,7 +28,7 @@ class NovelService(object):
         return self.puller.subscribe_book(bid, cid)
 
     def get_book_list(self, group_name):
-        books = DbBook.select().where(DbBook.group_name == group_name)
+        books = Book.select().where(Book.group_name == group_name)
         self.puller.fetch_book_list(books)
 
         return

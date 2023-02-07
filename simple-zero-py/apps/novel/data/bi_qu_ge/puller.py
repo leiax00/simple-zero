@@ -1,8 +1,5 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
-import asyncio
-
-import aiohttp
 
 from bean import book_db
 from bean.book_domain import Book, BookCatalog

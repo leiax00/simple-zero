@@ -1,11 +1,9 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 from peewee import *
-from playhouse.postgres_ext import JSONField
 from playhouse.shortcuts import model_to_dict
 
 from bean.base import BaseModel
-from config import db
 
 
 class Book(BaseModel):
@@ -36,4 +34,3 @@ class BookChapter(Model):
 if __name__ == '__main__':
     b = Book()
     print(model_to_dict(b))
-

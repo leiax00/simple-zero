@@ -5,8 +5,8 @@ import re
 import pypinyin
 from playhouse.shortcuts import dict_to_model
 
-from extender.serial_extender import Serialize
 from bean import book_db
+from extender.serial_extender import Serialize
 
 
 class IBook(Serialize):

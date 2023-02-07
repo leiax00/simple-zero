@@ -75,15 +75,18 @@ class XxlExecutor:
     async def execute(self, task: XxlTask, semaphore=None):
         async def execute_job():
             logging.info(f'start to execute task: {task}')
-            if task.glue_type != 'BEAN':
-                rst = f'current executor only support GLUE TYPE: BEAN, but real type: {task.glue_type}'
-            job = self._jobs.get(task.job_name)
-            if job is None:
-                rst = f'no such job or job not registry: {task.job_name}'
-            else:
-                rst = job(task.job_params)
-            await self.task_callback(rst, task)
-            logging.info(f'end to execute task! job_id: {task.job_id}, log_id: {task.log_id}, result: {rst}')
+            rst = True
+            try:
+                if task.glue_type != 'BEAN':
+                    rst = f'current executor only support GLUE TYPE: BEAN, but real type: {task.glue_type}'
+                job = self._jobs.get(task.job_name)
+                if job is None:
+                    rst = f'no such job or job not registry: {task.job_name}'
+                else:
+                    rst = job(task.job_params)
+            finally:
+                await self.task_callback(rst, task)
+                logging.info(f'end to execute task! job_id: {task.job_id}, log_id: {task.log_id}, result: {rst}')
             return rst
 
         if semaphore is None:
