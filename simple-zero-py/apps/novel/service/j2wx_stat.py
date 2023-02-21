@@ -50,7 +50,10 @@ class J2wxStat:
                 ]
             ).returning().execute()  # returning()表示设置返回模型, 否则会返回主键元组, 在shardingsphere分表情况下, 无法正确获取分表名
             for k, v in collector.mapping.items():
-                c_redis.zadd(f'{REDIS_KEY_PREFIX}/j2wx/rank/{k}', {v[i]: i + 1 for i in range(len(v))})
+                key = f'{REDIS_KEY_PREFIX}/j2wx/rank/{k}'
+                new_key = f'{REDIS_KEY_PREFIX}/j2wx/rank/{k}/new'
+                c_redis.zadd(new_key, {v[i]: i + 1 for i in range(len(v))})
+                c_redis.rename(new_key, key)
         return True
 
 
