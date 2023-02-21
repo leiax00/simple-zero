@@ -14,7 +14,7 @@ class Collector:
         self.channel_list = set([])
         self.novel_list = set([])
         self.stat_list = set([])
-        self.mapping_list = set([])
+        self.mapping = {}  # { 'rank_id1': [...], 'rank_id2': [...] }
 
     def output(self):
         logging.info(f'{"=" * 40}开始输出解析结果{"=" * 40}')
@@ -34,15 +34,20 @@ class CommonParser:
     def __init__(self, collector=Collector()):
         self.collector = collector
 
-    def collect(self, data):
-        channel = J2Channel(
+    def collect(self, data, channel_key):
+        channel = J2Rank(
+            id=data.get('channelMoreId') or data.get('rankid'),
             rank_id=data.get('rankid'),
-            channel=data.get('channelName'),
+            rank_name=data.get('channelName'),
+            channel_key=channel_key,
             type=data.get('type'),
-            more_id=data.get('channelMoreId'),
         )
+        if channel.id == '':
+            return
+
         self.collector.channel_list.add(channel)
         tmp = data.get('data')
+        rank_list = self.collector.mapping.get(channel.id, [])
         for item in tmp:
             self.collector.novel_list.add(J2Book(
                 id=item.get('novelId'),
@@ -57,13 +62,11 @@ class CommonParser:
             self.collector.stat_list.add(J2Stat(
                 id=item.get('novelId'),
                 time=self.collector.now,
+                channel_key=channel_key,
                 favorite_count=item.get('novelbefavoritedcount'),
             ))
-            self.collector.mapping_list.add(J2BookChannel(
-                id=len(self.collector.mapping_list) + 1,
-                novel_id=item.get('novelId'),
-                channel=channel.channel,
-            ))
+            rank_list.append(item.get('novelId'))
+        self.collector.mapping[channel.id] = rank_list
         return self.collector
 
     def deal_novel(self, novel_list):
@@ -88,12 +91,3 @@ class J2wxParserFactory:
         if channel_type is None:
             return self.parsers.get(channel_name)
         return self.parsers.get(channel_type)
-
-    def parse(self, data_list) -> Collector:
-        collector = Collector()
-        for item in data_list:
-            parser = self.parser(item.get('channelName'), item.get('type'))
-
-            if parser is not None:
-                parser.with_collector(collector).collect(item)
-        return collector

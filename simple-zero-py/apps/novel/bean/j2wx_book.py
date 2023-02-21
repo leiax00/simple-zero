@@ -28,27 +28,29 @@ class J2Book(BaseModel):
         table_name = 'j2wx_book'
 
 
-class J2Channel(BaseModel):
+class J2Rank(BaseModel):
+    id = CharField(max_length=32, primary_key=True)
     rank_id = CharField(max_length=32)
-    channel = CharField(primary_key=True)
+    channel_key = CharField()
+    rank_name = CharField()
     type = CharField(max_length=32)
-    more_id = CharField(max_length=32)
 
     def __hash__(self):
-        return hash(f'{self.rank_id}:{self.channel}:{self.type}')
+        return hash(f'{self.id}')
 
     def __eq__(self, other):
-        return self.rank_id == other.rank_id and self.channel == other.channel and self.type == other.type
+        return self.id == other.id
 
     class Meta:
-        table_name = 'j2wx_channel'
+        table_name = 'j2wx_rank'
 
 
 class J2Stat(BaseModel):
     id = CharField(max_length=32)
     time = DateTimeField()
-    favorite_count = IntegerField()
-    ticket_count = IntegerField()
+    channel_key = CharField()
+    favorite_count = IntegerField(default=0)
+    ticket_count = IntegerField(default=0)
 
     def __hash__(self):
         return hash(f'{self.id}:{self.time}')

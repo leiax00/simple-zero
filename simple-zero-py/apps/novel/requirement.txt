@@ -13,3 +13,4 @@ chardet
 lxml
 peewee
 psycopg2
+redis

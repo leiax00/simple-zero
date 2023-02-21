@@ -5,7 +5,7 @@ import logging
 from playhouse.shortcuts import model_to_dict
 
 from bean.j2wx_book import *
-from config import db
+from config import db, c_redis, REDIS_KEY_PREFIX
 from data.j2wx.j2wx_puller import j2wx_puller
 
 
@@ -14,16 +14,17 @@ class J2wxStat:
         self.puller = j2wx_puller
 
     def pull(self, param=None):
-        collector = self.puller.pull(param)
+        logging.info(f'param is: {param}')
+        channel_key = param
+        collector = self.puller.pull(channel_key)
         with db.atomic() as tcn:
-            J2Channel.insert_many(
+            J2Rank.insert_many(
                 [model_to_dict(item) for item in collector.channel_list]
             ).on_conflict(
-                conflict_target=[J2Channel.channel],
-                preserve=[J2Channel.rank_id, J2Channel.type, J2Channel.more_id]
+                conflict_target=[J2Rank.id],
+                preserve=[J2Rank.rank_id, J2Rank.type, J2Rank.channel_key, J2Rank.rank_name]
             ).execute()
 
-            logging.info(f'first novel: {model_to_dict(list(collector.novel_list)[0])}')
             J2Book.insert_many(
                 [model_to_dict(item) for item in collector.novel_list]
             ).on_conflict(
@@ -47,13 +48,9 @@ class J2wxStat:
                     J2Stat.favorite_count,
                     J2Stat.ticket_count,
                 ]
-            ).execute()
-
-            J2BookChannel.truncate_table()
-            J2BookChannel.insert_many(
-                [model_to_dict(item) for item in collector.mapping_list]
-            ).execute()
-
+            ).returning().execute()  # returning()表示设置返回模型, 否则会返回主键元组, 在shardingsphere分表情况下, 无法正确获取分表名
+            for k, v in collector.mapping.items():
+                c_redis.zadd(f'{REDIS_KEY_PREFIX}/j2wx/rank/{k}', {v[i]: i + 1 for i in range(len(v))})
         return True
 
 
