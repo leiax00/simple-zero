@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from peewee import *
-from playhouse.postgres_ext import JSONField
+from playhouse.postgres_ext import ArrayField
 
 from bean.base import BaseModel
 
@@ -68,7 +68,7 @@ class J2RankStat(BaseModel):
     id = CharField(max_length=32)
     time = DateTimeField()
     channel_key = CharField()
-    novel_ids = JSONField()
+    novel_ids = ArrayField(CharField)
 
     class Meta:
         table_name = 'j2wx_rank_stat'
