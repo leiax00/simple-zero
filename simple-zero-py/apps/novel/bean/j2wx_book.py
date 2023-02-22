@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from peewee import *
+from playhouse.postgres_ext import JSONField
 
 from bean.base import BaseModel
 
@@ -63,16 +64,12 @@ class J2Stat(BaseModel):
         primary_key = CompositeKey('id', 'time')
 
 
-class J2BookChannel(BaseModel):
-    id = IntegerField(primary_key=True)
-    novel_id = CharField(max_length=32)
-    channel = CharField()
-
-    def __hash__(self):
-        return hash(f'{self.novel_id}:{self.channel}')
-
-    def __eq__(self, other):
-        return self.novel_id == other.novel_id and self.channel == other.channel
+class J2RankStat(BaseModel):
+    id = CharField(max_length=32)
+    time = DateTimeField()
+    channel_key = CharField()
+    novel_ids = JSONField()
 
     class Meta:
-        table_name = 'j2wx_book_channel'
+        table_name = 'j2wx_rank_stat'
+        primary_key = CompositeKey('id', 'time')
