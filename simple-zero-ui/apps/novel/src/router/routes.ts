@@ -21,6 +21,23 @@ export const routes: Array<RouteRecordRaw> = [
     ],
   },
   {
+    path: '/j2wx',
+    redirect: '/j2wx/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/j2wx/J2wxHome.vue'),
+        meta: { title: 'J2wx - 首页', roles: [] },
+      },
+      {
+        path: 'channel/:channelKey',
+        component: () => import('@/views/j2wx/J2wxChannel.vue'),
+        props: true,
+        meta: { title: 'J2wx - 分频', roles: [] },
+      },
+    ],
+  },
+  {
     path: '/404',
     component: () => import('@/views/error/Page404.vue'),
     meta: { hidden: true },

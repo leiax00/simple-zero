@@ -46,7 +46,7 @@ const searchBook = function () {
 
 <style lang="scss" scoped>
 .main-novel {
-  @apply h-full flex flex-col flex-nowrap;
+  @apply h-full flex flex-col flex-nowrap p-4;
   .search {
     @apply text-center;
     .search-input {

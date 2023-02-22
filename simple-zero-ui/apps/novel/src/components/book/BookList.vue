@@ -35,7 +35,8 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .main-book-list {
-  @apply grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 justify-items-center;
+  @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 justify-items-center;
+  @apply gap-4 sm:gap-x-8 md:gap-x-12 lg:gap-x-16;
   @apply w-full md:w-3/4 mx-auto;
   .skeleton-w {
     @apply w-sz-160;

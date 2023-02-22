@@ -1,14 +1,13 @@
 import serve from '@/common/apis/serve'
 
-function searchBookByName(bookName: string) {
+export function searchBookByName(bookName: string) {
   return serve.get(`/search/${bookName}`)
 }
 
-function getChapter(bid: string, cid: string) {
+export function getChapter(bid: string, cid: string) {
   return serve.get(`/chapter/${bid}/${cid}`)
 }
 
-export default {
-  searchBookByName,
-  getChapter,
+export function getJ2wxRankList(channelKey: string) {
+  return serve.get(`/j2wx/${channelKey}/rankList`)
 }

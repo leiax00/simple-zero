@@ -12,3 +12,7 @@ html, body, #novel-ui {
     @apply h-full;
   }
 }
+
+.title {
+  @apply font-bold text-xl;
+}

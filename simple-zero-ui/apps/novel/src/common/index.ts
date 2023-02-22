@@ -1,5 +1,5 @@
-import apis from './apis'
+import * as apis from './apis'
 
-const common = Object.assign({}, { apis })
-
-export default common
+export default {
+  apis,
+}
