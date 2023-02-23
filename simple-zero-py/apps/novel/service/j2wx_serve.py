@@ -46,7 +46,7 @@ class J2wxServe:
                     J2StatDto().
                     with_param(
                         item,
-                        rank_stat_map[item.time][book.id]
+                        rank_stat_map.get(item.time, {}).get(book.id)
                     )
                     for item in stat_map.get(book.id, [])]
                 novels.append(J2Data().with_param(book, stat_dto_list).to_camel_dict())
