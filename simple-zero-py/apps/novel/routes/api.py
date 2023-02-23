@@ -3,6 +3,7 @@
 from flask import Blueprint, jsonify
 
 from domain.response import Response
+from service.j2wx_serve import j2wx_serve
 from service.service import novel
 
 name = 'api'
@@ -48,3 +49,24 @@ def subscribe_book(bid, cid):
     """
     ok = service.subscribe_book(bid, cid)
     return jsonify(Response.with_ok(ok))
+
+
+@api.route('/j2wx/channel/<channel_key>')
+def get_rank_list(channel_key):
+    """
+    获取分频下的榜单列表
+    :param channel_key: 分频
+    :return: 榜单列表
+    """
+    return jsonify(Response().with_ok(j2wx_serve.get_rank_list(channel_key)))
+
+
+@api.route('/j2wx/channel/<channel_key>/<rank_id>')
+def get_rank_info(channel_key, rank_id):
+    """
+    获取榜单的数据信息
+    :param channel_key: 分频
+    :param rank_id: 榜单id
+    :return: 榜单数据
+    """
+    return jsonify(Response().with_ok(j2wx_serve.get_rank_info(channel_key, rank_id)))

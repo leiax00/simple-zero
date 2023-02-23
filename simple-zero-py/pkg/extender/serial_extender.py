@@ -1,8 +1,11 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
+import datetime
 import json
 from enum import Enum
-from json import JSONEncoder, JSONDecoder
+from json import JSONEncoder
+
+from utils.time_utils import datetime_2_num
 
 
 class MyEncoder(JSONEncoder):
@@ -15,6 +18,8 @@ class MyEncoder(JSONEncoder):
             return obj.value
         elif isinstance(obj, object) and hasattr(obj, '__dict__'):
             return obj.__dict__
+        elif isinstance(obj, datetime.datetime):
+            return int(datetime_2_num(obj))
         else:
             return JSONEncoder.default(self, obj)
 

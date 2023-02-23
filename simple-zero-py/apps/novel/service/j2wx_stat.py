@@ -13,15 +13,6 @@ class J2wxStat:
     def __init__(self):
         self.puller = j2wx_puller
 
-    def get_rank_list(self):
-        return []
-
-    def get_book_list_by_rank(self):
-        return []
-
-    def get_stat_info(self, cond):
-        return []
-
     def pull(self, param=None):
         logging.info(f'start to pull j2wx info. channel key / param is: {param}')
         channel_key = param
