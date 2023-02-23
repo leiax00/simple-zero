@@ -19,31 +19,19 @@
 import colors from 'tailwindcss/colors'
 import { useRouter } from 'vue-router'
 import { useApp } from '@/store/app'
+import { useServe } from '@/store/serve'
 
 defineOptions({ name: 'J2wxHome' })
 const router = useRouter()
+const serveData = useServe()
 
-const channelList = [
-  { name: '古代言情', channelKey: 'gywx', color: '', bgColor: '' },
-  { name: '都市青春', channelKey: 'dsyq', color: '', bgColor: '' },
-  { name: '幻想现言', channelKey: 'qqyq', color: '', bgColor: '' },
-  { name: '古代穿越', channelKey: 'gdcy', color: '', bgColor: '' },
-  { name: '奇幻言情', channelKey: 'xhqh', color: '', bgColor: '' },
-  { name: '未来游戏悬疑', channelKey: 'xywy', color: '', bgColor: '' },
-  { name: '都市现纯', channelKey: 'xddm', color: '', bgColor: '' },
-  { name: '幻想现纯', channelKey: 'blhx', color: '', bgColor: '' },
-  { name: '古代纯爱', channelKey: 'gddm', color: '', bgColor: '' },
-  { name: '百合小说', channelKey: 'bhxs', color: '', bgColor: '' },
-  { name: '无CP', channelKey: 'nocp', color: '', bgColor: '' },
-]
+const channelList = serveData.j2wx.channelList
 const toStyles = (item: { color: string; bgColor: string }) => ({
   color: item.color || colors.black,
   'background-color': item.bgColor || colors.white,
 })
 
 const routeTo = (item: { channelKey: string }) => {
-  const appConf = useApp()
-  appConf.setRouteData(item)
   router.push({ path: `/j2wx/channel/${item.channelKey}` })
 }
 </script>
