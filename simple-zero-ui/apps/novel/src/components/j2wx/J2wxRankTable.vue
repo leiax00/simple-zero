@@ -27,7 +27,9 @@
 
 <script setup lang="ts">
 import { reactive, ref, toRefs } from 'vue'
+import type { J2RankBook } from '@/common'
 import J2wxRankExpandView from '@/components/j2wx/J2wxRankExpandView.vue'
+import { formatFavoriteCount, formatRank } from '@/common'
 
 defineOptions({ name: 'J2wxRankTable' })
 const props = defineProps({
@@ -46,26 +48,14 @@ const pageData = reactive<{
   expandList: [],
 })
 
-const formatScore = (row: any) => {
-  const statLen = row.statList.length
-  const score = row.statList[statLen - 1].score
-  const prevScore = row.statList[0].score
-  return `${score}(${score - prevScore})`
-}
-const formatName = (row: any) => {
+const formatName = (row: J2RankBook) => {
   return row.book.name
 }
-const formatAuthor = (row: any) => {
+const formatAuthor = (row: J2RankBook) => {
   return row.book.authorName
 }
-const formatFavoriteCount = (row: any) => {
-  const statLen = row.statList.length
-  const score = row.statList[statLen - 1].favoriteCount
-  const prevScore = row.statList[0].favoriteCount
-  return `${score}(${score - prevScore})`
-}
 
-const rankTable = ref<InstanceType<typeof ElTable>>()
+const rankTable = ref()
 const getRowKey = (row: any): string => `${row.book.id}`
 
 /**
@@ -93,7 +83,7 @@ const tableColumns: {
   formatter?: any
 }[] = [
   { key: 'id', type: 'expand', width: 40 },
-  // { key: 'score', label: '排名', width: 80, formatter: formatScore },
+  // { key: 'score', label: '排名', width: 80, formatter: formatRank },
   { key: 'name', label: '小说', formatter: formatName },
   // { key: 'author', label: '作者', formatter: formatAuthor },
   { key: 'favorite', label: '收藏(今)', formatter: formatFavoriteCount },

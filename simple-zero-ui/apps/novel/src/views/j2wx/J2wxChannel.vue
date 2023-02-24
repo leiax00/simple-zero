@@ -39,6 +39,7 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive } from 'vue'
 import { storeToRefs } from 'pinia'
+import type { J2Rank, J2RankBook } from '@/common'
 import common from '@/common'
 import { useServe } from '@/store/serve'
 import J2wxRankTable from '@/components/j2wx/J2wxRankTable.vue'
@@ -54,10 +55,10 @@ const { getChannel } = storeToRefs(serveData)
 const channel = getChannel.value(channelKey.value)
 
 const pageData = reactive<{
-  rankList: any[]
+  rankList: J2Rank[]
   loading: boolean
-  selectRank: any
-  selectRankInfo: any
+  selectRank?: J2Rank
+  selectRankInfo: J2RankBook[]
   rankCollapse: string
 }>({
   rankList: [],

@@ -8,11 +8,24 @@ html, body, #novel-ui {
 }
 
 #novel-ui {
-  &>div {
+  & > div {
     @apply h-full;
   }
 }
 
 .title {
   @apply font-bold text-xl;
+}
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }
