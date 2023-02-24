@@ -13,7 +13,7 @@ def to_camel_dict(origin_dict: dict):
         if isinstance(v, list) or isinstance(v, set):
             tmp_v = to_camel_list(v)
 
-        tmp[re.sub('_([a-zA-Z])', lambda m: (m.group(1).upper()), k.lower())] = tmp_v
+        tmp[re.sub('_([a-zA-Z])', lambda m: (m.group(1).upper()), k)] = tmp_v
     return tmp
 
 
