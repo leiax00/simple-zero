@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start:main": "vite",
+    "prod:main": "vite --mode production",
     "build:main": "vite build",
     "preview": "vite preview"
   },
