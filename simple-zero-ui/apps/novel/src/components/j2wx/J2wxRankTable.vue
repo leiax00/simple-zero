@@ -26,10 +26,10 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, toRefs } from 'vue'
-import type { J2RankBook } from '@/common'
+import { computed, reactive, toRefs } from 'vue'
+import type { J2RankBook, TableColumn } from '@/common'
+import { breakpoints, formatFavoriteCount, formatRank } from '@/common'
 import J2wxRankExpandView from '@/components/j2wx/J2wxRankExpandView.vue'
-import { formatFavoriteCount, formatRank } from '@/common'
 
 defineOptions({ name: 'J2wxRankTable' })
 const props = defineProps({
@@ -39,6 +39,23 @@ const props = defineProps({
   },
 })
 const { tableData } = toRefs(props)
+
+const tableColumns = computed((): TableColumn[] => {
+  const tmp: TableColumn[] = [{ key: 'id', type: 'expand', width: 40 }]
+  if (breakpoints.greaterOrEqual('sm').value) {
+    tmp.push({ key: 'score', label: '排名', width: 80, formatter: formatRank })
+  }
+  tmp.push({ key: 'name', label: '小说', formatter: formatName })
+  if (breakpoints.greaterOrEqual('md').value) {
+    tmp.push({ key: 'author', label: '作者', formatter: formatAuthor })
+  }
+  tmp.push({
+    key: 'favorite',
+    label: '收藏(今)',
+    formatter: formatFavoriteCount,
+  })
+  return tmp
+})
 
 const pageData = reactive<{
   singleExpand?: boolean
@@ -55,7 +72,6 @@ const formatAuthor = (row: J2RankBook) => {
   return row.book.authorName
 }
 
-const rankTable = ref()
 const getRowKey = (row: any): string => `${row.book.id}`
 
 /**
@@ -74,20 +90,6 @@ const onRowClick = (row: any) => {
     pageData.expandList.push(rowKey)
   }
 }
-
-const tableColumns: {
-  key: string
-  label?: string
-  type?: string
-  width?: string | number
-  formatter?: any
-}[] = [
-  { key: 'id', type: 'expand', width: 40 },
-  // { key: 'score', label: '排名', width: 80, formatter: formatRank },
-  { key: 'name', label: '小说', formatter: formatName },
-  // { key: 'author', label: '作者', formatter: formatAuthor },
-  { key: 'favorite', label: '收藏(今)', formatter: formatFavoriteCount },
-]
 
 const isText = (item: { type?: string }) => {
   return item.type === undefined || item.type === 'text'
