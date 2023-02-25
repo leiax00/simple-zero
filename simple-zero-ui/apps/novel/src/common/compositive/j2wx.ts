@@ -73,18 +73,27 @@ export function formatFavoriteCount(
 /**
  * 转换为chart数据, 为画图做基础数据
  * @param rankItem
+ * @param isIncrement
  */
-export function toChartData(rankItem: any[]) {
+export function toChartData(rankItem: any[], isIncrement = false) {
   function parseItem(item: J2RankBook) {
     const rst: any = []
-    item.statList.forEach((t: J2Stat) => {
+    item.statList.forEach((t: J2Stat, i) => {
+      let favoriteCount = t.favoriteCount
+      let ticketCount = t.ticketCount
+      if (isIncrement) {
+        favoriteCount =
+          i === 0 ? 0 : t.favoriteCount - item.statList[i - 1].favoriteCount
+        ticketCount =
+          i === 0 ? 0 : t.ticketCount - item.statList[i - 1].favoriteCount
+      }
       rst.push([
         t.time,
         item.book.id,
         item.book.name,
         t.score,
-        t.favoriteCount,
-        t.ticketCount,
+        favoriteCount,
+        ticketCount,
       ])
     })
     return rst

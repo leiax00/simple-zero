@@ -15,10 +15,14 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  isIncrement: {
+    type: Boolean,
+    default: false,
+  },
 })
-const { rankData } = toRefs(props)
+const { rankData, isIncrement } = toRefs(props)
 const chartData = computed(() => {
-  return toChartData(rankData.value)
+  return toChartData(rankData.value, isIncrement.value)
 })
 const books = computed(() => {
   return rankData.value.map((item) => (item as J2RankBook).book)
@@ -29,6 +33,9 @@ onMounted(() => {
   const myChart = echarts.init(chartRoot.value)
   const option = constructOption(chartData.value)
   myChart.setOption(option)
+  window.addEventListener('resize', () => {
+    myChart.resize()
+  })
 })
 
 function constructOption(_rawData: any) {
@@ -83,7 +90,7 @@ function constructOption(_rawData: any) {
       ...datasetWithFilters,
     ],
     title: {
-      text: '今日收藏变化趋势',
+      text: isIncrement.value ? '今日收藏增量变化' : '今日收藏变化',
     },
     tooltip: {
       order: 'valueDesc',
@@ -106,7 +113,8 @@ function constructOption(_rawData: any) {
 
 <style scoped>
 .chart-root {
-  width: 600px;
+  @apply w-full;
+  min-width: 600px;
   height: 300px;
 }
 </style>

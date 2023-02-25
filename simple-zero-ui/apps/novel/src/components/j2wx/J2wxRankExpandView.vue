@@ -5,7 +5,7 @@
       <div class="line-val">{{ item.val }}</div>
     </div>
     <div class="chart-wrapper overflow-auto no-scrollbar mt-4">
-      <j2wx-rank-chart :rank-data="rankData" />
+      <j2wx-rank-chart :rank-data="rankData" is-increment />
     </div>
   </div>
 </template>
