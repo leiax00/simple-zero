@@ -10,8 +10,8 @@ ENV WORK_DIR="/home/serve"
 ENV PATH="${WORK_DIR}:${PATH}"
 
 COPY --from=builder /src/deploy/bash/start_py.sh ${WORK_DIR}/
-COPY --from=builder /src/python/app/novel/server ${WORK_DIR}/
-COPY --from=builder /src/python/pkg ${WORK_DIR}
+COPY --from=builder /src/simple-zero-py/apps/novel ${WORK_DIR}/
+COPY --from=builder /src/simple-zero-py/pkg ${WORK_DIR}
 
 WORKDIR $WORK_DIR
 EXPOSE 11000
