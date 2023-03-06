@@ -7,9 +7,9 @@
 package main
 
 import (
-	"github.com/simple-zero/app/configuration/service/internal/conf"
-	"github.com/simple-zero/app/configuration/service/internal/server"
-	"github.com/simple-zero/pkg/logger"
+	"github.com/leiax00/simple-zero/app/config/internal/conf"
+	"github.com/leiax00/simple-zero/app/config/internal/server"
+	"github.com/leiax00/simple-zero/pkg/logger"
 )
 
 // Injectors from wire.go:

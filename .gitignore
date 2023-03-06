@@ -29,3 +29,4 @@
 
 # go
 /**/go.sum
+/**/vendor

@@ -15,6 +15,8 @@ func NewEtcdClient(addrs []string) *clientV3.Client {
 		Endpoints:   addrs,
 		DialTimeout: time.Second,
 		DialOptions: []grpc.DialOption{grpc.WithBlock()},
+		Username:    "root",
+		Password:    "lax4832.",
 	})
 	if err != nil {
 		log.Fatalln("Failed to create etcd client: ", err)

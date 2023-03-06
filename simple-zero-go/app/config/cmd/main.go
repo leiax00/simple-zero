@@ -3,13 +3,13 @@ package main
 import (
 	"flag"
 	"github.com/gin-gonic/gin"
-	etcd "github.com/go-kratos/kratos/contrib/config/etcd/v2"
+	"github.com/go-kratos/kratos/contrib/config/etcd/v2"
 	"github.com/go-kratos/kratos/v2/config"
 	"github.com/go-kratos/kratos/v2/config/file"
+	"github.com/leiax00/simple-zero/app/config/internal/conf"
+	"github.com/leiax00/simple-zero/app/config/internal/server"
+	logger2 "github.com/leiax00/simple-zero/pkg/logger"
 	"github.com/samber/lo"
-	"github.com/simple-zero/app/configuration/service/internal/conf"
-	"github.com/simple-zero/app/configuration/service/internal/server"
-	logger2 "github.com/simple-zero/pkg/logger"
 	clientV3 "go.etcd.io/etcd/client/v3"
 	"go.uber.org/zap"
 	"os"
@@ -32,10 +32,10 @@ var (
 )
 
 func init() {
-	flag.StringVar(&cfg.conf, "conf", "./app/configuration/service/configs", "config path, eg: -conf config.yaml")
+	flag.StringVar(&cfg.conf, "conf", "./app/config/configs", "config path, eg: -conf config.yaml")
 	// cat confi_file | etcdctl put <key> 写入配置文件
 	flag.StringVar(&cfg.etcd, "etcd", "", "etcd server, eg: ip1:port;ip2:port")
-	//flag.StringVar(&cfg.etcd, "etcd", "127.0.0.1:2379;127.0.0.1:2381;127.0.0.1:2383", "etcd server, eg: ip1:port;ip2:port")
+	//flag.StringVar(&cfg.etcd, "etcd", "10.1.0.3:2379;10.1.0.3:2381;10.1.0.3:2383", "etcd server, eg: ip1:port;ip2:port")
 }
 
 func newApp(conf *conf.Config, logger *logger2.Logger, httpServer *server.HttpServer) *App {
@@ -57,9 +57,9 @@ func loadConf(client *clientV3.Client) *conf.Config {
 	c := config.New(
 		config.WithSource(sourceList...),
 	)
-	defer func(c config.Config) {
-		_ = c.Close()
-	}(c)
+	//defer func(c config.Config) {
+	//	_ = c.Close()
+	//}(c)
 
 	if err := c.Load(); err != nil {
 		panic(err)

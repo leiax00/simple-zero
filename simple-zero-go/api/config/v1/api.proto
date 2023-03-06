@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package api.config.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "github.com/leiax00/simple-zero/api/config/v1";
+
+service Config {
+  rpc GetProp (PropCond) returns (Prop) {
+    option (google.api.http) = {
+      get: "/prop/{key}",
+    };
+  }
+}
+
+message PropCond {
+  string key = 1;
+}
+message Prop {
+  string result = 1;
+}

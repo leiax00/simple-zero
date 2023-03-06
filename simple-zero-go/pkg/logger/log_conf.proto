@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package sz.api.conf;
-option go_package = "github.com/simple-zero/pkg/logger;logger";
+option go_package = "github.com/leiax00/simple-zero/pkg/logger;logger";
 
 message LogConf {
   string level = 1;

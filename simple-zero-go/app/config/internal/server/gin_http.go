@@ -3,8 +3,8 @@ package server
 import (
 	"context"
 	"github.com/gin-gonic/gin"
-	"github.com/simple-zero/app/configuration/service/internal/router"
-	"github.com/simple-zero/pkg/logger"
+	"github.com/leiax00/simple-zero/app/config/internal/router"
+	"github.com/leiax00/simple-zero/pkg/logger"
 	"go.uber.org/zap"
 	"net"
 	"net/http"

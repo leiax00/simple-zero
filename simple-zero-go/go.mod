@@ -1,9 +1,10 @@
-module github.com/simple-zero
+module github.com/leiax00/simple-zero
 
 go 1.18
 
 require (
 	github.com/gin-gonic/gin v1.8.1
+	github.com/go-kratos/gin v0.1.0
 	github.com/go-kratos/kratos/contrib/config/etcd/v2 v2.0.0-20220818025856-6ca225b078b7
 	github.com/go-kratos/kratos/contrib/log/zap/v2 v2.0.0-20220818025856-6ca225b078b7
 	github.com/go-kratos/kratos/v2 v2.5.0
@@ -23,12 +24,14 @@ require (
 	github.com/coreos/go-systemd/v22 v22.3.2 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
+	github.com/go-playground/form/v4 v4.2.0 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/go-playground/validator/v10 v10.11.0 // indirect
 	github.com/goccy/go-json v0.9.10 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/gorilla/mux v1.8.0 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect

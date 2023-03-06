@@ -7,7 +7,7 @@
 package conf
 
 import (
-	logger "github.com/simple-zero/pkg/logger"
+	logger "github.com/leiax00/simple-zero/pkg/logger"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	durationpb "google.golang.org/protobuf/types/known/durationpb"

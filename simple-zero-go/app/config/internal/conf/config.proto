@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package sz.api.conf;
-option go_package = "github.com/simple-zero/app/configuration/service/internal/conf;conf";
+option go_package = "github.com/leiax00/simple-zero/app/config/internal/conf;conf";
 import "logger/log_conf.proto";
 import "google/protobuf/duration.proto";
 
