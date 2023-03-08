@@ -10,7 +10,7 @@
 1. [go -> 中文社区下载](https://studygolang.com/dl)
 2. [protoc](https://github.com/protocolbuffers/protobuf/releases)
 3. [protoc-gen-go](https://github.com/protocolbuffers/protobuf-go/releases)
-4. [protoc-gen-gin](https://github.com/leiax00/protoc-gen-gin)
+4. [protoc-gen-gin: `go install github.com/leiax00/protoc-gen-gin@latest`](https://github.com/leiax00/protoc-gen-gin)
 5. [kratos cli工具: `go install github.com/go-kratos/kratos/cmd/kratos/v2@latest`](https://go-kratos.dev/docs/getting-started/usage#%E5%AE%89%E8%A3%85)
 6. wire -- `go install github.com/google/wire/cmd/wire@latest`
 
@@ -37,4 +37,25 @@
      --go_out ./example/api --go_opt=paths=source_relative \
      --gin_out ./example/api --gin_opt=paths=source_relative \
      example/api/product/app/v1/v1.proto
+   ```
+3. wire生成, 在wire.go目录执行命令: `wire`
+   ```go
+   // wire.go文件模板
+   
+   //go:build wireinject
+   // +build wireinject
+   
+   package main
+   
+   import (
+      "github.com/leiax00/simple-zero/app/config/internal/conf"
+      "github.com/leiax00/simple-zero/app/config/internal/server"
+      logger2 "github.com/leiax00/simple-zero/pkg/logger"
+   )
+   import "github.com/google/wire"
+   
+   func wireApp(*conf.Config, *logger2.Logger) *App {
+      panic(wire.Build(server.ProvideSet, newApp))
+   }
+   
    ```
