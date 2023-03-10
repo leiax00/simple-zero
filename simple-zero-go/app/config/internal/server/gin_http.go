@@ -16,14 +16,10 @@ import (
 	"time"
 )
 
-func registerHttpRoutes(engine *gin.Engine) {
-	api.RegisterConfigHttpServer(engine, service.NewConfigService())
-}
-
-func NewHttpServer(logger *logger.Logger) *HttpServer {
+func NewHttpServer(logger *logger.Logger, configServer *service.ConfigService) *HttpServer {
 	engine := gin.New()
 	engine.Use(GinLogger(logger), GinRecovery(logger, true))
-	registerHttpRoutes(engine)
+	api.RegisterConfigHttpServer(engine, configServer)
 	h := &HttpServer{BaseContext: context.Background()}
 	h.Addr = ":8080"
 	h.Handler = engine

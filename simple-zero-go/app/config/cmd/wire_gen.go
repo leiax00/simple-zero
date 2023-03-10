@@ -9,13 +9,15 @@ package main
 import (
 	"github.com/leiax00/simple-zero/app/config/internal/conf"
 	"github.com/leiax00/simple-zero/app/config/internal/server"
+	"github.com/leiax00/simple-zero/app/config/internal/service"
 	"github.com/leiax00/simple-zero/pkg/logger"
 )
 
 // Injectors from wire.go:
 
 func wireApp(config *conf.Config, loggerLogger *logger.Logger) *App {
-	httpServer := server.NewHttpServer(loggerLogger)
+	configService := service.NewConfigService()
+	httpServer := server.NewHttpServer(loggerLogger, configService)
 	app := newApp(config, loggerLogger, httpServer)
 	return app
 }
