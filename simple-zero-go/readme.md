@@ -11,8 +11,9 @@
 2. [protoc](https://github.com/protocolbuffers/protobuf/releases)
 3. [protoc-gen-go](https://github.com/protocolbuffers/protobuf-go/releases)
 4. [protoc-gen-gin: `go install github.com/leiax00/protoc-gen-gin@latest`](https://github.com/leiax00/protoc-gen-gin)
-5. [kratos cli工具: `go install github.com/go-kratos/kratos/cmd/kratos/v2@latest`](https://go-kratos.dev/docs/getting-started/usage#%E5%AE%89%E8%A3%85)
-6. wire -- `go install github.com/google/wire/cmd/wire@latest`
+5. [protoc-go-inject-tag: `go install github.com/favadi/protoc-go-inject-tag@latest`](https://github.com/favadi/protoc-go-inject-tag)
+6. [kratos cli工具: `go install github.com/go-kratos/kratos/cmd/kratos/v2@latest`](https://go-kratos.dev/docs/getting-started/usage#%E5%AE%89%E8%A3%85)
+7. wire -- `go install github.com/google/wire/cmd/wire@latest`
 
 ## 常用的命令
 ### kratos cli
@@ -29,6 +30,18 @@
 5. 运行项目: `kratos run `
 6. 工具升级: `kratos upgrade `
 
+### protobuf
+```shell
+# common.proto
+protoc -I api --go_out=api api/common/v1/common.proto
+
+# simple-zero-go/api/config/v1/api.proto http
+protoc --proto_path=./third_party -I ./api --go_out ./api --go_opt=paths=source_relative --gin_out ./api --gin_opt=paths=source_relative api/config/v1/api.proto
+
+# 生成自定义tag
+protoc-go-inject-tag -input="*.pb.go"
+```
+
 ### 其他
 1. 代码生成, 包括所有proto源码、wire等: `go generate ./...`
 2. 通过 `protoc-gen-gin`生成http服务
@@ -37,6 +50,8 @@
      --go_out ./example/api --go_opt=paths=source_relative \
      --gin_out ./example/api --gin_opt=paths=source_relative \
      example/api/product/app/v1/v1.proto
+   
+   protoc --proto_path=./third_party -I ./api --go_out ./api --go_opt=paths=source_relative --gin_out ./api --gin_opt=paths=source_relative api/config/v1/api.proto
    ```
 3. wire生成, 在wire.go目录执行命令: `wire`
    ```go

@@ -3,7 +3,8 @@ package server
 import (
 	"context"
 	"github.com/gin-gonic/gin"
-	"github.com/leiax00/simple-zero/app/config/internal/router"
+	api "github.com/leiax00/simple-zero/api/config/v1"
+	"github.com/leiax00/simple-zero/app/config/internal/service"
 	"github.com/leiax00/simple-zero/pkg/logger"
 	"go.uber.org/zap"
 	"net"
@@ -15,10 +16,14 @@ import (
 	"time"
 )
 
+func registerHttpRoutes(engine *gin.Engine) {
+	api.RegisterConfigHttpServer(engine, service.NewConfigService())
+}
+
 func NewHttpServer(logger *logger.Logger) *HttpServer {
 	engine := gin.New()
 	engine.Use(GinLogger(logger), GinRecovery(logger, true))
-	router.RegisterRoutesTo(engine)
+	registerHttpRoutes(engine)
 	h := &HttpServer{BaseContext: context.Background()}
 	h.Addr = ":8080"
 	h.Handler = engine

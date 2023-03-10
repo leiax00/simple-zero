@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package api.config.v1;
+
+option go_package = "common/v1;common";
+
+enum RespCode {
+  OK = 0;
+  FAIL = 1;
+  PARAM_ERR = 2;
+}

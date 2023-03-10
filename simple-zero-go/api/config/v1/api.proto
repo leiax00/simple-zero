@@ -4,7 +4,7 @@ package api.config.v1;
 
 import "google/api/annotations.proto";
 
-option go_package = "github.com/leiax00/simple-zero/api/config/v1";
+option go_package = "github.com/leiax00/simple-zero/api/config/v1;api";
 
 service Config {
   rpc GetProp (PropCond) returns (Prop) {
@@ -15,6 +15,7 @@ service Config {
 }
 
 message PropCond {
+  // @gotags: uri:"key"
   string key = 1;
 }
 message Prop {
