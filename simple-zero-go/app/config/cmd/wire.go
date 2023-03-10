@@ -11,6 +11,6 @@ import (
 )
 import "github.com/google/wire"
 
-func wireApp(*conf.Config, *logger2.Logger) *App {
-	panic(wire.Build(server.ProvideSet, service.ProviderSet, newApp))
+func wireApp(etcdAddrList []string, localConfPath string) *App {
+	panic(wire.Build(server.ProvideSet, conf.ProvideSet, logger2.ProvideSet, service.ProviderSet, newApp))
 }

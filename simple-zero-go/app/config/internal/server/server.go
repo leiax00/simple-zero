@@ -26,5 +26,6 @@ func (h *HttpServer) Stop(ctx context.Context) error {
 }
 
 var ProvideSet = wire.NewSet(
+	NewEtcdClient,
 	NewHttpServer,
 )

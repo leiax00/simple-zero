@@ -9,10 +9,13 @@ import (
 
 var etcdC *clientV3.Client
 
-func NewEtcdClient(addrs []string) *clientV3.Client {
+// NewEtcdClient
+//
+// etcdAddrList:  etcd集群连接地址的列表, etcd01;etcd02;...
+func NewEtcdClient(etcdAddrList []string) *clientV3.Client {
 	var err error
 	etcdC, err = clientV3.New(clientV3.Config{
-		Endpoints:   addrs,
+		Endpoints:   etcdAddrList,
 		DialTimeout: time.Second,
 		DialOptions: []grpc.DialOption{grpc.WithBlock()},
 		Username:    "root",

@@ -3,10 +3,13 @@ package logger
 import (
 	kratoszap "github.com/go-kratos/kratos/contrib/log/zap/v2"
 	"github.com/go-kratos/kratos/v2/log"
+	"github.com/google/wire"
 	"github.com/natefinch/lumberjack"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
+
+var ProvideSet = wire.NewSet(NewLogger)
 
 type Logger struct {
 	*zap.Logger
