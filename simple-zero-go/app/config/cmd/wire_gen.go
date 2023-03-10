@@ -7,7 +7,9 @@
 package main
 
 import (
+	"github.com/leiax00/simple-zero/app/config/internal/biz"
 	"github.com/leiax00/simple-zero/app/config/internal/conf"
+	"github.com/leiax00/simple-zero/app/config/internal/data"
 	"github.com/leiax00/simple-zero/app/config/internal/server"
 	"github.com/leiax00/simple-zero/app/config/internal/service"
 	"github.com/leiax00/simple-zero/pkg/logger"
@@ -20,7 +22,9 @@ func wireApp(etcdAddrList []string, localConfPath string) *App {
 	config := conf.LoadConf(client, localConfPath)
 	logConf := conf.GetLogConf(config)
 	loggerLogger := logger.NewLogger(logConf)
-	configService := service.NewConfigService(client)
+	configRepo := data.NewConfigRepo(client)
+	configUseCase := biz.NewConfiUseCase(configRepo, loggerLogger)
+	configService := service.NewConfigService(configUseCase)
 	httpServer := server.NewHttpServer(loggerLogger, configService)
 	app := newApp(config, loggerLogger, httpServer)
 	return app

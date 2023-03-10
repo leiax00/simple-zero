@@ -7,7 +7,7 @@ import "google/api/annotations.proto";
 option go_package = "github.com/leiax00/simple-zero/api/config/v1;api";
 
 service Config {
-  rpc GetProp (PropCond) returns (Prop) {
+  rpc GetProp (PropCond) returns (PropReply) {
     option (google.api.http) = {
       get: "/prop/{key}",
     };
@@ -17,7 +17,14 @@ service Config {
 message PropCond {
   // @gotags: uri:"key"
   string key = 1;
+  // @gotags: form:"prefix"
+  bool prefix = 2;
 }
-message Prop {
-  string result = 1;
+message PropReply {
+  repeated KvObj kvs = 1;
+}
+
+message KvObj {
+  string key = 1;
+  string value = 2;
 }

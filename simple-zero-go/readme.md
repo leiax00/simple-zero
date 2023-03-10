@@ -39,7 +39,7 @@ protoc -I api --go_out=api api/common/v1/common.proto
 protoc --proto_path=./third_party -I ./api --go_out ./api --go_opt=paths=source_relative --gin_out ./api --gin_opt=paths=source_relative api/config/v1/api.proto
 
 # 生成自定义tag
-protoc-go-inject-tag -input="*.pb.go"
+protoc-go-inject-tag -input="./api/config/v1/*.pb.go"
 ```
 
 ### 其他

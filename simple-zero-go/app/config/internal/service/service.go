@@ -2,15 +2,15 @@ package service
 
 import (
 	"github.com/google/wire"
-	clientV3 "go.etcd.io/etcd/client/v3"
+	"github.com/leiax00/simple-zero/app/config/internal/biz"
 )
 
 var ProviderSet = wire.NewSet(NewConfigService)
 
 type ConfigService struct {
-	etcd *clientV3.Client
+	uc *biz.ConfigUseCase
 }
 
-func NewConfigService(etcd *clientV3.Client) *ConfigService {
-	return &ConfigService{etcd}
+func NewConfigService(uc *biz.ConfigUseCase) *ConfigService {
+	return &ConfigService{uc}
 }

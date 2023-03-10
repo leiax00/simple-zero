@@ -15,7 +15,7 @@ import (
 //gin.errors.
 
 type ConfigHttpServer interface {
-	GetProp(context.Context, *PropCond) (*Prop, error)
+	GetProp(context.Context, *PropCond) (*PropReply, error)
 }
 
 type ConfigCtl struct {
