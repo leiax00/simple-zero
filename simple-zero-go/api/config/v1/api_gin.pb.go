@@ -16,6 +16,8 @@ import (
 
 type ConfigHttpServer interface {
 	GetProp(context.Context, *PropCond) (*PropReply, error)
+
+	SetUiConf(context.Context, *UIConfig) (*UIConfigReply, error)
 }
 
 type ConfigCtl struct {
@@ -24,7 +26,8 @@ type ConfigCtl struct {
 
 func RegisterConfigHttpServer(r gin.IRouter, srv ConfigHttpServer) {
 	ctl := &ConfigCtl{srv}
-	r.Handle("GET", "/prop/:key", ctl._GetProp0)
+	r.Handle("GET", "/config/v1/prop/:key", ctl._GetProp0)
+	r.Handle("POST", "/config/v1/ui-conf", ctl._SetUiConf0)
 }
 
 func (ctl *ConfigCtl) _GetProp0(ctx *gin.Context) {
@@ -46,6 +49,27 @@ func (ctl *ConfigCtl) _GetProp0(ctx *gin.Context) {
 	}
 	newCtx := metadata.NewIncomingContext(ctx, md)
 	out, err := ctl.srv.GetProp(newCtx, &in)
+	if err != nil {
+		ctl.error(ctx, err)
+		return
+	}
+	ctl.ok(ctx, out)
+}
+
+func (ctl *ConfigCtl) _SetUiConf0(ctx *gin.Context) {
+	var in UIConfig
+
+	if err := ctx.ShouldBindJSON(&in); err != nil {
+		ctl.paramsError(ctx, err)
+		return
+	}
+
+	md := metadata.New(nil)
+	for k, v := range ctx.Request.Header {
+		md.Set(k, v...)
+	}
+	newCtx := metadata.NewIncomingContext(ctx, md)
+	out, err := ctl.srv.SetUiConf(newCtx, &in)
 	if err != nil {
 		ctl.error(ctx, err)
 		return

@@ -10,6 +10,14 @@ type ConfigService struct {
 	uc *biz.ConfigUseCase
 }
 
+func (c *ConfigService) SetUiConf(ctx context.Context, config *api.UIConfig) (*api.UIConfigReply, error) {
+	err := c.uc.SetUiConf(ctx, config)
+	if err != nil {
+		return nil, err
+	}
+	return &api.UIConfigReply{Ok: true}, nil
+}
+
 func (c *ConfigService) GetProp(ctx context.Context, cond *api.PropCond) (*api.PropReply, error) {
 	kvs, err := c.uc.GetProp(ctx, cond)
 	if err != nil {
