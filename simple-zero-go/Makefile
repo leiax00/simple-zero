@@ -7,13 +7,13 @@ COMMON_FILES = $(shell cd ../../api/common && find . -name *.proto)
 .PHONY: init
 # init env
 init:
-	go get -u google.golang.org/protobuf/cmd/protoc-gen-go
-	go get -u google.golang.org/grpc/cmd/protoc-gen-go-grpc
-	go get -u github.com/leiax00/protoc-gen-gin
-	go get -u github.com/gogo/protobuf/blob/master/protoc-gen-gogo
-	go get -u github.com/favadi/protoc-go-inject-tag
-	go get -u github.com/google/wire/cmd/wire
-	go get -u github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2
+	go install google.golang.org/protobuf/cmd/protoc-gen-go
+	go install google.golang.org/grpc/cmd/protoc-gen-go-grpc
+	go install github.com/leiax00/protoc-gen-gin
+	go install github.com/gogo/protobuf/protoc-gen-gogo
+	go install github.com/favadi/protoc-go-inject-tag
+	go install github.com/google/wire/cmd/wire
+	go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2
 
 .PHONY: wire
 # generate wire
@@ -47,12 +47,15 @@ proto_pkg:
 # generate internal proto struct
 proto_api:
 	cd ../../api/common && protoc --proto_path=. \
-		  --proto_path=../../third_party \
-		  --gogo_out=paths=source_relative:. \
-		  --gin_out=paths=source_relative:. \
-		  $(COMMON_FILES)
+	  --proto_path=../../third_party \
+	  --gogo_out=paths=source_relative:. \
+	  --gin_out=paths=source_relative:. \
+	  $(COMMON_FILES) && \
+	  protoc-go-inject-tag -input="**/*.pb.go"
+
 	cd ../../api/$(APP_RELATIVE_PATH) && protoc --proto_path=. \
-           --proto_path=../../third_party \
-           --gogo_out=paths=source_relative:. \
-           --gin_out=paths=source_relative:. \
-           $(API_FILES)
+	   --proto_path=../../third_party \
+	   --gogo_out=paths=source_relative:. \
+	   --gin_out=paths=source_relative:. \
+	   $(API_FILES) && \
+		 protoc-go-inject-tag -input="**/*.pb.go"
