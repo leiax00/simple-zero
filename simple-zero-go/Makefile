@@ -31,7 +31,7 @@ proto:
 	protoc --proto_path=. \
            --proto_path=../../third_party \
            --proto_path=../../pkg \
-           --gogo_out=paths=source_relative:. \
+           --go_out=paths=source_relative:. \
            $(INTERNAL_PROTO_FILES)
 
 
