@@ -1,11 +1,21 @@
 syntax = "proto3";
 
-package api.config.v1;
+package api.common.v1;
 
-option go_package = "common/v1;common";
+import "google/protobuf/descriptor.proto";
+import "protobuf/gogoproto/gogo.proto";
+
+option go_package = "github.com/leiax00/simple-zero/api/common/v1;common";
 
 enum RespCode {
   OK = 0;
   FAIL = 1;
   PARAM_ERR = 2;
+}
+
+message RespObj {
+  // @gotags: json:"Code"
+  int32 code = 1;
+  string message = 2;
+  bytes Data = 3[(gogoproto.customtype) = "AnyObj"];
 }

@@ -10,10 +10,11 @@
 1. [go -> 中文社区下载](https://studygolang.com/dl)
 2. [protoc](https://github.com/protocolbuffers/protobuf/releases)
 3. [protoc-gen-go](https://github.com/protocolbuffers/protobuf-go/releases)
-4. [protoc-gen-gin: `go install github.com/leiax00/protoc-gen-gin@latest`](https://github.com/leiax00/protoc-gen-gin)
-5. [protoc-go-inject-tag: `go install github.com/favadi/protoc-go-inject-tag@latest`](https://github.com/favadi/protoc-go-inject-tag)
-6. [kratos cli工具: `go install github.com/go-kratos/kratos/cmd/kratos/v2@latest`](https://go-kratos.dev/docs/getting-started/usage#%E5%AE%89%E8%A3%85)
-7. wire -- `go install github.com/google/wire/cmd/wire@latest`
+4. [protoc-gen-gogo: `go install github.com/gogo/protobuf/protoc-gen-gogo@latest`](https://github.com/gogo/protobuf/blob/master/protoc-gen-gogo)
+5. [protoc-gen-gin: `go install github.com/leiax00/protoc-gen-gin@latest`](https://github.com/leiax00/protoc-gen-gin)
+6. [protoc-go-inject-tag: `go install github.com/favadi/protoc-go-inject-tag@latest`](https://github.com/favadi/protoc-go-inject-tag)
+7. [kratos cli工具: `go install github.com/go-kratos/kratos/cmd/kratos/v2@latest`](https://go-kratos.dev/docs/getting-started/usage#%E5%AE%89%E8%A3%85)
+8. wire -- `go install github.com/google/wire/cmd/wire@latest`
 
 ## 常用的命令
 ### kratos cli
@@ -33,12 +34,13 @@
 ### protobuf
 ```shell
 # common.proto
-protoc -I api --go_out=api api/common/v1/common.proto
+protoc -I ./api --gogo_out=paths=source_relative:./api api/common/v1/common.proto
 
 # simple-zero-go/api/config/v1/api.proto http
-protoc --proto_path=./third_party -I ./api --go_out ./api --go_opt=paths=source_relative --gin_out ./api --gin_opt=paths=source_relative api/config/v1/api.proto
+protoc -I ./api --gogo_out=paths=source_relative:./api --gin_out=paths=source_relative:./api api/config/v1/api.proto
 
 # 生成自定义tag
+protoc-go-inject-tag -input="./api/common/v1/*.pb.go"
 protoc-go-inject-tag -input="./api/config/v1/*.pb.go"
 ```
 

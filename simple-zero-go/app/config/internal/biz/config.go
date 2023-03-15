@@ -5,6 +5,7 @@ import (
 	"encoding/base64"
 	api "github.com/leiax00/simple-zero/api/config/v1"
 	"github.com/leiax00/simple-zero/pkg/logger"
+	"github.com/samber/lo"
 	clientV3 "go.etcd.io/etcd/client/v3"
 )
 
@@ -17,19 +18,15 @@ type ConfigUseCase struct {
 	log  *logger.Logger
 }
 
-func NewConfiUseCase(repo ConfigRepo, logger *logger.Logger) *ConfigUseCase {
-	return &ConfigUseCase{
-		repo: repo,
-		log:  logger,
-	}
-}
-
 func (uc *ConfigUseCase) GetProp(ctx context.Context, cond *api.PropCond) ([]*api.KvObj, error) {
 	decodeString, err := base64.StdEncoding.DecodeString(cond.Key)
 	if err != nil {
 		return nil, err
 	}
-	opts := []clientV3.OpOption{clientV3.WithPrefix()}
+	var opts []clientV3.OpOption
+	if cond.Prefix {
+		opts = append(opts, clientV3.WithPrefix())
+	}
 	resp, err := uc.repo.GetProp(ctx, string(decodeString), opts...)
 	if err != nil {
 		return nil, err
@@ -41,5 +38,5 @@ func (uc *ConfigUseCase) GetProp(ctx context.Context, cond *api.PropCond) ([]*ap
 			Value: string(kv.Value),
 		})
 	}
-	return kvList, nil
+	return lo.If(len(kvList) == 0, []*api.KvObj{}).Else(kvList), nil
 }

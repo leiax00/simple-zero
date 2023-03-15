@@ -7,10 +7,6 @@ import (
 
 var ProviderSet = wire.NewSet(NewConfigService)
 
-type ConfigService struct {
-	uc *biz.ConfigUseCase
-}
-
 func NewConfigService(uc *biz.ConfigUseCase) *ConfigService {
 	return &ConfigService{uc}
 }

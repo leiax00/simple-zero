@@ -3,7 +3,6 @@ syntax = "proto3";
 package api.config.v1;
 
 import "google/api/annotations.proto";
-
 option go_package = "github.com/leiax00/simple-zero/api/config/v1;api";
 
 service Config {
@@ -15,12 +14,13 @@ service Config {
 }
 
 message PropCond {
-  // @gotags: uri:"key"
+  // @gotags: form:"key" uri:"key"
   string key = 1;
   // @gotags: form:"prefix"
   bool prefix = 2;
 }
 message PropReply {
+  // @gotags: json:"kvs"
   repeated KvObj kvs = 1;
 }
 
