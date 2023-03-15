@@ -17,7 +17,7 @@ import (
 
 // Injectors from wire.go:
 
-func wireApp(etcdAddrList []string, localConfPath string) *App {
+func initApp(etcdAddrList []string, localConfPath string) *App {
 	client := server.NewEtcdClient(etcdAddrList)
 	config := conf.LoadConf(client, localConfPath)
 	logConf := conf.GetLogConf(config)
@@ -26,6 +26,7 @@ func wireApp(etcdAddrList []string, localConfPath string) *App {
 	configUseCase := biz.NewConfiUseCase(configRepo, loggerLogger)
 	configService := service.NewConfigService(configUseCase)
 	httpServer := server.NewHttpServer(loggerLogger, configService)
-	app := newApp(config, loggerLogger, httpServer)
+	registry := server.NewEtcdRegister(client)
+	app := newApp(config, loggerLogger, httpServer, registry)
 	return app
 }

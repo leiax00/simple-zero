@@ -13,7 +13,7 @@ import (
 )
 import "github.com/google/wire"
 
-func wireApp(etcdAddrList []string, localConfPath string) *App {
+func initApp(etcdAddrList []string, localConfPath string) *App {
 	panic(wire.Build(
 		server.ProvideSet,
 		conf.ProvideSet,

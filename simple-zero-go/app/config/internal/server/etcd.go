@@ -1,6 +1,7 @@
 package server
 
 import (
+	"github.com/go-kratos/kratos/contrib/registry/etcd/v2"
 	clientV3 "go.etcd.io/etcd/client/v3"
 	"google.golang.org/grpc"
 	"log"
@@ -25,4 +26,9 @@ func NewEtcdClient(etcdAddrList []string) *clientV3.Client {
 		log.Fatalln("Failed to create etcd client: ", err)
 	}
 	return etcdC
+}
+
+func NewEtcdRegister(client *clientV3.Client) *etcd.Registry {
+	return etcd.New(client, etcd.Namespace("app/serve"))
+
 }
