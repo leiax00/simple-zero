@@ -102,7 +102,7 @@ docker-multi:
     		--build-arg APP_RELATIVE_PATH=$(APP_RELATIVE_PATH) \
     		--build-arg VERSION=$(VERSION) \
     		--platform=$(DOCKER_PLATFORM) \
-    		-t $(DOCKER_IMAGE) .
+    		-t $(DOCKER_IMAGE) . --push
 
 # show help
 help:
