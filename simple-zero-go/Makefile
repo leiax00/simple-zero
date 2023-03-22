@@ -10,6 +10,7 @@ COMMON_FILES = $(shell cd ../../api/common && find . -name *.proto)
 APP_NAME=$(shell echo sz-$(APP_RELATIVE_PATH))
 DOCKER_IMAGE=$(shell echo $(HUB_URI)/$(HUB_REPO)/$(APP_NAME):$(VERSION))
 DOCKER_PLATFORM=linux/arm64,linux/amd64
+PLATFORM_ACTION=push
 
 .PHONY: init
 # init env
@@ -102,7 +103,7 @@ docker-multi:
     		--build-arg APP_RELATIVE_PATH=$(APP_RELATIVE_PATH) \
     		--build-arg VERSION=$(VERSION) \
     		--platform=$(DOCKER_PLATFORM) \
-    		-t $(DOCKER_IMAGE) . --push
+    		-t $(DOCKER_IMAGE) . --$(PLATFORM_ACTION)
 
 # show help
 help:
