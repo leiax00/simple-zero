@@ -7,6 +7,8 @@ ARG VERSION
 COPY . /src
 WORKDIR /src/simple-zero-go/app/${APP_RELATIVE_PATH}
 
+#  #12 52.88 error obtaining VCS status: exit status 128
+RUN go env -w GOFLAGS="-buildvcs=false"
 RUN GOPROXY=https://goproxy.cn,direct make build
 
 FROM debian:stable-slim
