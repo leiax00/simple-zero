@@ -19,6 +19,5 @@ COPY --from=builder /src/simple-zero-go/app/${APP_RELATIVE_PATH}/bin /app
 COPY --from=builder /src/simple-zero-go/app/${APP_RELATIVE_PATH}/configs /data/conf
 WORKDIR /app
 EXPOSE 8080
-VOLUME /data/conf
 
 CMD ["./cmd", "-conf", "/data/conf"]
