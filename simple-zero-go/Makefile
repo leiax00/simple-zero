@@ -101,7 +101,7 @@ docker-multi:
     		-f deploy/build/$(APP_NAME)/Dockerfile \
     		--build-arg APP_RELATIVE_PATH=$(APP_RELATIVE_PATH) \
     		--build-arg VERSION=$(VERSION) \
-    		--platform=$(DOCKER_PLAFORM) \
+    		--platform=$(DOCKER_PLATFORM) \
     		-t $(DOCKER_IMAGE) .
 
 # show help
