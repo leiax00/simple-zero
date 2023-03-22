@@ -77,7 +77,7 @@ proto: proto_internal proto_common proto_api
 .PHONY: build
 # build
 build:
-	mkdir -p bin/ && go build -ldflags \
+	mkdir -p bin/ && go mod tidy && go build -ldflags \
 		"-X main.Version=$(VERSION) -X main.Name=$(APP_NAME)" \
 		 -o ./bin/ ./...
 
