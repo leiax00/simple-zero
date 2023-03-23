@@ -90,7 +90,7 @@ all: wire proto build
 # generate docker image
 docker:
 	cd ../../.. && docker build \
-		-f deploy/build/$(APP_NAME)/Dockerfile \
+		-f deploy/build/docker/Dockerfile_go \
 		--build-arg APP_RELATIVE_PATH=$(APP_RELATIVE_PATH) \
 		--build-arg VERSION=$(VERSION) \
 		-t $(DOCKER_IMAGE) .
@@ -99,7 +99,7 @@ docker:
 # generate multiple platform docker image
 docker-multi:
 	cd ../../.. && docker buildx build \
-    		-f deploy/build/$(APP_NAME)/Dockerfile \
+    		-f deploy/build/docker/Dockerfile_go \
     		--build-arg APP_RELATIVE_PATH=$(APP_RELATIVE_PATH) \
     		--build-arg VERSION=$(VERSION) \
     		--platform=$(DOCKER_PLATFORM) \

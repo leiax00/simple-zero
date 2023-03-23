@@ -14,7 +14,7 @@ import (
 // go build -ldflags "-X main.Version=x.y.z"
 var (
 	// Name is the name of the compiled software.
-	Name string = "sz-novel"
+	Name string = "sz-config"
 	// Version is the version of the compiled software.
 	Version string
 	// conf is the config flag.
