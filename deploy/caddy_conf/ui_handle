@@ -1,6 +1,6 @@
 {
   @ui {
-    not path /novel/v1/*  # 定义ui文件匹配器
+    not path /*/v1/*  # 定义ui文件匹配器
   }
 
   handle {
