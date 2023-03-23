@@ -1,10 +1,10 @@
-:10001 {
+:80 {
   @ui {
-    not path /novel/v1/api/*  # 定义ui文件匹配器
+    not path /novel/v1/*  # 定义ui文件匹配器
   }
 
   handle {
-    root @ui /home/serve
+    root @ui /app
     encode gzip
     try_files {path} index.html
     file_server

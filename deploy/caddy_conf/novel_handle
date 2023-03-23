@@ -1,15 +1,4 @@
-:10000 {
-  @ui {
-    not path /*/v1/api/*  # 定义ui文件匹配器
-  }
-
-  handle {
-    root @ui /home/serve
-    encode gzip
-    try_files {path} index.html
-    file_server
-  }
-
+{
   handle /novel/v1/api/* {
     reverse_proxy {
       to http://10.1.0.4:11000
