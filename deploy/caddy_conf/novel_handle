@@ -1,11 +1,9 @@
-{
-  handle /novel/v1/api/* {
-    reverse_proxy {
-      to http://10.1.0.4:11000
-      header_up Host ip:port
-      header_down Access-Control-Allow-Origin *
-      header_down Access-Control-Allow-Methods *
-      header_down Access-Control-Allow-Headers *
-    }
+handle /novel/v1/api/* {
+  reverse_proxy {
+    to http://10.1.0.4:11000
+    header_up Host ip:port
+    header_down Access-Control-Allow-Origin *
+    header_down Access-Control-Allow-Methods *
+    header_down Access-Control-Allow-Headers *
   }
 }
