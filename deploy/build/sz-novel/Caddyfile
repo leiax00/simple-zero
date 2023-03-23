@@ -1,25 +1,4 @@
 :80 {
-  @ui {
-    not path /novel/v1/*  # 定义ui文件匹配器
-  }
-
-  handle {
-    root @ui /app
-    encode gzip
-    try_files {path} index.html
-    file_server
-    header Access-Control-Allow-Origin *   # 配置允许跨域请求的 Origin
-    header Access-Control-Allow-Headers *  # 配置允许跨域请求的方法
-    header Access-Control-Allow-Methods *  # 配置允许跨域请求的 header
-  }
-
-  handle /novel/v1/api/* {
-    reverse_proxy {
-      to http://10.1.0.4:11000
-      header_up Host ip:port
-      header_down Access-Control-Allow-Origin *
-      header_down Access-Control-Allow-Methods *
-      header_down Access-Control-Allow-Headers *
-    }
-  }
+  import conf.d/ui_handle
+  import conf.d/novel_handle
 }
