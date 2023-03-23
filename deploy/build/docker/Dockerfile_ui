@@ -16,9 +16,7 @@ ARG UI_RELATIVE_PATH
 WORKDIR /app
 
 COPY --from=builder /src/simple-zero-ui/apps/${UI_RELATIVE_PATH}/dist /app/
-COPY --from=builder /src/deploy/build/sz-${UI_RELATIVE_PATH}/Caddyfile /etc/caddy/Caddyfile
-COPY --from=builder /src/deploy/caddy_conf /etc/caddy/conf.d/
+COPY --from=builder /src/deploy/caddy/sz-${UI_RELATIVE_PATH}/Caddyfile /etc/caddy/Caddyfile
+COPY --from=builder /src/deploy/caddy/conf.d /etc/caddy/conf.d/
 
 EXPOSE 80
-
-RUN ls -al
