@@ -7,7 +7,7 @@ from xxl_executor.executor import XxlExecutor
 
 config = {
     'host': '0.0.0.0',
-    'port': 11000,
+    'port': 80,
     'xxl-config': {
         'admin_url': 'http://10.1.0.7:15000/',
         'access_token': 'default_token',

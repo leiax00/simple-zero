@@ -21,7 +21,7 @@ func NewHttpServer(logger *logger.Logger, configServer *service.ConfigService) *
 	engine.Use(GinLogger(logger), GinRecovery(logger, true))
 	api.RegisterConfigHttpServer(engine, configServer)
 	h := &HttpServer{BaseContext: context.Background()}
-	h.Addr = ":8080"
+	h.Addr = ":80"
 	h.Handler = engine
 	return h
 }
