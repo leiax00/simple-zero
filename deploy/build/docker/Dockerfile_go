@@ -1,11 +1,11 @@
 FROM golang:1.20.2 AS builder
 
-ARG APP_RELATIVE_PATH
+ARG RELATIVE_PATH
 ARG APP_NAME
 ARG VERSION
 
 COPY . /src
-WORKDIR /src/simple-zero-go/app/${APP_RELATIVE_PATH}
+WORKDIR /src/simple-zero-go/app/${RELATIVE_PATH}
 
 #  #12 52.88 error obtaining VCS status: exit status 128
 RUN go env -w GOFLAGS="-buildvcs=false"
@@ -14,9 +14,9 @@ RUN GOPROXY=https://goproxy.cn,direct make build
 FROM debian:stable-slim
 MAINTAINER "leiax00@outlook.com"
 
-ARG APP_RELATIVE_PATH
-COPY --from=builder /src/simple-zero-go/app/${APP_RELATIVE_PATH}/bin /app
-COPY --from=builder /src/simple-zero-go/app/${APP_RELATIVE_PATH}/configs /data/conf
+ARG RELATIVE_PATH
+COPY --from=builder /src/simple-zero-go/app/${RELATIVE_PATH}/bin /app
+COPY --from=builder /src/simple-zero-go/app/${RELATIVE_PATH}/configs /data/conf
 WORKDIR /app
 EXPOSE 80
 

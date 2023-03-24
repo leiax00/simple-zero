@@ -100,7 +100,7 @@ docker:
 docker-multi:
 	cd ../../.. && docker buildx build \
     		-f deploy/build/docker/Dockerfile_go \
-    		--build-arg APP_RELATIVE_PATH=$(APP_RELATIVE_PATH) \
+    		--build-arg RELATIVE_PATH=$(APP_RELATIVE_PATH) \
     		--build-arg VERSION=$(VERSION) \
     		--platform=$(DOCKER_PLATFORM) \
     		-t $(DOCKER_IMAGE) . --$(PLATFORM_ACTION)
