@@ -26,12 +26,12 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useApp } from '@/store/app'
+import { useAppCtl } from '@/store/app'
 
 defineOptions({
   name: 'CommonAside',
 })
-const appConf = useApp()
+const appConf = useAppCtl()
 const logoUrl = appConf.logoUrl
 
 const router = useRouter()

@@ -1,16 +1,20 @@
 import { defineStore } from 'pinia'
 import { useScriptTag } from '@vueuse/core'
 import { isEmptyStr } from '@leiax00/utils'
+import store from '../index'
+import type { StoreDefinition } from 'pinia'
 import type { App } from 'vue'
 
-export const useApp = defineStore('app', {
-  state: (): {
-    config: any
-    app?: App<Element>
-    uiCtl: any
-  } => {
+export interface AppCtlState {
+  config: any
+  app?: App<Element>
+  uiCtl: any
+}
+
+export const useAppCtlStore: StoreDefinition = defineStore('appCtl', {
+  state: (): AppCtlState => {
     return {
-      config: {},
+      config: undefined,
       app: undefined,
       uiCtl: {
         showAside: false,
@@ -19,7 +23,7 @@ export const useApp = defineStore('app', {
     }
   },
   getters: {
-    logoUrl: (state) => {
+    logoUrl: (state: any) => {
       const { base, opts } = state.config.app.picCdn
       if (isEmptyStr(opts.pic) || opts.pic.trim() === '/') {
         return `${base}/logo-simple_zero.png`
@@ -62,3 +66,7 @@ export const useApp = defineStore('app', {
     },
   },
 })
+
+export const useAppCtlStoreWithOut = () => {
+  return useAppCtlStore(store)
+}

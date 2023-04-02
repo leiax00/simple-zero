@@ -28,10 +28,10 @@ import { onClickOutside } from '@vueuse/core'
 import { useRoute } from 'vue-router'
 import CommonHeader from '@/components/layout/commonLayout/CommonHeader.vue'
 import CommonFooter from '@/components/layout/commonLayout/CommonFooter.vue'
-import { useApp } from '@/store/app'
+import { useAppCtl } from '@/store/app'
 defineOptions({ name: 'CommonLayout' })
 
-const appStore = useApp()
+const appStore = useAppCtl()
 const aside = ref(null)
 onClickOutside(aside, () => {
   appStore.uiCtl.showAside = false

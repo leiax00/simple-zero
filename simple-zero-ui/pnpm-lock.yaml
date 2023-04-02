@@ -103,12 +103,6 @@ importers:
       vite: 3.2.5
       vite-plugin-qiankun: 1.0.15_7g3uriyb4kqeq2yf2bucr7z2ea
 
-  apps/sz-novel:
-    specifiers:
-      '@types/echarts': ^4.9.16
-    devDependencies:
-      '@types/echarts': 4.9.16
-
   docs:
     specifiers:
       '@leiax00/zero-ui': workspace:*
@@ -179,15 +173,6 @@ importers:
       '@leiax00/utils': workspace:*
     dependencies:
       '@leiax00/utils': link:../utils
-
-  sz-novel:
-    specifiers:
-      '@types/echarts': ^4.9.16
-      echarts: ^5.4.1
-    dependencies:
-      echarts: 5.4.1
-    devDependencies:
-      '@types/echarts': 4.9.16
 
 packages:
 
@@ -777,12 +762,6 @@ packages:
     resolution: {integrity: sha512-BG7fQKZ689HIoc5h+6D2Dgq1fABRa0RbBWKBd9SP/MVRVXROflpm5fhwyATX5duFmbStzyzyycPB8qUYKDH3NA==}
     dev: true
 
-  /@types/echarts/4.9.16:
-    resolution: {integrity: sha512-bfiagfPw3dWauAIJ9fgoJQoL4hLWlGcltqwbE6LGye0NIY5xnbZau+mDmadCzGojic3MWuFDCUiO25kl4sRGeA==}
-    dependencies:
-      '@types/zrender': 4.0.3
-    dev: true
-
   /@types/estree/1.0.0:
     resolution: {integrity: sha512-WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==}
     dev: true
@@ -833,10 +812,6 @@ packages:
 
   /@types/web-bluetooth/0.0.16:
     resolution: {integrity: sha512-oh8q2Zc32S6gd/j50GowEjKLoOVOwHP/bWVjKJInBwQqdOYMdPrf1oVlelTlyfFK3CKxL1uahMDAr+vy8T7yMQ==}
-
-  /@types/zrender/4.0.3:
-    resolution: {integrity: sha512-EPI269lkHNsObwILJ1k1z7znLjKyePuWRy/XKK0shSGpBb9cIX307arcwJV4+2NeZj5wEjN06r4D8yFv7sI06g==}
-    dev: true
 
   /@typescript-eslint/eslint-plugin/5.47.0_ncmi6noazr3nzas7jxykisekym:
     resolution: {integrity: sha512-AHZtlXAMGkDmyLuLZsRpH3p4G/1iARIwc/T0vIem2YB+xW6pZaXYXzCBnZSF/5fdM97R9QqZWZ+h3iW10XgevQ==}
