@@ -7,7 +7,6 @@
 **/pnpm-debug.log*
 **/lerna-debug.log*
 **/yarn.lock
-**/esbuild-kit
 
 **/node_modules
 **/dist
@@ -29,4 +28,4 @@
 
 # go
 **/go.sum
-#**/vendor哦
+#**/vendor

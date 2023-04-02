@@ -22,12 +22,12 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useAppCtl } from '@/store/app'
+import { useApp } from '@/store/app'
 
 defineOptions({
   name: 'CommonHeader',
 })
-const appConf = useAppCtl()
+const appConf = useApp()
 const logoUrl = appConf.logoUrl
 const showAsideIcon = computed(() => {
   return appConf.uiCtl.showAside ? 'shouqicaidan' : 'zhankaicaidan'

@@ -38,12 +38,12 @@
 <script lang="ts" setup>
 import { onMounted, reactive } from 'vue'
 import { useIntervalFn } from '@vueuse/core'
-import { useAppCtl } from '@/store/app'
+import { useApp } from '@/store/app'
 
 defineOptions({
   name: 'CommonFooter',
 })
-const appStore = useAppCtl()
+const appStore = useApp()
 const logoUrl = appStore.logoUrl
 const firstRun = appStore.config.app.firstRun
 const pageData = reactive({

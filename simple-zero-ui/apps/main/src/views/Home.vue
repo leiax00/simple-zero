@@ -1,6 +1,6 @@
 <template>
   <div class="main-home">
-    <el-button v-ripple type="primary">Hello, Home</el-button>
+    <el-button type="primary">Hello, Home</el-button>
   </div>
 </template>
 

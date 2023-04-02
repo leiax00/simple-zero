@@ -17,13 +17,13 @@
 </template>
 
 <script setup lang="ts">
-import { useAppCtl } from '@/store/app'
+import { useApp } from '@/store/app'
 
 defineOptions({
   name: 'CommonHMenu',
 })
 
-const appConf = useAppCtl()
+const appConf = useApp()
 const router = useRouter()
 const activeRoute = computed(() => {
   let startRoutePath = '/'

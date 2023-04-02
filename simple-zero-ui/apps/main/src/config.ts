@@ -26,7 +26,7 @@ export async function loadAppConf() {
     },
     { headers }
   )
-  let conf: { serves?: any } = {}
+  let conf = {}
   if (resp.data.kvs) {
     const confStr = Utf8.stringify(Base64.parse(resp.data.kvs[0].value))
     conf = JSON.parse(confStr)
