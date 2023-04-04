@@ -1,9 +1,5 @@
-@use "@leiax00/zero-ui/styles/vars";
+@use "@leiax00/zero-ui/styles/base";
 @use "common/icon";
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 html, body, #app {
   @apply h-full;

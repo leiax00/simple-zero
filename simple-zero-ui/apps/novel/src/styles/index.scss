@@ -1,8 +1,4 @@
-@use "@leiax00/zero-ui/styles/vars";
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@use "@leiax00/zero-ui/styles/base";
 
 html, body, #novel-ui {
   @apply h-full m-0;
@@ -17,17 +13,4 @@ html, body, #novel-ui {
 
 .title {
   @apply font-bold text-xl;
-}
-
-@layer utilities {
-  /* Hide scrollbar for Chrome, Safari and Opera */
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-
-  /* Hide scrollbar for IE, Edge and Firefox */
-  .no-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
 }
