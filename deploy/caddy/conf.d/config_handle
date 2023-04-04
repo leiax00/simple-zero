@@ -1,0 +1,9 @@
+handle /config/v1/* {
+  reverse_proxy {
+    to http://10.1.0.4:11001
+    header_up Host ip:port
+    header_down Access-Control-Allow-Origin *
+    header_down Access-Control-Allow-Methods *
+    header_down Access-Control-Allow-Headers *
+  }
+}
