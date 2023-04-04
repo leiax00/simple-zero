@@ -10,7 +10,7 @@
       <el-scrollbar>
         <el-menu :default-active="activeRoute">
           <el-menu-item
-            v-for="item in appConf.config.headers"
+            v-for="item in appConf.config.menus"
             :key="item.id"
             :index="item.path"
             @click="openMenuItem(item)"
@@ -37,13 +37,13 @@ const logoUrl = appConf.logoUrl
 const router = useRouter()
 const activeRoute = computed(() => {
   let startRoutePath = '/'
-  for (const headerItem of appConf.config.headers) {
-    if (headerItem.path === router.currentRoute.value.path) {
-      return headerItem.path
+  for (const item of appConf.config.menus) {
+    if (item.path === router.currentRoute.value.path) {
+      return item.path
     }
-    if (router.currentRoute.value.path.startsWith(headerItem.path)) {
-      if (headerItem.path.length > startRoutePath.length) {
-        startRoutePath = headerItem.path
+    if (router.currentRoute.value.path.startsWith(item.path)) {
+      if (item.path.length > startRoutePath.length) {
+        startRoutePath = item.path
       }
     }
   }
@@ -58,6 +58,9 @@ const openMenuItem = (item: { path: string }) => {
 <style lang="scss" scoped>
 .main-aside {
   @apply flex flex-col h-full;
+  .el-menu {
+    @apply border-r-0;
+  }
   .aside-footer {
     @apply text-center h-12 py-2 leading-8 shadow-aside-red-top;
   }

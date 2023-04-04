@@ -45,9 +45,9 @@ defineOptions({
 })
 const appStore = useApp()
 const logoUrl = appStore.logoUrl
-const firstRun = appStore.config.app.firstRun
 const pageData = reactive({
-  copyRightSn: appStore.config.app.copyright,
+  firstRun: appStore.config.common.firstRun,
+  copyRightSn: appStore.config.common.copyright,
   copyright: 'Lei.AoX Powered by JcTec',
   selfCopyright:
     '版权说明：[本网站所有内容均收集于互联网或自己创作,方便于网友与自己学习交流，如有侵权，请留言，立即处理]',
@@ -58,7 +58,7 @@ const pageData = reactive({
 const refreshRunInfo = function () {
   useIntervalFn(() => {
     // const diff = timeUtils.calcTimeDiff(firstRun)
-    // diff.time = firstRun.split(/[\vt]/gi)[0]
+    // diff.time = pageData.firstRun.split(/[\vt]/gi)[0]
     // pageData.runInfo = `本站自 ${diff.time} 已运行 ${diff.day} 天 ${diff.hour} 小时 ${diff.minute} 分 ${diff.second} 秒!`
   }, 1000)
 }

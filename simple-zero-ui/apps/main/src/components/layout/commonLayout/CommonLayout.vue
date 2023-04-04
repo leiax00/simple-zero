@@ -50,7 +50,8 @@ const route = useRoute()
     overflow: unset;
   }
   .aside-main {
-    @apply absolute z-50 h-full bg-white shadow-aside-red-right;
+    @apply absolute z-50 h-full shadow-aside-red-right;
+    background: var(--sz-bg);
   }
   .el-footer {
     @apply pb-2;

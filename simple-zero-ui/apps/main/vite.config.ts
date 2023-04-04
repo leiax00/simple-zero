@@ -61,6 +61,11 @@ function getServer() {
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
-    proxy: {},
+    proxy: {
+      '/config/v1/': {
+        target: 'http://10.1.0.4:11001',
+        changeOrigin: true,
+      },
+    },
   }
 }

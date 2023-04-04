@@ -10,13 +10,7 @@
         </router-link>
       </div>
     </div>
-    <div class="header-menu">
-      <common-h-menu />
-    </div>
     <div class="header-right">
-      <!--      <div class="header-lt-sm">SM Right Nav</div>-->
-      <!--      <div class="header-gt-sm">-->
-      <!--      </div>-->
       <sz-theme-toggler />
     </div>
   </div>

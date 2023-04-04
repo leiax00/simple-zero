@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia'
 import { useScriptTag } from '@vueuse/core'
 import { isEmptyStr } from '@leiax00/utils'
+import type { StoreDefinition } from 'pinia'
 import type { App } from 'vue'
 
-export const useApp = defineStore('app', {
+export const useApp: StoreDefinition = defineStore('app', {
   state: (): {
     config: any
     app?: App<Element>
@@ -19,12 +20,11 @@ export const useApp = defineStore('app', {
     }
   },
   getters: {
-    logoUrl: (state) => {
-      const { base, opts } = state.config.app.picCdn
-      if (isEmptyStr(opts.pic) || opts.pic.trim() === '/') {
-        return `${base}/logo-simple_zero.png`
-      }
-      return `${base}/${opts.pic}/logo-simple_zero.png`
+    picUri(): string {
+      return `${this.config.common.static}/pics`
+    },
+    logoUrl(): string {
+      return `${this.picUri}/logo-simple_zero.png`
     },
   },
   actions: {
@@ -42,7 +42,7 @@ export const useApp = defineStore('app', {
     async loadSvgSrc(cb?: () => void) {
       if (!this.uiCtl.isLoaded4svgSrc) {
         const { load } = useScriptTag(
-          this.config.app.srcSvg,
+          this.config.common.svgUri,
           // on script tag loaded.
           (el: HTMLScriptElement) => {
             cb && cb()
@@ -58,7 +58,7 @@ export const useApp = defineStore('app', {
       if (isEmptyStr(opts.pic) || opts.pic.trim() === '/') {
         return `${base}/${params}`
       }
-      return `${base}/${opts.pic}/${params}`
+      return `${this.picUri}/${params}`
     },
   },
 })
