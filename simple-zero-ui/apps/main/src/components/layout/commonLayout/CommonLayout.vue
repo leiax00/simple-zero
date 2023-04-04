@@ -53,6 +53,7 @@ const route = useRoute()
     @apply absolute z-50 h-full bg-white shadow-aside-red-right;
   }
   .el-footer {
+    @apply pb-2;
     height: unset;
   }
 }

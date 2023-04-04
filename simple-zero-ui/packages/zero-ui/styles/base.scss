@@ -1,15 +1,22 @@
 :root {
-  --bg-color-mute: #f2f2f2;
+  --sz-bg-color-mute: #f2f2f2;
   --text-color-light: var(--el-text-color-primary);
   --text-color: var(--el-text-color-primary);
-  --bg-color: var(--el-bg-color);
+  --sz-bg: var(--el-bg-color);
 }
 
 html.dark {
-  --el-bg-color: #141414;
-  --bg-color-mute: #2c2c2c;
+  --sz-color-neutral-900: #171717;
+  --sz-color-neutral-800: #262626;
+  --sz-color-neutral-700: #404040;
+  --sz-bg-color-mute: var(--sz-color-neutral-800);
+
+  --el-bg-color: var(--sz-color-neutral-900);
   --el-text-color-primary: #E5EAF3;
-  --el-border-color: #4C4D4F;
+  --el-border-color: var(--sz-color-neutral-700);
+  --el-fill-color-blank: var(--el-bg-color);
+  --el-menu-hover-bg-color: var(--sz-bg-color-mute);
+
 }
 
 @tailwind base;
@@ -31,5 +38,7 @@ html.dark {
 
 body {
   color: var(--text-color);
-  background-color: var(--bg-color);
+  background: var(--sz-bg);
+  background-size: cover;
+  background-attachment: fixed;
 }
