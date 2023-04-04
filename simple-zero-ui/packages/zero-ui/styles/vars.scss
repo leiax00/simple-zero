@@ -1,0 +1,9 @@
+:root {
+  --bg-color-mute: #f2f2f2;
+  --text-color-light: var(--el-text-color-primary);
+}
+
+html.dark {
+  --el-bg-color: #141414;
+  --bg-color-mute: #2c2c2c;
+}

@@ -23,7 +23,9 @@ export default defineConfig(({ mode }) => ({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "@leiax00/zero-ui/styles/element/index.scss" as *;`,
+        additionalData: `
+        @use "@leiax00/zero-ui/styles/element/index.scss" as *;
+        `,
       },
     },
   },
