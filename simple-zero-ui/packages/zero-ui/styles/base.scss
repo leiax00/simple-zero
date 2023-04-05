@@ -18,6 +18,7 @@ html.dark {
   --el-bg-color: var(--sz-color-level-1);
   --el-text-color-primary: var(--sz-color-level-5);
   --el-border-color: var(--sz-color-level-3);
+  --el-border-color-light: var(--sz-color-level-3);
   --el-fill-color-blank: var(--el-bg-color);
   --el-menu-hover-bg-color: var(--sz-bg-color-mute);
   --el-menu-bg-color: transparent;
@@ -41,6 +42,12 @@ html.dark {
 
   .common-grid {
     @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 justify-items-center;
+    @apply gap-4 sm:gap-x-8 md:gap-x-12 lg:gap-x-16;
+    @apply w-full lg:w-3/4 mx-auto;
+  }
+
+  .common-grid-1 {
+    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 justify-items-center;
     @apply gap-4 sm:gap-x-8 md:gap-x-12 lg:gap-x-16;
     @apply w-full lg:w-3/4 mx-auto;
   }
