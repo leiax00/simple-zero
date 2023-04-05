@@ -40,9 +40,7 @@ const routeTo = (item: { channelKey: string }) => {
 .j2wx-main {
   @apply p-4;
   .channel-list {
-    @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 justify-items-center;
-    @apply gap-4 sm:gap-x-8 md:gap-x-12 lg:gap-x-16;
-    @apply w-full lg:w-3/4 mx-auto;
+    @apply common-grid;
     .el-card {
       @apply text-center w-full;
     }
