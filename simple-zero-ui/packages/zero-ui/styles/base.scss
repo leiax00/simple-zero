@@ -17,9 +17,17 @@ html.dark {
 
   --el-bg-color: var(--sz-color-level-1);
   --el-text-color-primary: var(--sz-color-level-5);
-  --el-border-color: var(--sz-color-level-3);
+  --el-border-color: var(--sz-color-level-4);
   --el-border-color-light: var(--sz-color-level-3);
-  --el-fill-color-blank: var(--el-bg-color);
+
+  --el-fill-color-extra-light: var(--sz-color-level-5);
+  --el-fill-color-lighter: var(--sz-color-level-4);
+  --el-fill-color-light: var(--sz-color-level-4);
+  --el-fill-color: var(--sz-color-level-3);
+  --el-fill-color-dark: var(--sz-color-level-2);
+  --el-fill-color-darker: var(--sz-color-level-2);
+  --el-fill-color-blank: var(--sz-color-level-1);
+
   --el-menu-hover-bg-color: var(--sz-bg-color-mute);
   --el-menu-bg-color: transparent;
 }
