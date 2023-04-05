@@ -6,14 +6,16 @@
 }
 
 html.dark {
-  --sz-color-neutral-900: #171717;
-  --sz-color-neutral-800: #262626;
-  --sz-color-neutral-700: #404040;
-  --sz-bg-color-mute: var(--sz-color-neutral-800);
+  --sz-color-level-1: #27272a; // Zinc-800
+  --sz-color-level-2: #3f3f46; // Zinc-700
+  --sz-color-level-3: #52525b; // Zinc-600
+  --sz-color-level-4: #71717a; // Zinc-500
+  --sz-color-level-5: #a1a1aa; // Zinc-400
+  --sz-bg-color-mute: var(--sz-color-level-2);
 
-  --el-bg-color: var(--sz-color-neutral-900);
-  --el-text-color-primary: #E5EAF3;
-  --el-border-color: var(--sz-color-neutral-700);
+  --el-bg-color: var(--sz-color-level-1);
+  --el-text-color-primary: var(--sz-color-level-5);
+  --el-border-color: var(--sz-color-level-3);
   --el-fill-color-blank: var(--el-bg-color);
   --el-menu-hover-bg-color: var(--sz-bg-color-mute);
 
@@ -40,5 +42,13 @@ body {
   color: var(--text-color);
   background: var(--sz-bg);
   background-size: cover;
-  background-attachment: fixed;
+}
+html, body, #app, .app {
+  @apply h-full m-0;
+  @apply text-base font-normal antialiased ;
+  font-family: var(--el-font-family);
+}
+
+.app {
+  backdrop-filter: blur(4px);
 }

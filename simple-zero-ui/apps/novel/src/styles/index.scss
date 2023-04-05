@@ -1,10 +1,5 @@
 @use "@leiax00/zero-ui/styles/base";
 
-html, body, #novel-ui {
-  @apply h-full m-0;
-  @apply font-mono text-base font-normal antialiased;
-}
-
 #novel-ui {
   & > div {
     @apply h-full;
