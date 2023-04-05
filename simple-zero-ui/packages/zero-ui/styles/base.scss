@@ -3,7 +3,8 @@
   --text-color-light: var(--el-text-color-primary);
   --text-color: var(--el-text-color-primary);
   --sz-bg: var(--el-bg-color);
-  //--sz-bg: url("https://webdav.leiax00.cn/dev/pics/bg-load.png");
+  --sz-bg-filter-blur: 4px;
+  --sz-bg: url("https://webdav.leiax00.cn/dev/pics/bg-load.png");
 }
 
 html.dark {
@@ -40,6 +41,7 @@ html.dark {
 }
 
 @layer base {
+  // 毛玻璃背景, body使用fixed transform scale-105; 内部用absolute
   .bg-body {
     &:before {
       content: "";
@@ -51,7 +53,7 @@ html.dark {
       background-size: cover;
       z-index: -1;
       -webkit-filter: blur(4px);
-      filter: blur(4px);
+      filter: blur(var(--sz-bg-filter-blur));
     }
   }
 }
@@ -59,7 +61,7 @@ html.dark {
 body {
   @apply bg-body;
   color: var(--text-color);
-  &:before {
+  &:before { // 毛玻璃背景
     @apply fixed transform scale-105;
   }
 }
@@ -67,8 +69,4 @@ html, body, #app, .app {
   @apply h-full m-0;
   @apply text-base font-normal antialiased ;
   font-family: var(--el-font-family);
-}
-
-.app {
-  backdrop-filter: blur(4px);
 }
