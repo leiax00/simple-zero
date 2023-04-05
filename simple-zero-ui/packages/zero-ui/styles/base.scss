@@ -3,6 +3,7 @@
   --text-color-light: var(--el-text-color-primary);
   --text-color: var(--el-text-color-primary);
   --sz-bg: var(--el-bg-color);
+  //--sz-bg: url("https://webdav.leiax00.cn/dev/pics/bg-load.png");
 }
 
 html.dark {
@@ -18,7 +19,7 @@ html.dark {
   --el-border-color: var(--sz-color-level-3);
   --el-fill-color-blank: var(--el-bg-color);
   --el-menu-hover-bg-color: var(--sz-bg-color-mute);
-
+  --el-menu-bg-color: transparent;
 }
 
 @tailwind base;
@@ -38,10 +39,29 @@ html.dark {
   }
 }
 
+@layer base {
+  .bg-body {
+    &:before {
+      content: "";
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--sz-bg);
+      background-size: cover;
+      z-index: -1;
+      -webkit-filter: blur(4px);
+      filter: blur(4px);
+    }
+  }
+}
+
 body {
+  @apply bg-body;
   color: var(--text-color);
-  background: var(--sz-bg);
-  background-size: cover;
+  &:before {
+    @apply fixed transform scale-105;
+  }
 }
 html, body, #app, .app {
   @apply h-full m-0;

@@ -51,7 +51,11 @@ const route = useRoute()
   }
   .aside-main {
     @apply absolute z-50 h-full shadow-aside-red-right;
-    background: var(--sz-bg);
+    @apply bg-body;
+
+    &:before {
+      @apply absolute;
+    }
   }
   .el-footer {
     @apply pb-2;
