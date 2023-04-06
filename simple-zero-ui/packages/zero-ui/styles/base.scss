@@ -82,8 +82,8 @@ html.dark {
 body {
   @apply bg-body;
   color: var(--text-color);
-  &:before { // 毛玻璃背景
-    @apply fixed transform scale-105;
+  &:before { // 毛玻璃背景 y方向150避免移动端滚动时底部出现白边
+    @apply fixed transform scale-x-105 scale-y-150;
   }
 }
 html, body, #app, .app {
