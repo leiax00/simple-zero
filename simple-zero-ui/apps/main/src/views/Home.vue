@@ -1,5 +1,6 @@
 <template>
   <div class="main-home">
+    <engin-search class="search" />
     <div class="route-list">
       <sz-link
         v-for="item in appStore.config.menus"
@@ -22,8 +23,11 @@ const appStore = useApp()
 
 <style scoped lang="scss">
 .main-home {
+  .search {
+    @apply m-auto w-full lg:w-1/2;
+  }
   .route-list {
-    @apply common-grid-1;
+    @apply common-grid-1 mt-4 sm:mt-8 md:mt-12 lg:mt-16;
     .sz-link {
       @apply w-full;
     }

@@ -4,3 +4,7 @@
 .gitter-open-chat-button {
   @apply px-4 py-1;
 }
+.splitpanes__splitter {
+  width: 2px;
+  background-color: var(--el-border-color);
+}

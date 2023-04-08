@@ -5,11 +5,11 @@ export const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     component: Layout,
-    redirect: '/index',
+    redirect: '/home',
     name: 'main',
     children: [
       {
-        path: '/index',
+        path: '/home',
         component: () => import('@/views/Home.vue'),
         meta: { title: 'Home', roles: [] },
       },
@@ -20,6 +20,7 @@ export const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/error/Page404.vue'),
     meta: { hidden: true },
   },
+  { path: '/index', name: 'home', redirect: '/home' },
   { path: '/:pathMatch(.*)*', name: 'not-found', redirect: '/404' },
 ]
 

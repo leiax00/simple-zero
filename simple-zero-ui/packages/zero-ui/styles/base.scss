@@ -9,20 +9,29 @@
 
 html.dark {
   --sz-color-level-1: #27272a; // Zinc-800
+  --sz-color-level-1-90: rgba(39, 39, 42, 0.9); // Zinc-800 90%
   --sz-color-level-2: #3f3f46; // Zinc-700
+  --sz-color-level-2-90: rgba(63, 63, 70, 0.9); // Zinc-700 90%
   --sz-color-level-3: #52525b; // Zinc-600
   --sz-color-level-4: #71717a; // Zinc-500
   --sz-color-level-5: #a1a1aa; // Zinc-400
   --sz-bg-color-mute: var(--sz-color-level-2);
 
   --el-bg-color: var(--sz-color-level-1);
+  --el-bg-color-overlay: var(--el-bg-color);
+
   --el-text-color-primary: var(--sz-color-level-5);
+  //--el-text-color-secondary: #5eead4;
+  --el-text-color-regular: var(--sz-color-level-5);
+  --el-text-color-placeholder: var(--sz-color-level-2);
+
   --el-border-color: var(--sz-color-level-4);
-  --el-border-color-light: var(--sz-color-level-3);
+  --el-border-color-light: var(--sz-color-level-4);
+  --el-border-color-lighter: var(--sz-color-level-4);
 
   --el-fill-color-extra-light: var(--sz-color-level-5);
   --el-fill-color-lighter: var(--sz-color-level-4);
-  --el-fill-color-light: var(--sz-color-level-4);
+  --el-fill-color-light: var(--sz-color-level-2);
   --el-fill-color: var(--sz-color-level-3);
   --el-fill-color-dark: var(--sz-color-level-2);
   --el-fill-color-darker: var(--sz-color-level-2);
@@ -30,6 +39,8 @@ html.dark {
 
   --el-menu-hover-bg-color: var(--sz-bg-color-mute);
   --el-menu-bg-color: transparent;
+
+  --el-mask-color: var(--sz-color-level-1-90);
 }
 
 @tailwind base;
