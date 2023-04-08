@@ -6,6 +6,7 @@
 import { computed, onMounted, toRefs } from 'vue'
 
 import { strIntercept } from '@leiax00/utils'
+import colors from 'tailwindcss/colors'
 import type { J2RankBook } from '@/common'
 import { echarts, toChartData } from '@/common'
 
@@ -77,6 +78,9 @@ function constructOption(_rawData: any) {
         itemName: 'time',
         tooltip: ['favoriteCount'],
       },
+      lineStyle: {
+        color: colors.emerald['700'],
+      },
     })
   })
 
@@ -102,6 +106,12 @@ function constructOption(_rawData: any) {
     },
     yAxis: {
       name: '收藏数',
+      splitLine: {
+        // 设置 y 轴对齐的线的颜色
+        lineStyle: {
+          color: colors.zinc['700'],
+        },
+      },
     },
     grid: {
       right: 160,
