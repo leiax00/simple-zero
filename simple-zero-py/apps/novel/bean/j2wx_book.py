@@ -18,8 +18,9 @@ class J2Book(BaseModel):
     author_name = CharField()
     cover = CharField()
     size = IntegerField()
-    tags = CharField()
     type = CharField()
+    tags = CharField()
+    status = CharField()
 
     def __hash__(self):
         return hash(f'{self.id}')
@@ -32,17 +33,16 @@ class J2Book(BaseModel):
 
 
 class J2Rank(BaseModel):
-    id = CharField(max_length=32, primary_key=True)
-    rank_id = CharField(max_length=32)
+    rank_id = CharField(max_length=32, primary_key=True)
     channel_key = CharField()
     rank_name = CharField()
     type = CharField(max_length=32)
 
     def __hash__(self):
-        return hash(f'{self.id}')
+        return hash(f'{self.rank_id}')
 
     def __eq__(self, other):
-        return self.id == other.id
+        return self.rank_id == other.rank_id
 
     class Meta:
         table_name = 'j2wx_rank'
@@ -54,6 +54,8 @@ class J2Stat(BaseModel):
     channel_key = CharField()
     favorite_count = IntegerField(default=0)
     ticket_count = IntegerField(default=0)
+    chapter_count = IntegerField(default=0)
+    newest_date = DateTimeField()
 
     def __hash__(self):
         return hash(f'{self.id}:{self.time}')
@@ -117,3 +119,16 @@ class J2Data:
             'stat_list': [item.__dict__ for item in self.stat_list]
         }
         return to_camel_dict(tmp)
+
+
+class J2RankDto:
+    def __init__(self,
+                 rank_id: str = '',
+                 rank_name: str = '',
+                 rank_type: str = '',
+                 novel_ids: list[str] = None
+                 ):
+        self.rank_id = rank_id
+        self.rank_name = rank_name
+        self.rank_type = rank_type
+        self.novel_ids = novel_ids or []

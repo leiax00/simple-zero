@@ -49,6 +49,13 @@ def parse_time(time_str, time_formatter="%Y-%m-%d %H:%M:%S"):
     return int(time.mktime(time.strptime(time_str, time_formatter)) * 1000)
 
 
+def parse_str_2_date(date_str, time_formatter="%Y-%m-%d %H:%M:%S"):
+    """
+    获取时间字符串的毫秒值
+    """
+    return datetime.datetime.strptime(date_str, time_formatter)
+
+
 def compare_time_by_ymd(time1, time2=today_zero()):
     """
     通过年月日，比较时间，是否是同一天

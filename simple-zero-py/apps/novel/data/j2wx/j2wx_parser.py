@@ -26,7 +26,7 @@ class Collector:
         output_set(self.channel_list)
         output_set(self.novel_list)
         output_set(self.stat_list)
-        output_set(self.mapping_list)
+        logging.info(self.mapping)
         logging.info(f'{"=" * 40}解析结果输出结束{"=" * 40}')
 
 
@@ -36,7 +36,6 @@ class CommonParser:
 
     def collect(self, data, channel_key):
         channel = J2Rank(
-            id=data.get('channelMoreId') or data.get('rankid'),
             rank_id=data.get('rankid'),
             rank_name=data.get('channelName'),
             channel_key=channel_key,
