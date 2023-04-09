@@ -8,6 +8,7 @@ from queue import Queue
 from time import sleep
 
 import aiohttp
+import requests
 
 from utils.async_utils import async_run, get_loop
 from utils.httpHelper import Api, HttpMethod, Header
@@ -34,7 +35,7 @@ class XxlExecutor:
     def _api(self, api: XxlApi):
         return api.value.with_params(domain=self.conf.admin_url, header=self._header)
 
-    async def task_callback(self, rst, task: XxlTask):
+    def task_callback(self, rst, task: XxlTask):
         is_failed = isinstance(rst, str)
         code = 200 if not is_failed else 500
         params = self._api(XxlApi.call_back).get_request_params([{
@@ -43,8 +44,8 @@ class XxlExecutor:
             'handleCode': code,
             'handleMsg': f'{rst if is_failed else "Execute OK!"}',
         }])
-        async with aiohttp.request(**params) as resp:
-            logging.info(f'xxl-job: {task.job_id} callback rst: {await resp.json()}')
+        with requests.request(**params) as resp:
+            logging.info(f'xxl-job: {task.job_id} callback rst: {resp.json()}')
 
     async def register(self):
         params = self._api(XxlApi.register).get_request_params({
@@ -72,8 +73,8 @@ class XxlExecutor:
         self._jobs = {**self._jobs, **jobs}
         return self
 
-    async def execute(self, task: XxlTask, semaphore=None):
-        async def execute_job():
+    def execute(self, task: XxlTask):
+        def execute_job():
             logging.info(f'start to execute task: {task}')
             rst = True
             try:
@@ -85,32 +86,24 @@ class XxlExecutor:
                 else:
                     rst = job(task.job_params)
             finally:
-                await self.task_callback(rst, task)
+                self.task_callback(rst, task)
                 logging.info(f'end to execute task! job_id: {task.job_id}, log_id: {task.log_id}, result: {rst}')
             return rst
 
-        if semaphore is None:
-            return await execute_job()
-        else:
-            async with semaphore:
-                return await execute_job()
+        execute_job()
 
     def produce_task(self, task: XxlTask):
         self._running_jobs.append(task)
         logging.info(f'push task to execute list, task: {task}')
 
     def consume_task(self):
-        loop = get_loop()
-        semaphore = asyncio.Semaphore(self.conf.consume_async_num)
         while True:
             try:
                 if len(self._running_jobs) > 0:
                     jobs, self._running_jobs = self._running_jobs, []
-                    loop.run_until_complete(
-                        asyncio.gather(*[
-                            loop.create_task(self.execute(item, semaphore)) for item in jobs
-                        ])
-                    )
+                    for job in jobs:
+                        threading.Thread(target=self.execute, args=(job,), daemon=True,
+                                         name=f'xxl-job-{job.job_id}').start()
                 else:
                     sleep(self.conf.consume_period)
             except Exception as e:
