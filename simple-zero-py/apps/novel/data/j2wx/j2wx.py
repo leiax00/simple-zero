@@ -169,13 +169,15 @@ class J2wxPuller:
                         status=data.get('novelStep')
                     ))
                     ticket = re.sub(r'\D', '', data.get('ranking', '0'))
-                    favorite = data.get('novelbefavoritedcount')
+                    favorite = re.sub(r'\D', '', data.get('novelbefavoritedcount', '0'))
+                    chapter = re.sub(r'\D', '', data.get('novelChapterCount', '0'))
                     self.collector.stat_list.add(J2Stat(
                         id=novel_id,
                         time=self.collector.now,
                         channel_key=self.channel_key,
                         favorite_count=favorite if favorite != '' else 0,
                         ticket_count=int(ticket) if ticket != '' else 0,
+                        chapter_count=chapter if chapter != '' else 0,
                         newest_date=parse_str_2_date(data.get('renewDate'))
                     ))
         except Exception as e:

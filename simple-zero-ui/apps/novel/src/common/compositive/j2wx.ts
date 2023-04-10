@@ -1,5 +1,4 @@
 export type J2Rank = {
-  id: string
   rankId: string
   channelKey: string
   rankName: string

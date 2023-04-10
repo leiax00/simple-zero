@@ -91,12 +91,16 @@ class J2StatDto:
         self.score = 0
         self.favorite_count = 0
         self.ticket_count = 0
+        self.chapter_count = 0
+        self.newest_date = datetime.datetime.now()
 
     def with_param(self, stat: J2Stat = None, score: int = 0):
         if stat is not None:
             self.time = stat.time
             self.favorite_count = stat.favorite_count
             self.ticket_count = stat.ticket_count
+            self.chapter_count = stat.chapter_count
+            self.newest_date = stat.newest_date
         self.score = score
         return self
 

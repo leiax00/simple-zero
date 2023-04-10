@@ -26,8 +26,8 @@ class J2wxServe:
                 J2RankStat.select()
                 .where(J2RankStat.id == rank_id, J2RankStat.time >= zero)
             )
-            stat_list = list(J2Stat.select().where(J2Stat.id in novel_ids, J2Stat.time >= zero))
-            books = list(J2Book.select().where(J2Book.id in novel_ids))
+            stat_list = list(J2Stat.select().where(J2Stat.id.in_(novel_ids), J2Stat.time >= zero))
+            books = list(J2Book.select().where(J2Book.id.in_(novel_ids)))
 
             # { time: {novel_id: score}, .... }
             rank_stat_map = {item.time: item.to_map() for item in rank_stat_list}

@@ -66,6 +66,8 @@ class J2wxStat:
                 preserve=[
                     J2Stat.favorite_count,
                     J2Stat.ticket_count,
+                    J2Stat.chapter_count,
+                    J2Stat.newest_date
                 ]
             ).returning().execute()  # returning()表示设置返回模型, 否则会返回主键元组, 在shardingsphere分表情况下, 无法正确获取分表名
 

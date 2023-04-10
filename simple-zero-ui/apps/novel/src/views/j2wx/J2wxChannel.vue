@@ -39,6 +39,8 @@
 <script setup lang="ts">
 import { computed, onMounted, reactive } from 'vue'
 import { storeToRefs } from 'pinia'
+import { useSorted } from '@vueuse/core'
+import type { Ref } from 'vue'
 import type { J2Rank, J2RankBook } from '@/common'
 import common from '@/common'
 import { useServe } from '@/store/serve'
@@ -90,7 +92,9 @@ const selectRankShowText = computed(() => {
 
 onMounted(() => {
   common.apis.getJ2wxRankList(channelKey.value).then((resp) => {
-    pageData.rankList = resp.data
+    pageData.rankList = useSorted(resp.data as J2Rank[], (a, b) => {
+      return a.rankId >= b.rankId ? 1 : -1
+    }).value
     pageData.loading = false
   })
 })
