@@ -19,7 +19,7 @@
                 shadow="never"
                 :class="{
                   'rank-item': true,
-                  selected: item.id === pageData.selectRank?.id,
+                  selected: item.rankId === pageData.selectRank?.rankId,
                 }"
                 @click="onSelectRank(item)"
               >
@@ -76,7 +76,7 @@ const onSelectRank = (item: any) => {
   pageData.selectRank = item
   collapseRank(true)
   pageData.selectRankInfo = []
-  common.apis.getJ2wxRankInfo(channelKey.value, item.id).then((resp) => {
+  common.apis.getJ2wxRankInfo(channelKey.value, item.rankId).then((resp) => {
     pageData.selectRankInfo = resp.data
   })
 }
