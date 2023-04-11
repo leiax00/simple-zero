@@ -107,6 +107,19 @@ importers:
       vite: 3.2.5
       vite-plugin-qiankun: 1.0.15_7g3uriyb4kqeq2yf2bucr7z2ea
 
+  apps/template:
+    specifiers:
+      '@leiax00/zero-ui': workspace:*
+      typescript: ^4.9.3
+      vite: ^3.2.5
+      vite-plugin-qiankun: ^1.0.15
+    dependencies:
+      '@leiax00/zero-ui': link:../../packages/zero-ui
+    devDependencies:
+      typescript: 4.9.4
+      vite: 3.2.5
+      vite-plugin-qiankun: 1.0.15_7g3uriyb4kqeq2yf2bucr7z2ea
+
   docs:
     specifiers:
       '@leiax00/zero-ui': workspace:*
