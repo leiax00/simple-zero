@@ -1,11 +1,11 @@
 {
-  "name": "sz-template",
+  "name": "sz-tools",
   "private": true,
   "version": "1.0.2",
   "license": "MIT",
   "scripts": {
-    "start": "vite",
-    "build": "vite build",
+    "start:tools": "vite",
+    "build:tools": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
