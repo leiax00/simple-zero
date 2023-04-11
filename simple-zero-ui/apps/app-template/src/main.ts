@@ -10,7 +10,7 @@ let serve: any = null
 const render = (props: QiankunProps = {}) => {
   const { container } = props
   const app: string | Element =
-    container?.querySelector('#novel-ui') || '#novel-ui' // 避免 id 重复导致微应用挂载失败
+    container?.querySelector('#app-template') || '#app-template' // 避免 id 重复导致微应用挂载失败
   serve = createApp(App)
   serve.use(pinia).use(router).mount(app)
 }
