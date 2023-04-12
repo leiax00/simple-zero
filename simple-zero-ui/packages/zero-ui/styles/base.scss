@@ -1,3 +1,4 @@
+@use "./element/supplement.scss" as *;
 :root {
   --sz-bg-color-mute: #f2f2f2;
   --text-color-light: var(--el-text-color-primary);
@@ -101,4 +102,12 @@ html, body, #app, .app {
   @apply h-full m-0;
   @apply text-base font-normal antialiased ;
   font-family: var(--el-font-family);
+}
+.app {
+  & > div {
+    @apply h-full;
+  }
+  .root-with-no-micro {
+    @apply p-4;
+  }
 }
