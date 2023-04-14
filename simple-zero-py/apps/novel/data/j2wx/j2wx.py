@@ -21,6 +21,12 @@ class J2wxApiManager:
     def __init__(self):
         self.domain = 'https://app-cdn.jjwxc.com'
         self.version = 10
+        self.versionCode = 287
+        self.base_header = {
+            'Referer': f'http://android.jjwxc.net?v={self.versionCode}',
+            'User-Agent': 'Mozilla/5.0 (Linux; Android 12; Mi 10 Pro Build/SKQ1.211006.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/108.0.5359.128 Mobile Safari/537.36/JINJIANG-Android/287(Mi10Pro;Scale/2.75)',
+            'Accept-Encoding': 'gzip, deflate',
+        }
 
     def get_channel_home(self, channel_key):
         return Api(f'bookstore/getFullPageV1', HttpMethod.GET, self.domain).get_request_params(params={
@@ -32,11 +38,29 @@ class J2wxApiManager:
         return Api(f'bookstore/getFullPageV1', HttpMethod.GET, self.domain).get_request_params(params={
             'channelBody': f'{{"{rank_id}":{{"offset":"{offset}","limit":"{limit}"}}}}',
             'channelMore': 1
-        })
+        }, headers=self.base_header)
 
     def get_novel_base_info(self, novel_id):
         return Api(f'/androidapi/novelbasicinfo', HttpMethod.GET, self.domain).get_request_params(params={
             'novelId': novel_id
+        }, headers={
+            **self.base_header,
+            'reload': 'true',
+            'cacheShowed': 'true',
+        })
+
+    def get_novel_stat(self, novel_id):
+        return Api(f'/androidapi/getnovelOtherInfo', HttpMethod.GET, self.domain).get_request_params(params={
+            'versionCode': self.versionCode,
+            'novelId': novel_id,
+            'type': 'novelbasicinfo'
+        }, headers={
+            **self.base_header,
+            'VERSIONTYPE': 'reading',
+            'versiontype': 'reading',
+            'source': 'android',
+            'versionCode': f'{self.versionCode}',
+            'Version-Code': f'{self.versionCode}',
         })
 
 
@@ -150,38 +174,51 @@ class J2wxPuller:
             await asyncio.gather(*tasks)
 
     async def pull_novel_info(self, session, semaphore, novel_id):
-        try:
-            async with semaphore:
-                params = self.api.get_novel_base_info(novel_id)
-                resp = await session.request(**params, ssl=False)
-                data = await resp.text()
-                data = json.loads(data)
-                async with self.lock:
-                    self.collector.novel_list.add(J2Book(
-                        id=novel_id,
-                        name=data.get('novelName'),
-                        author_id=data.get('authorId'),
-                        author_name=data.get('authorName'),
-                        cover=data.get('novelCover'),
-                        size=int(data.get('novelSize', '0').replace(',', '')),
-                        tags=data.get('novelTags'),
-                        type=data.get('novelClass'),
-                        status=data.get('novelStep')
-                    ))
-                    ticket = re.sub(r'\D', '', data.get('ranking', '0'))
-                    favorite = re.sub(r'\D', '', data.get('novelbefavoritedcount', '0'))
-                    chapter = re.sub(r'\D', '', data.get('novelChapterCount', '0'))
-                    self.collector.stat_list.add(J2Stat(
-                        id=novel_id,
-                        time=self.collector.now,
-                        channel_key=self.channel_key,
-                        favorite_count=favorite if favorite != '' else 0,
-                        ticket_count=int(ticket) if ticket != '' else 0,
-                        chapter_count=chapter if chapter != '' else 0,
-                        newest_date=parse_str_2_date(data.get('renewDate'))
-                    ))
-        except Exception as e:
-            logging.error(f'Failed to get novel info, id: {novel_id}, err: {e}')
+        retry = 3
+        while retry > 0:
+            try:
+                async with semaphore:
+                    stat_p = self.api.get_novel_stat(novel_id)
+                    stat_resp = await session.request(**stat_p, ssl=False)
+                    stat_data = await stat_resp.text()
+                    stat_data = json.loads(stat_data)
+                    params = self.api.get_novel_base_info(novel_id)
+                    resp = await session.request(**params, ssl=False)
+                    data = await resp.text()
+                    data = json.loads(data)
+                    async with self.lock:
+                        self.collector.novel_list.add(J2Book(
+                            id=novel_id,
+                            name=data.get('novelName'),
+                            author_id=data.get('authorId'),
+                            author_name=data.get('authorName'),
+                            cover=data.get('novelCover'),
+                            size=int(data.get('novelSize', '0').replace(',', '')),
+                            tags=data.get('novelTags'),
+                            type=data.get('novelClass'),
+                            status=data.get('novelStep')
+                        ))
+                        ticket = re.sub(r'\D', '', stat_data.get('ranking', '0'))
+                        favorite = re.sub(r'\D', '', stat_data.get('novelbefavoritedcount', '0'))
+                        chapter = re.sub(r'\D', '', data.get('novelChapterCount', '0'))
+                        self.collector.stat_list.add(J2Stat(
+                            id=novel_id,
+                            time=self.collector.now,
+                            channel_key=self.channel_key,
+                            favorite_count=int(favorite) if favorite != '' else 0,
+                            ticket_count=int(ticket) if ticket != '' else 0,
+                            chapter_count=int(chapter) if chapter != '' else 0,
+                            newest_date=parse_str_2_date(data.get('renewDate'))
+                        ))
+                    if retry < 3:
+                        logging.info(f'retry to pull novel: {novel_id} success')
+                    break
+            except Exception as e:
+                retry -= 1
+                logging.error(f'Failed to get novel info, id: {novel_id}, remaining retry_count: {retry}, err: {e}',
+                              stack_info=True, exc_info=True)
+        else:
+            logging.error(f'Failed to get novel info, id: {novel_id}')
 
     @staticmethod
     def get_pinyin_name(name):

@@ -49,7 +49,7 @@ class Api:
             'json': json_,
             'data': data,
             'params': params,
-            'headers': self.header.to_dict()
+            'headers': kwargs.get('headers', self.header.to_dict())
         }
 
 
