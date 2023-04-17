@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/gin-gonic/gin"
 	api "github.com/leiax00/simple-zero/api/config/v1"
+	"github.com/leiax00/simple-zero/app/config/internal/conf"
 	"github.com/leiax00/simple-zero/app/config/internal/service"
 	"github.com/leiax00/simple-zero/pkg/logger"
 	"go.uber.org/zap"
@@ -16,12 +17,12 @@ import (
 	"time"
 )
 
-func NewHttpServer(logger *logger.Logger, configServer *service.ConfigService) *HttpServer {
+func NewHttpServer(logger *logger.Logger, conf *conf.Config, configServer *service.ConfigService) *HttpServer {
 	engine := gin.New()
 	engine.Use(GinLogger(logger), GinRecovery(logger, true))
 	api.RegisterConfigHttpServer(engine, configServer)
 	h := &HttpServer{BaseContext: context.Background()}
-	h.Addr = ":80"
+	h.Addr = conf.Server.Http.Addr
 	h.Handler = engine
 	return h
 }

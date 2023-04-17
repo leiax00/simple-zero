@@ -25,7 +25,7 @@ func initApp(etcdAddrList []string, localConfPath string) *App {
 	configRepo := data.NewConfigRepo(client)
 	configUseCase := biz.NewConfiUseCase(configRepo, loggerLogger)
 	configService := service.NewConfigService(configUseCase)
-	httpServer := server.NewHttpServer(loggerLogger, configService)
+	httpServer := server.NewHttpServer(loggerLogger, config, configService)
 	registry := server.NewEtcdRegister(client)
 	app := newApp(config, loggerLogger, httpServer, registry)
 	return app
