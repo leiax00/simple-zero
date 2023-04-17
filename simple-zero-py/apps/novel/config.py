@@ -9,7 +9,7 @@ config = {
     'host': '0.0.0.0',
     'port': 80,
     'xxl-config': {
-        'admin_url': 'http://10.1.0.7:15000/',
+        'admin_url': 'https://xxl.leiax00.cn/',
         'access_token': 'default_token',
         'executor_name': 'xxl-novel-executor',
         'registry_url': 'http://10.1.0.1:11000/',
