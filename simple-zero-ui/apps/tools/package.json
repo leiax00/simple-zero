@@ -9,11 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@leiax00/zero-ui": "workspace:*"
+    "@leiax00/zero-ui": "workspace:*",
+    "chroma-js": "^2.4.2",
+    "vue-clipboard3": "^2.0.0"
   },
   "devDependencies": {
-    "vite-plugin-qiankun": "^1.0.15",
     "typescript": "^4.9.3",
-    "vite": "^3.2.5"
+    "vite": "^3.2.5",
+    "vite-plugin-qiankun": "^1.0.15"
   }
 }

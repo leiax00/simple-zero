@@ -10,6 +10,11 @@ export const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/home/Home.vue'),
         meta: { title: 'Home', roles: [] },
       },
+      {
+        path: '/color',
+        component: () => import('@/views/colorTool/ColorTool.vue'),
+        meta: { title: 'Color View', roles: [] },
+      },
     ],
   },
 ]

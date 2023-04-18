@@ -1,11 +1,5 @@
 @use "@leiax00/zero-ui/styles/base";
 
-#novel-ui {
-  & > div {
-    @apply h-full;
-  }
-}
-
 .title {
   @apply font-bold text-xl;
 }

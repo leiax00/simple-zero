@@ -123,11 +123,15 @@ importers:
   apps/tools:
     specifiers:
       '@leiax00/zero-ui': workspace:*
+      chroma-js: ^2.4.2
       typescript: ^4.9.3
       vite: ^3.2.5
       vite-plugin-qiankun: ^1.0.15
+      vue-clipboard3: ^2.0.0
     dependencies:
       '@leiax00/zero-ui': link:../../packages/zero-ui
+      chroma-js: 2.4.2
+      vue-clipboard3: 2.0.0
     devDependencies:
       typescript: 4.9.4
       vite: 3.2.5
@@ -1681,6 +1685,10 @@ packages:
       fsevents: 2.3.2
     dev: true
 
+  /chroma-js/2.4.2:
+    resolution: {integrity: sha512-U9eDw6+wt7V8z5NncY2jJfZa+hUH8XEj8FQHgFJTrUFnJfXYf4Ml4adI2vXZOjqRDpFWtYVWypDfZwnJ+HIR4A==}
+    dev: false
+
   /ci-info/3.7.0:
     resolution: {integrity: sha512-2CpRNYmImPx+RXKLq6jko/L07phmS9I02TyqkcNU20GCF/GgaWvc58hPtjxDX8lPpkdwc9sNh72V9k00S7ezog==}
     engines: {node: '>=8'}
@@ -1691,6 +1699,14 @@ packages:
     engines: {node: '>=4'}
     dependencies:
       escape-string-regexp: 1.0.5
+    dev: false
+
+  /clipboard/2.0.11:
+    resolution: {integrity: sha512-C+0bbOqkezLIsmWSvlsXS0Q0bmkugu7jcfMIACB+RDEntIzQIkdr148we28AfSloQLRdZlYL/QYyrq05j/3Faw==}
+    dependencies:
+      good-listener: 1.2.2
+      select: 1.1.2
+      tiny-emitter: 2.1.0
     dev: false
 
   /code-block-writer/11.0.3:
@@ -1888,6 +1904,10 @@ packages:
   /delayed-stream/1.0.0:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
     engines: {node: '>=0.4.0'}
+    dev: false
+
+  /delegate/3.2.0:
+    resolution: {integrity: sha512-IofjkYBZaZivn0V8nnsMJGBr4jVLxHDheKSW88PyxS5QC4Vo9ZbZVvhzlSxY87fVq3STR6r+4cGepyHkcWOQSw==}
     dev: false
 
   /detective/4.7.1:
@@ -2848,6 +2868,12 @@ packages:
       ignore: 5.2.4
       merge2: 1.4.1
       slash: 3.0.0
+    dev: false
+
+  /good-listener/1.2.2:
+    resolution: {integrity: sha512-goW1b+d9q/HIwbVYZzZ6SsTr4IgE+WA44A0GmPIQstuOrgsFcT7VEJ48nmr9GaRtNu0XTKacFLGnBPAM6Afouw==}
+    dependencies:
+      delegate: 3.2.0
     dev: false
 
   /gopd/1.0.1:
@@ -4044,6 +4070,10 @@ packages:
     resolution: {integrity: sha512-M9gnWtn3J0W+UhJOHmBxBTwv8mZCan5i1Himp60t6vvZcor0wr+IM0URKmIglsWJ7bRujNAVVN77fp+uZaWoKg==}
     dev: true
 
+  /select/1.1.2:
+    resolution: {integrity: sha512-OwpTSOfy6xSs1+pwcNrv0RBMOzI39Lp3qQKUTPVVPRjCdNa5JH/oPRiqsesIskK8TVgmRiHwO4KXlV2Li9dANA==}
+    dev: false
+
   /semver/5.7.1:
     resolution: {integrity: sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==}
     hasBin: true
@@ -4290,6 +4320,10 @@ packages:
 
   /through/2.3.8:
     resolution: {integrity: sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==}
+    dev: false
+
+  /tiny-emitter/2.1.0:
+    resolution: {integrity: sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==}
     dev: false
 
   /to-fast-properties/2.0.0:
@@ -4754,6 +4788,12 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
+
+  /vue-clipboard3/2.0.0:
+    resolution: {integrity: sha512-Q9S7dzWGax7LN5iiSPcu/K1GGm2gcBBlYwmMsUc5/16N6w90cbKow3FnPmPs95sungns4yvd9/+JhbAznECS2A==}
+    dependencies:
+      clipboard: 2.0.11
+    dev: false
 
   /vue-demi/0.13.11_vue@3.2.45:
     resolution: {integrity: sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==}

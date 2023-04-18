@@ -1,5 +1,5 @@
 <template>
-  <div :id="route.meta.serve.name" />
+  <div :id="route.meta.serve.name" class="app-view" />
 </template>
 
 <script setup lang="ts">
@@ -42,4 +42,11 @@ onUnmounted(() => {
 })
 </script>
 
-<style scoped></style>
+<style lang="scss">
+.app-view {
+  @apply w-full h-full;
+  & > div {
+    @apply w-full h-full;
+  }
+}
+</style>
