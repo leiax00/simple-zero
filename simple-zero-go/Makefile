@@ -1,5 +1,4 @@
 GOPATH:=$(shell go env GOPATH)
-HUB_URI=$(shell echo hub.leiax00.cn)
 HUB_REPO=$(shell echo leiax00)
 VERSION=$(shell git describe --tags --always)
 APP_RELATIVE_PATH=$(shell a=`basename $$PWD` && echo $$a)
@@ -8,7 +7,7 @@ PKG_FILES = $(shell find ../../pkg -name *.proto)
 API_FILES = $(shell cd ../../api/$(APP_RELATIVE_PATH) && find . -name *.proto)
 COMMON_FILES = $(shell cd ../../api/common && find . -name *.proto)
 APP_NAME=$(shell echo sz-$(APP_RELATIVE_PATH))
-DOCKER_IMAGE=$(shell echo $(HUB_URI)/$(HUB_REPO)/$(APP_NAME):$(VERSION))
+DOCKER_IMAGE=$(shell echo $(HUB_REPO)/$(APP_NAME):$(VERSION))
 DOCKER_PLATFORM=linux/arm64,linux/amd64
 PLATFORM_ACTION=push
 
