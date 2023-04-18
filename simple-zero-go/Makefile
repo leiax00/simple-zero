@@ -104,6 +104,7 @@ docker-multi:
     		--build-arg VERSION=$(VERSION) \
     		--platform=$(DOCKER_PLATFORM) \
     		--progress=plain \
+    		--no-cache \
     		-t $(DOCKER_IMAGE) . --$(PLATFORM_ACTION)
 
 # show help
