@@ -12,6 +12,6 @@ requests
 chardet
 lxml
 peewee
-psycopg2
+psycopg2-binary
 redis
 Scrapy
