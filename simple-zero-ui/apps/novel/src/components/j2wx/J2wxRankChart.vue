@@ -103,7 +103,7 @@ function constructOption(_rawData: any) {
       datasetId,
       showSymbol: false,
       name: book.name,
-      coordinateSystem: 'cartesian2d',
+      // coordinateSystem: 'cartesian2d',
       endLabel: {
         show: true,
         formatter(params: any) {
