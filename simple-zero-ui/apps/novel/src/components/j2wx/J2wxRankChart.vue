@@ -3,10 +3,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, toRefs } from 'vue'
+import { computed, onMounted, reactive, toRefs } from 'vue'
 
 import { strIntercept } from '@leiax00/utils'
 import colors from 'tailwindcss/colors'
+import { useDark, useThrottleFn, useWindowSize } from '@vueuse/core'
 import type { J2RankBook } from '@/common'
 import { echarts, toChartData } from '@/common'
 
@@ -21,6 +22,13 @@ const props = defineProps({
     default: false,
   },
 })
+
+const isDark = useDark({
+  storageKey: 'theme-appearance',
+})
+
+const { width, height } = useWindowSize()
+
 const { rankData, isIncrement } = toRefs(props)
 const chartData = computed(() => {
   return toChartData(rankData.value, isIncrement.value)
@@ -30,14 +38,50 @@ const books = computed(() => {
 })
 
 const chartRoot = ref(null)
-onMounted(() => {
-  const myChart = echarts.init(chartRoot.value)
-  const option = constructOption(chartData.value)
-  myChart.setOption(option)
-  window.addEventListener('resize', () => {
-    myChart.resize()
-  })
+
+const pageData = reactive({
+  myChart: null,
+  option: {},
 })
+
+onMounted(() => {
+  pageData.myChart = echarts.init(chartRoot.value)
+  pageData.option = constructOption(chartData.value)
+  pageData.myChart.setOption(pageData.option)
+})
+
+watch(isDark, () => {
+  if (isDark.value) {
+    pageData.option.yAxis.splitLine.lineStyle.color = colors.zinc['700']
+  } else {
+    pageData.option.yAxis.splitLine.lineStyle.color = colors.zinc['300']
+  }
+  pageData.option.series?.forEach((item) => {
+    item.lineStyle.color = isDark.value
+      ? colors.emerald['500']
+      : colors.emerald['500']
+    item.endLabel.color = isDark.value
+      ? colors.emerald['500']
+      : colors.emerald['500']
+  })
+  pageData.myChart.setOption(pageData.option)
+})
+
+watch(
+  width,
+  useThrottleFn(
+    () => {
+      pageData.myChart.dispose()
+      const newChart = echarts.init(chartRoot.value)
+      newChart.setOption(pageData.option)
+      newChart.resize()
+      pageData.myChart = newChart
+    },
+    500,
+    true,
+    false
+  )
+)
 
 function constructOption(_rawData: any) {
   const datasetWithFilters: echarts.DatasetComponentOption[] = []
@@ -59,11 +103,13 @@ function constructOption(_rawData: any) {
       datasetId,
       showSymbol: false,
       name: book.name,
+      coordinateSystem: 'cartesian2d',
       endLabel: {
         show: true,
         formatter(params: any) {
           return `${strIntercept(book.name, 10)}: ${params.value[4]}`
         },
+        color: isDark.value ? colors.emerald['400'] : colors.emerald['500'],
       },
       labelLayout: {
         moveOverlap: 'shiftY',
@@ -79,7 +125,7 @@ function constructOption(_rawData: any) {
         tooltip: ['favoriteCount'],
       },
       lineStyle: {
-        color: colors.emerald['700'],
+        color: isDark.value ? colors.emerald['500'] : colors.emerald['500'],
       },
     })
   })
@@ -105,11 +151,12 @@ function constructOption(_rawData: any) {
       nameLocation: 'middle',
     },
     yAxis: {
-      name: '收藏数',
+      type: 'value',
+      name: '增量收藏数',
       splitLine: {
         // 设置 y 轴对齐的线的颜色
         lineStyle: {
-          color: colors.zinc['700'],
+          color: isDark.value ? colors.zinc['700'] : colors.zinc['300'],
         },
       },
     },
