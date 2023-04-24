@@ -31,6 +31,15 @@ import useClipboard from 'vue-clipboard3'
 import { ElMessage } from 'element-plus'
 
 defineOptions({ name: 'ColorLegend' })
+const props = defineProps({
+  pickColor: {
+    type: String,
+    required: true,
+  },
+})
+
+const { pickColor } = toRefs(props)
+
 const { toClipboard } = useClipboard()
 
 const copyColor = ref(true)
@@ -40,6 +49,7 @@ const copy = async (colorObj: { key: string; no: string; color: string }) => {
       ? colorObj.color
       : `${colorObj.key}-${colorObj.no}`
     await toClipboard(content)
+    pickColor.value = colorObj.color
     ElMessage({
       showClose: true,
       message: `color: ${colorObj.color} copied!`,

@@ -2,8 +2,8 @@
   <div class="color-main">
     <div class="title-level-1">颜色选择与计算</div>
     <div class="content-wrapper">
-      <color-calc-view class="w-full" />
-      <color-legend class="w-full" />
+      <color-legend class="w-full" :pick-color="pickColor" />
+      <color-calc-view class="w-full" :pick-color="pickColor" />
     </div>
   </div>
 </template>
@@ -13,6 +13,7 @@ import ColorLegend from './ColorLegend.vue'
 import ColorCalcView from './ColorCalcView.vue'
 
 defineOptions({ name: 'ColorTool' })
+const pickColor = ref('#ffffff')
 </script>
 
 <style scoped lang="scss">

@@ -44,7 +44,10 @@ export function formatRank(rankItem: J2RankBook, withDelta = true): string {
     return `${score}`
   }
   const prevScore = rankItem.statList[0].score
-  return `${score}(${score - prevScore})`
+  // 时间正序, 因此今早凌晨 - 当前排名 = delta
+  // 凌晨排名 100, 当前排名 99, 则 delta = 100 - 99 = +1
+  // 凌晨排名 100, 当前排名 101, 则 delta = 100 - 101 = -1
+  return `${score}(${prevScore - score})`
 }
 
 /**
