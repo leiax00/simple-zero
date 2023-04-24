@@ -104,20 +104,26 @@ class J2wxPuller:
                 for item in data.get('data'):
                     t = item.get('channelName', '')
                     for item1 in item.get('list'):
-                        rank_name = f"{item1.get('channelName', '')}({'连载' if t == 'serial' else '完结'})"
+                        # 自然榜的数据
+                        rank_name = f"{item1.get('channelName', '')}({'连载' if t == 'serial' else '完结'}.自然)"
                         rank_id = item1.get('channelMoreId', '')
                         tmps.append(J2RankDto(rank_id, rank_name, rank_type))
+                        # 首页数据中的榜单数据
+                        rank_name_2 = f"{item1.get('channelName', '')}({'连载' if t == 'serial' else '完结'})"
+                        tmps.append(J2RankDto(self.get_pinyin_name(rank_name_2), rank_name_2, rank_type,
+                                              [item2.get('novelId') for item2 in item1.get('data', [])]))
             elif rank_type == 'rankings':
                 for item in data.get('data'):
                     rank_name = item.get('channelName', '')
                     rank_id = item.get('more').get('channelMoreId', '')
-                    if rank_id == '':
-                        tmps.append(
-                            J2RankDto(self.get_pinyin_name(rank_name), rank_name, rank_type,
-                                      [item1.get('novelId') for item1 in item.get('list')])
-                        )
-                        continue
-                    tmps.append(J2RankDto(rank_id, rank_name, rank_type))
+                    # 首页数据中的榜单数据
+                    tmps.append(
+                        J2RankDto(self.get_pinyin_name(rank_name), rank_name, rank_type,
+                                  [item1.get('novelId') for item1 in item.get('list', [])])
+                    )
+                    if rank_id != '':
+                        # 自然榜的数据
+                        tmps.append(J2RankDto(rank_id, f'{rank_name}.自然', rank_type))
             else:
                 ran_name = data.get('channelName')
                 rank_id = data.get('rankid', '')
