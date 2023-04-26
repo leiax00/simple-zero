@@ -93,7 +93,8 @@ const selectRankShowText = computed(() => {
 onMounted(() => {
   common.apis.getJ2wxRankList(channelKey.value).then((resp) => {
     pageData.rankList = useSorted(resp.data as J2Rank[], (a, b) => {
-      return a.rankId >= b.rankId ? 1 : -1
+      // xxx.zz, xxx(yy.zz), xxx(yy) 三种情况, 以xxx排序
+      return a.rankName.split(/[(.]/)[0] >= b.rankName.split(/[(.]/)[0] ? -1 : 1
     }).value
     pageData.loading = false
   })

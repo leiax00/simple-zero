@@ -62,7 +62,7 @@ function getPlugins(mode: string): any {
 function getServer() {
   return {
     host: '0.0.0.0',
-    port: 10001,
+    port: 80,
     strictPort: false, // 端口占用是否进行下一个端口尝试
     headers: {
       'Access-Control-Allow-Origin': '*',
