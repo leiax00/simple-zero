@@ -1,17 +1,17 @@
 import { defineStore } from 'pinia'
 import { useScriptTag } from '@vueuse/core'
-import { isEmptyStr } from '@leiax00/utils'
 import type { StoreDefinition } from 'pinia'
 import type { App } from 'vue'
+import type { EtcdConf } from '@/beans'
 
 export const useApp: StoreDefinition = defineStore('app', {
   state: (): {
-    config: any
+    config: EtcdConf
     app?: App<Element>
     uiCtl: any
   } => {
     return {
-      config: {},
+      config: { menus: [], serves: [] },
       app: undefined,
       uiCtl: {
         showAside: false,
@@ -21,7 +21,7 @@ export const useApp: StoreDefinition = defineStore('app', {
   },
   getters: {
     picUri(): string {
-      return `${this.config.common.static}/pics`
+      return `${this.config.common?.static}/pics`
     },
     logoUrl(): string {
       return `${this.picUri}/logo-simple_zero.png`
@@ -34,7 +34,7 @@ export const useApp: StoreDefinition = defineStore('app', {
     fetchAppList() {
       return this.config.serves || []
     },
-    setConfig(conf: any) {
+    setConfig(conf: EtcdConf) {
       this.config = conf
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       this.loadSvgSrc().then(() => {})
@@ -42,9 +42,9 @@ export const useApp: StoreDefinition = defineStore('app', {
     async loadSvgSrc(cb?: () => void) {
       if (!this.uiCtl.isLoaded4svgSrc) {
         const { load } = useScriptTag(
-          this.config.common.svgUri,
+          this.config.common?.svgUri || '',
           // on script tag loaded.
-          (el: HTMLScriptElement) => {
+          () => {
             cb && cb()
           },
           { manual: true }
@@ -52,13 +52,6 @@ export const useApp: StoreDefinition = defineStore('app', {
         await load()
         this.uiCtl.isLoaded4svgSrc = true
       }
-    },
-    getPicUrl(params: any) {
-      const { base, opts } = this.config.app.picCdn
-      if (isEmptyStr(opts.pic) || opts.pic.trim() === '/') {
-        return `${base}/${params}`
-      }
-      return `${this.picUri}/${params}`
     },
   },
 })

@@ -9,23 +9,24 @@
     <div class="aside-main flex-grow pt-6">
       <el-scrollbar>
         <el-menu :default-active="activeRoute">
-          <el-menu-item
-            v-for="item in appConf.config.menus"
-            :key="item.id"
-            :index="item.path"
-            @click="openMenuItem(item)"
-          >
-            {{ item.name }}
-          </el-menu-item>
+          <template v-for="menuGroup in config.menus">
+            <el-menu-item
+              v-for="item in menuGroup.data"
+              :key="item.id"
+              :index="item.path"
+              @click="openMenuItem(item)"
+            >
+              {{ item.name }}
+            </el-menu-item>
+          </template>
         </el-menu>
       </el-scrollbar>
     </div>
-    <div class="aside-footer" @click="appConf.uiCtl.showAside = false">
-      ⬅ 收起
-    </div>
+    <div class="aside-footer" @click="uiCtl.showAside = false">⬅ 收起</div>
   </div>
 </template>
 <script setup lang="ts">
+import type { EtcdConf } from '@/beans'
 import { useApp } from '@/store/app'
 
 defineOptions({
@@ -33,17 +34,21 @@ defineOptions({
 })
 const appConf = useApp()
 const logoUrl = appConf.logoUrl
+const uiCtl = appConf.uiCtl
+const config = appConf.config as EtcdConf
 
 const router = useRouter()
 const activeRoute = computed(() => {
   let startRoutePath = '/'
-  for (const item of appConf.config.menus) {
-    if (item.path === router.currentRoute.value.path) {
-      return item.path
-    }
-    if (router.currentRoute.value.path.startsWith(item.path)) {
-      if (item.path.length > startRoutePath.length) {
-        startRoutePath = item.path
+  for (const menuGroup of config.menus) {
+    for (const menu of menuGroup.data) {
+      if (menu.path === router.currentRoute.value.path) {
+        return menu.path
+      }
+      if (router.currentRoute.value.path.startsWith(menu.path)) {
+        if (menu.path.length > startRoutePath.length) {
+          startRoutePath = menu.path
+        }
       }
     }
   }

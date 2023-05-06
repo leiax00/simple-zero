@@ -46,8 +46,8 @@ defineOptions({
 const appStore = useApp()
 const logoUrl = appStore.logoUrl
 const pageData = reactive({
-  firstRun: appStore.config.common.firstRun,
-  copyRightSn: appStore.config.common.copyright,
+  firstRun: appStore.config.common?.firstRun,
+  copyRightSn: appStore.config.common?.copyright,
   copyright: 'Lei.AoX Powered by JcTec',
   selfCopyright:
     '版权说明：[本网站所有内容均收集于互联网或自己创作,方便于网友与自己学习交流，如有侵权，请留言，立即处理]',

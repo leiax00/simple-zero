@@ -1,5 +1,6 @@
 import CryptoJS from 'crypto-js'
 import axios from 'axios'
+import type { EtcdConf } from '@/beans'
 
 export async function loadAppConf() {
   const { Base64, Utf8 } = CryptoJS.enc
@@ -22,14 +23,14 @@ export async function loadAppConf() {
   const resp = await axios.get(`/config/v1/prop/${key}`, {
     params: { prefix: 1 },
   })
-  const conf: any = { menus: [], serves: [] }
+  const conf: EtcdConf = { menus: [], serves: [] }
   resp.data?.data?.kvs.forEach((item: { key: string; value: string }) => {
     const { key, value } = item
     if (key === 'app/ui/common') {
       conf.common = JSON.parse(value)
     }
     if (key.startsWith('app/ui/menu/')) {
-      conf.menus.push(...JSON.parse(value))
+      conf.menus.push(JSON.parse(value))
     }
     if (key.startsWith('app/ui/serve/')) {
       conf.serves.push(JSON.parse(value))
