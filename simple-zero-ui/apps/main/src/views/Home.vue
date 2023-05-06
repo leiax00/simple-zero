@@ -2,7 +2,7 @@
   <div class="main-home">
     <engin-search class="search" />
     <div class="route-list">
-      <template v-for="menuGroup in config.menus">
+      <template v-for="menuGroup in menus">
         <sz-link
           v-for="item in menuGroup.data"
           :key="item.id"
@@ -17,12 +17,12 @@
 </template>
 
 <script lang="ts" setup>
-import type { EtcdConf } from '@/beans'
+import type { Menu } from '@/beans'
 import { useApp } from '@/store/app'
 
 defineOptions({ name: 'Home' })
 const appStore = useApp()
-const config = appStore.config as EtcdConf
+const menus = appStore.sortedMenus as Menu[]
 </script>
 
 <style scoped lang="scss">

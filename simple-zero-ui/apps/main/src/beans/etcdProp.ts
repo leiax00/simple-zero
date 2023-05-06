@@ -2,6 +2,7 @@ export type Menu = {
   id: string
   name: string
   icon?: string
+  showWeight?: number
   data: MenuItem[]
 }
 
@@ -10,6 +11,7 @@ export type MenuItem = {
   name: string
   path: string
   icon?: string
+  showWeight?: number
   // {@link LINK_TYPE}
   type?: 'route' | 'link' | 'route_2_link' | 'link_2_route'
 }

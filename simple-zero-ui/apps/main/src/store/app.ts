@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { useScriptTag } from '@vueuse/core'
 import type { StoreDefinition } from 'pinia'
 import type { App } from 'vue'
-import type { EtcdConf } from '@/beans'
+import type { EtcdConf, Menu } from '@/beans'
 
 export const useApp: StoreDefinition = defineStore('app', {
   state: (): {
@@ -25,6 +25,18 @@ export const useApp: StoreDefinition = defineStore('app', {
     },
     logoUrl(): string {
       return `${this.picUri}/logo-simple_zero.png`
+    },
+    sortedMenus(): Menu[] {
+      const tmpMenu = this.config.menus.map((item) => {
+        const tmpItem = { ...item }
+        tmpItem.data = item.data.sort((a, b) => {
+          return (b.showWeight || 0) - (a.showWeight || 0)
+        })
+        return tmpItem as Menu
+      })
+      return tmpMenu.sort((a, b) => {
+        return (b.showWeight || 0) - (a.showWeight || 0)
+      })
     },
   },
   actions: {
