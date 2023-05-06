@@ -5,7 +5,7 @@
       <sz-link
         v-for="item in appStore.config.menus"
         :key="item.id"
-        type="route"
+        :type="item.type || 'route'"
         :to="item.path"
       >
         <el-card v-ripple shadow="always">{{ item.name }}</el-card>
