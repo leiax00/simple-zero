@@ -27,7 +27,7 @@ const isDark = useDark({
   storageKey: 'theme-appearance',
 })
 
-const { width, height } = useWindowSize()
+const { width } = useWindowSize()
 
 const { rankData, isIncrement } = toRefs(props)
 const chartData = computed(() => {
@@ -45,9 +45,10 @@ const pageData = reactive({
 })
 
 onMounted(() => {
-  pageData.myChart = echarts.init(chartRoot.value)
+  const myChart = echarts.init(chartRoot.value)
   pageData.option = constructOption(chartData.value)
-  pageData.myChart.setOption(pageData.option)
+  myChart.setOption(pageData.option)
+  pageData.myChart = myChart
 })
 
 watch(isDark, () => {
@@ -64,7 +65,7 @@ watch(isDark, () => {
       ? colors.emerald['500']
       : colors.emerald['500']
   })
-  pageData.myChart.setOption(pageData.option)
+  pageData.myChart?.setOption(pageData.option)
 })
 
 watch(
