@@ -5,6 +5,7 @@ ARG RELATIVE_PATH
 
 COPY . /src
 WORKDIR /src/simple-zero-ui
+RUN npm config set registry https://registry.npmmirror.com/
 RUN ls -al && npm install -g pnpm && pnpm i && \
     pnpm -F sz-${RELATIVE_PATH} build:${RELATIVE_PATH}
 
