@@ -1,8 +1,11 @@
 <template>
   <div class="main-home">
     <engin-search class="search" />
-    <div class="route-list">
-      <template v-for="menuGroup in menus">
+    <template v-for="menuGroup in menus" :key="menuGroup.id">
+      <div class="title-level-2 w-full lg:w-3/4 mx-auto mt-11">
+        {{ menuGroup.name }}
+      </div>
+      <div class="route-list">
         <sz-link
           v-for="item in menuGroup.data"
           :key="item.id"
@@ -11,8 +14,8 @@
         >
           <el-card v-ripple shadow="always">{{ item.name }}</el-card>
         </sz-link>
-      </template>
-    </div>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -31,7 +34,7 @@ const menus = appStore.sortedMenus as Menu[]
     @apply m-auto w-full lg:w-1/2;
   }
   .route-list {
-    @apply common-grid-1 mt-4 sm:mt-8 md:mt-12 lg:mt-16;
+    @apply common-grid-1;
     .sz-link {
       @apply w-full;
     }

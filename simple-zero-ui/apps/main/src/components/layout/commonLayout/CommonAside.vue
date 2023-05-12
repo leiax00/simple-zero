@@ -9,7 +9,7 @@
     <div class="aside-main flex-grow pt-6">
       <el-scrollbar>
         <el-menu :default-active="activeRoute">
-          <template v-for="menuGroup in config.menus">
+          <template v-for="menuGroup in menus">
             <el-menu-item
               v-for="item in menuGroup.data"
               :key="item.id"
@@ -26,21 +26,21 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { EtcdConf } from '@/beans'
+import type { Menu } from '@/beans'
 import { useApp } from '@/store/app'
 
 defineOptions({
   name: 'CommonAside',
 })
-const appConf = useApp()
-const logoUrl = appConf.logoUrl
-const uiCtl = appConf.uiCtl
-const config = appConf.config as EtcdConf
+const appStore = useApp()
+const logoUrl = appStore.logoUrl
+const uiCtl = appStore.uiCtl
+const menus = appStore.sortedMenus as Menu[]
 
 const router = useRouter()
 const activeRoute = computed(() => {
   let startRoutePath = '/'
-  for (const menuGroup of config.menus) {
+  for (const menuGroup of menus) {
     for (const menu of menuGroup.data) {
       if (menu.path === router.currentRoute.value.path) {
         return menu.path
@@ -56,7 +56,7 @@ const activeRoute = computed(() => {
 })
 const openMenuItem = (item: { path: string }) => {
   router.push(item.path)
-  appConf.uiCtl.showAside = false
+  appStore.uiCtl.showAside = false
 }
 </script>
 
