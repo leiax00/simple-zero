@@ -1,5 +1,9 @@
 <template>
-  <el-tabs v-model="data.searchEngin.active" type="border-card">
+  <el-tabs
+    v-model="data.searchEngin.active"
+    type="border-card"
+    @tab-change="focusInput(enginIndex)"
+  >
     <el-tab-pane
       v-for="item in data.searchEngin.enginList"
       :key="item.key"
@@ -7,6 +11,7 @@
       :label="item.label"
     >
       <el-input
+        ref="search"
         v-model="data.searchKey"
         :placeholder="item.placeholder"
         clearable
@@ -17,13 +22,62 @@
 </template>
 
 <script setup lang="ts">
+import { computed, onMounted } from 'vue'
+import type { Engin } from '@/beans/engin'
+import { useApp } from '@/store/app'
 import { searchEngin, toSearch } from '@/components/search/engin'
 
 defineOptions({ name: 'EnginSearch' })
 
+const search = ref(null)
+
+const appStore = useApp()
+
 const data = reactive({
   searchEngin,
   searchKey: '',
+})
+
+const enginIndex = computed(() =>
+  data.searchEngin.enginList.findIndex(
+    (item: Engin) => item.key === searchEngin.value.active
+  )
+)
+const changeSearchEngin = function (reverse = false) {
+  const index = enginIndex.value
+  let newIndex =
+    index === -1 ? 0 : (index + 1) % data.searchEngin.enginList.length
+  if (reverse) {
+    if (index === -1) {
+      newIndex = 0
+    } else if (index === 0) {
+      newIndex = searchEngin.value.enginList.length - 1
+    } else {
+      newIndex = index - 1
+    }
+  }
+  data.searchEngin.active = data.searchEngin.enginList[newIndex].key
+  focusInput(newIndex)
+}
+
+const focusInput = function (index: number | string) {
+  nextTick(() => {
+    search.value[index].focus()
+  })
+}
+
+onMounted(() => {
+  if (appStore.config.common?.searchEngin) {
+    data.searchEngin.enginList = appStore.config.common.searchEngin
+  }
+  focusInput(enginIndex.value)
+})
+
+document.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.altKey) && e.key === 'k') {
+    e.preventDefault()
+    changeSearchEngin(e.altKey)
+  }
 })
 </script>
 

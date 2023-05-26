@@ -1,3 +1,5 @@
+import type { Engin } from '@/beans/engin'
+
 export type Menu = {
   id: string
   name: string
@@ -28,6 +30,7 @@ export type etcdCommon = {
   firstRun: string
   static: string
   svgUri: string
+  searchEngin?: Engin[]
 }
 
 export type EtcdConf = {
