@@ -20,7 +20,7 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": false,
     "paths": {
-      "@leiax00/*": ["packages/*"],
+      "@leiax00/*": ["packages/*"]
     }
   },
   "exclude": ["node_modules"]
