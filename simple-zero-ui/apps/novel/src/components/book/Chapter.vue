@@ -22,9 +22,12 @@
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useScroll } from '@vueuse/core'
 import type { Chapter } from '@/views/bean'
 import common from '@/common'
+import { calcCurPos, updateReadProgress } from '@/components/book/bean'
 
 defineOptions({ name: 'Chapter' })
 
@@ -43,6 +46,7 @@ const pageData = reactive<{ chapter: Chapter }>({
     next: -1,
     content: '',
   },
+  timer: -1,
 })
 const chapterText = computed(() => {
   return pageData.chapter.content
@@ -53,15 +57,29 @@ const chapterText = computed(() => {
 onMounted(() => {
   common.apis.getChapter(bid.value, cid.value).then((resp) => {
     pageData.chapter = resp.data
+    nextTick(() => {
+      window.scrollTo({
+        top: calcCurPos(bid.value),
+      })
+    })
   })
+})
+
+const { y } = useScroll(document)
+
+watch(y, () => {
+  updateReadProgress(bid.value, cid.value, Math.floor(y.value - 32))
 })
 
 const router = useRouter()
 const openPage = (isPrev: boolean) => {
+  const routeData = {
+    bid: bid.value,
+    cid: isPrev ? pageData.chapter.prev : pageData.chapter.next,
+  }
+  updateReadProgress(routeData.bid, routeData.cid, 0)
   router.push({
-    path: `/chapter/${bid.value}/${
-      isPrev ? pageData.chapter.prev : pageData.chapter.next
-    }`,
+    path: `/chapter/${routeData.bid}/${routeData.cid}`,
   })
 }
 </script>

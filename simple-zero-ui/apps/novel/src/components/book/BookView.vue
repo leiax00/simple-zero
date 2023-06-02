@@ -14,7 +14,11 @@
         <div class="item">
           <div class="font-bold">书籍名称:</div>
           <div class="ml-3">{{ bookInfo.book.name }}</div>
-          <el-button type="primary">收藏</el-button>
+          <el-button
+            type="primary"
+            @click="add2BookList({ book: bookInfo.book })"
+            >收藏</el-button
+          >
         </div>
         <div class="item">
           <div class="font-bold">作者:</div>
@@ -60,6 +64,7 @@
 import { computed, ref, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
 import type { Book, CatalogBase } from '@/views/bean'
+import { add2BookList } from '@/components/book/bean'
 
 defineOptions({ name: 'BookView' })
 

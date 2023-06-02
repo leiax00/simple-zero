@@ -29,6 +29,9 @@ module.exports = {
         'sz-240': '240px',
         'sz-500': '500px',
       },
+      height: {
+        'sz-212': '212px',
+      },
     },
     screens: {
       sm: '640px',
