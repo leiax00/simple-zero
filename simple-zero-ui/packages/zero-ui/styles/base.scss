@@ -1,6 +1,7 @@
 @use "./element/supplement.scss" as *;
 @use "scrollbar.scss" as *;
 @use "fonts.scss" as *;
+@use "transition.scss" as *;
 :root {
   --sz-bg-color-mute: #f2f2f2;
   --text-color-light: var(--el-text-color-primary);
@@ -91,6 +92,10 @@ html.dark {
       filter: blur(var(--sz-bg-filter-blur));
     }
   }
+}
+
+* {
+  @apply box-border;
 }
 
 body {
