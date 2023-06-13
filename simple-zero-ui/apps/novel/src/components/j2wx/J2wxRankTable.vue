@@ -10,10 +10,10 @@
     <el-table-column
       v-for="(item, index) in tableColumns"
       :key="index"
-      :type="item.type"
+      :type="item.type as string"
       :prop="item.key"
-      :label="item.label"
-      :width="item.width"
+      :label="item.label as string"
+      :width="item.width as number"
     >
       <template #default="{ row }">
         <div v-if="isText(item)" class="table-text">

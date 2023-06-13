@@ -15,3 +15,7 @@ export function getJ2wxRankList(channelKey: string) {
 export function getJ2wxRankInfo(channelKey: string, rankId: string) {
   return serve.get(`/j2wx/channel/${channelKey}/${rankId}`)
 }
+
+export function getJ2wxCustomRankInfo(rankId: number) {
+  return serve.get(`/j2wx/custom-rank/${rankId}`)
+}

@@ -23,14 +23,19 @@ module.exports = {
       boxShadow: {
         'aside-red-right': '2px 0 8px -4px red',
         'aside-red-top': '0 -2px 8px -4px red',
+        'sz-1': '-2px 2px 12px 2px red',
       },
       width: {
         'sz-160': '160px',
         'sz-240': '240px',
+        'sz-360': '360px',
         'sz-500': '500px',
       },
       height: {
         'sz-212': '212px',
+      },
+      lineHeight: {
+        11: '2.75rem',
       },
     },
     screens: {

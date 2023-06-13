@@ -35,6 +35,17 @@ export const routes: Array<RouteRecordRaw> = [
         props: true,
         meta: { title: 'J2wx - 分频', roles: [] },
       },
+      {
+        path: 'rank',
+        component: () => import('@/views/j2wx/customRank/CustomRankHome.vue'),
+        meta: { title: 'J2wx - Personal Rank', roles: [] },
+      },
+      {
+        path: 'rank/:id',
+        component: () => import('@/views/j2wx/customRank/CustomRankDetail.vue'),
+        props: true,
+        meta: { title: 'J2wx - Personal Rank', roles: [] },
+      },
     ],
   },
   {

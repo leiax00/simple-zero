@@ -20,8 +20,7 @@ export const useServe = defineStore('serveData', {
   }),
   getters: {
     getChannel: (state) => {
-      return (channelKey: string): any =>
-        state.j2wx.channelList.find((item) => item.channelKey === channelKey)
+      return (channelKey: string): any => state.j2wx.channelList.find((item) => item.channelKey === channelKey)
     },
   },
   actions: {},

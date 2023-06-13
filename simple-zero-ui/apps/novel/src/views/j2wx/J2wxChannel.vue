@@ -3,27 +3,12 @@
     <div class="j2wx-channel">
       <div class="title mb-6">J2wx-{{ channel.name }}观测站</div>
       <div class="channel-content">
-        <el-collapse
-          v-model="pageData.rankCollapse"
-          accordion
-          class="rank-selector"
-        >
+        <el-collapse v-model="pageData.rankCollapse" accordion class="rank-selector">
           <el-collapse-item name="1">
             <template #title>
               <div class="select-rank mr-2">当前榜单:</div>
-              <el-select
-                v-model="pageData.selectRank"
-                :placeholder="selectRankShowText"
-                value-key="rankId"
-                filterable
-                @change="onSelectRank"
-              >
-                <el-option
-                  v-for="item in pageData.rankList"
-                  :key="item.rankId"
-                  :label="item.rankName"
-                  :value="item"
-                />
+              <el-select v-model="pageData.selectRank" :placeholder="selectRankShowText" value-key="rankId" filterable @change="onSelectRank">
+                <el-option v-for="item in pageData.rankList" :key="item.rankId" :label="item.rankName" :value="item" />
               </el-select>
             </template>
             <div class="rank-list">
@@ -54,7 +39,6 @@
 import { computed, onMounted, reactive } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useSorted } from '@vueuse/core'
-import type { Ref } from 'vue'
 import type { J2Rank, J2RankBook } from '@/common'
 import common from '@/common'
 import { useServe } from '@/store/serve'
