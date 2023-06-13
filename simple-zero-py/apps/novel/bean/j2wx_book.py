@@ -48,6 +48,23 @@ class J2Rank(BaseModel):
         table_name = 'j2wx_rank'
 
 
+class J2CustomRank(BaseModel):
+    id = IntegerField(primary_key=True)
+    name = CharField()
+    password = CharField()
+    desc = TextField()
+    novel_ids = ArrayField(CharField)
+
+    def __hash__(self):
+        return hash(f'{self.id}')
+
+    def __eq__(self, other):
+        return self.id == other.id
+
+    class Meta:
+        table_name = 'j2wx_custom_rank'
+
+
 class J2Stat(BaseModel):
     id = CharField(max_length=32)
     time = DateTimeField()

@@ -54,6 +54,28 @@ class J2wxServe:
         logging.info(len(novels))
         return novels
 
+    def get_custom_rank_info(self, rank_id):
+        logging.info(f'start to query custom rank, rank id is: {rank_id}')
+        with self.db.atomic() as tcn:
+            rank = J2CustomRank.get_by_id(rank_id)
+            zero = today_zero()
+            zero = zero - datetime.timedelta(days=7)
+            stat_list = list(J2Stat.select().where(J2Stat.id.in_(rank.novel_ids), J2Stat.time >= zero))
+            books = list(J2Book.select().where(J2Book.id.in_(rank.novel_ids)))
+            stat_map = {}
+            for item in stat_list:
+                tmp = stat_map.get(item.id, [])
+                tmp.append(item)
+                stat_map[item.id] = tmp
+            book_map = {item.id: item for item in books}
+            novels = []
+            for novel_id in rank.novel_ids:
+                book = book_map[novel_id]
+                stat_dto_list = [J2StatDto().with_param(item, 0) for item in stat_map.get(book.id, [])]
+                novels.append(J2Data().with_param(book, stat_dto_list).to_camel_dict())
+
+        return novels
+
     def get_book_list_by_rank(self):
         return []
 

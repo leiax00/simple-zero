@@ -70,3 +70,13 @@ def get_rank_info(channel_key, rank_id):
     :return: 榜单数据
     """
     return jsonify(Response().with_ok(j2wx_serve.get_rank_info(channel_key, rank_id)))
+
+
+@api.route('/j2wx/custom-rank/<rank_id>')
+def get_custom_rank_info(rank_id):
+    """
+    获取自定义榜单的书籍信息
+    :param rank_id: 自定义榜单的id
+    :return: 榜单数据
+    """
+    return jsonify(Response().with_ok(j2wx_serve.get_custom_rank_info(rank_id)))
