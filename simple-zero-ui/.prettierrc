@@ -1,6 +1,7 @@
 {
-  "semi": false,
+  "semi": true,
   "singleQuote": true,
+  "printWidth": 150,
   "overrides": [
     {
       "files": ".prettierrc",
