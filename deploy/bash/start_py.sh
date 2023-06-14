@@ -1,7 +1,8 @@
 #!/bin/bash
 
 python -m venv sz
-source sz/bin/activate
+# 启动虚拟环境
+. sz/bin/activate
 python -m pip install --index-url https://pypi.tuna.tsinghua.edu.cn/simple --upgrade pip
 pip install -r requirement.txt \
             -i https://pypi.tuna.tsinghua.edu.cn/simple  \
