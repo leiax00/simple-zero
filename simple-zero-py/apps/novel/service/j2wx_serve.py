@@ -45,9 +45,7 @@ class J2wxServe:
     def save_custom_rank(self, data):
         return self.mapper.save_custom_rank(data).to_camel_dict()
 
-    def del_custom_rank(self, rank_ids: int | list[int]):
-        if isinstance(rank_ids, int):
-            rank_ids = [rank_ids]
+    def del_custom_rank(self, rank_ids: list[int]):
         return self.mapper.del_custom_rank(rank_ids)
 
     def add_novel_2_custom_rank(self, rank_id, novel_ids: list):

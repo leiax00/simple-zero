@@ -102,9 +102,7 @@ def del_custom_rank():
     删除自定义榜单
     :return:
     """
-    data = request.json.get('ids')
-    if data is None:
-        data = request.args.get('ids')
+    data = request.args.get('ids', '').split(',')
     return jsonify(Response().with_ok(j2wx_serve.del_custom_rank(data)))
 
 
@@ -132,11 +130,9 @@ def remove_novel_from_custom_rank():
     从自定义榜单中移除小说
     :return:
     """
-    data = request.json
-    if data is None:
-        data = request.args
-    rank_id = data.get('rankId')
-    novel_ids = data.get('ids')
+    rank_id = request.args.get('rankId')
+    novel_ids = request.args.get('ids').split(',')
     if rank_id is None or novel_ids is None:
         return jsonify(Response().fill(-1, 'PARAM_ERR'))
+
     return jsonify(Response().with_ok(j2wx_serve.remove_novel_from_custom_rank(rank_id, novel_ids)))
