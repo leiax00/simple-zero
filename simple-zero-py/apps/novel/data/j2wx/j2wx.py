@@ -9,11 +9,11 @@ import aiohttp
 import pypinyin
 import requests
 
-from bean.j2wx_book import J2RankDto, J2Rank, J2Book, J2Stat
+from bean.j2wx_book import J2RankDto, J2Rank
+from data.j2wx import constructor
 from data.j2wx.j2wx_parser import Collector
 from utils.async_utils import get_loop
 from utils.httpHelper import Api, HttpMethod
-from utils.time_utils import parse_str_2_date
 
 
 class J2wxApiManager:
@@ -64,9 +64,12 @@ class J2wxApiManager:
         })
 
 
+api = J2wxApiManager()
+
+
 class J2wxPuller:
     def __init__(self):
-        self.api = J2wxApiManager()
+        self.api = api
         self.channel_key = 'gywx'
         self.collector = Collector()
 
@@ -89,6 +92,15 @@ class J2wxPuller:
         self.loop.run_until_complete(asyncio.wait([self.loop.create_task(self.pull_novel(items))]))
         self.loop.close()
         return self.collector
+
+    def pull_novel_info_by_batch(self, novel_ids):
+        async def async_pull():
+            async with aiohttp.ClientSession() as session:
+                semaphore = asyncio.Semaphore(10)
+                tasks = []
+                for novel_id in novel_ids:
+                    tasks.append(self.pull_novel_info(session, semaphore, novel_id))
+                return
 
     def pull_rank(self, data):
         tmps = []
@@ -192,30 +204,19 @@ class J2wxPuller:
                     resp = await session.request(**params, ssl=False)
                     data = await resp.text()
                     data = json.loads(data)
+                    book = constructor.construct_j2book(data, novel_id)
+                    if book is None:
+                        continue
                     async with self.lock:
-                        self.collector.novel_list.add(J2Book(
-                            id=novel_id,
-                            name=data.get('novelName'),
-                            author_id=data.get('authorId'),
-                            author_name=data.get('authorName'),
-                            cover=data.get('novelCover'),
-                            size=int(data.get('novelSize', '0').replace(',', '')),
-                            tags=data.get('novelTags'),
-                            type=data.get('novelClass'),
-                            status=data.get('novelStep')
-                        ))
-                        ticket = re.sub(r'\D', '', stat_data.get('ranking', '0'))
-                        favorite = re.sub(r'\D', '', stat_data.get('novelbefavoritedcount', '0'))
-                        chapter = re.sub(r'\D', '', data.get('novelChapterCount', '0'))
-                        self.collector.stat_list.add(J2Stat(
-                            id=novel_id,
-                            time=self.collector.now,
-                            channel_key=self.channel_key,
-                            favorite_count=int(favorite) if favorite != '' else 0,
-                            ticket_count=int(ticket) if ticket != '' else 0,
-                            chapter_count=int(chapter) if chapter != '' else 0,
-                            newest_date=parse_str_2_date(data.get('renewDate'))
-                        ))
+                        self.collector.novel_list.add(book)
+                        stat_info = constructor.construct_j2stat(
+                            data,
+                            stat_data,
+                            self.collector.now,
+                            self.channel_key,
+                            novel_id
+                        )
+                        self.collector.stat_list.add(stat_info)
                     if retry < 3:
                         logging.info(f'retry to pull novel: {novel_id} success')
                     break
@@ -230,6 +231,18 @@ class J2wxPuller:
     def get_pinyin_name(name):
         pinyin_name = '_'.join([item[0] for item in pypinyin.pinyin(name, style=pypinyin.NORMAL)])
         return re.sub(r'[^\w\d]+', '', pinyin_name)
+
+    def pull_novel_base_info(self, novel_ids):
+        novels = []
+        with requests.session() as req:
+            for novel_id in novel_ids:
+                resp = requests.request(**self.api.get_novel_base_info(novel_id))
+                data = resp.json()
+                book = constructor.construct_j2book(data, novel_id)
+                if book is None:
+                    continue
+                novels.append(book)
+        return novels
 
 
 j2wx_puller = J2wxPuller()

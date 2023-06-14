@@ -1,6 +1,7 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
-from flask import Blueprint, jsonify
+
+from flask import Blueprint, jsonify, request
 
 from domain.response import Response
 from service.j2wx_serve import j2wx_serve
@@ -80,3 +81,62 @@ def get_custom_rank_info(rank_id):
     :return: 榜单数据
     """
     return jsonify(Response().with_ok(j2wx_serve.get_custom_rank_info(rank_id)))
+
+
+@api.route('/j2wx/custom-rank/new', methods=['POST'])
+def save_custom_rank():
+    """
+    保存自定义榜单
+    :return: 自定义榜单
+    """
+    data = request.json
+    try:
+        return jsonify(Response().with_ok(j2wx_serve.save_custom_rank(data)))
+    except Exception as e:
+        return jsonify(Response().fill(-1, e.__str__()))
+
+
+@api.route('/j2wx/custom-rank/del', methods=['DELETE'])
+def del_custom_rank():
+    """
+    删除自定义榜单
+    :return:
+    """
+    data = request.json.get('ids')
+    if data is None:
+        data = request.args.get('ids')
+    return jsonify(Response().with_ok(j2wx_serve.del_custom_rank(data)))
+
+
+@api.route('/j2wx/custom-rank/add-novel', methods=['PUT'])
+def add_novel_2_custom_rank():
+    """
+    添加书籍到自定义榜单中
+    :return: 添加结果
+    """
+    data = request.json
+    rank_id = data.get('rankId')
+    novel_ids = data.get('ids')
+    if rank_id is None or novel_ids is None:
+        return jsonify(Response().fill(-1, 'PARAM_ERR'))
+
+    if isinstance(novel_ids, str):
+        novel_ids = [novel_ids]
+
+    return jsonify(Response().with_ok(j2wx_serve.add_novel_2_custom_rank(rank_id, novel_ids)))
+
+
+@api.route('/j2wx/custom-rank/del-novel', methods=['DELETE'])
+def remove_novel_from_custom_rank():
+    """
+    从自定义榜单中移除小说
+    :return:
+    """
+    data = request.json
+    if data is None:
+        data = request.args
+    rank_id = data.get('rankId')
+    novel_ids = data.get('ids')
+    if rank_id is None or novel_ids is None:
+        return jsonify(Response().fill(-1, 'PARAM_ERR'))
+    return jsonify(Response().with_ok(j2wx_serve.remove_novel_from_custom_rank(rank_id, novel_ids)))
