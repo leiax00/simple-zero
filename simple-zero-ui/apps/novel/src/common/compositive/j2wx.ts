@@ -28,6 +28,14 @@ export type J2RankBook = {
   statList: J2Stat[]
 }
 
+export type CustomRank = {
+  id: number
+  name: string
+  password: string
+  desc?: string
+  bookIdList: string[]
+}
+
 /**
  * 格式化排行榜
  * @param {J2RankBook} rankItem 后端返回的原始值
@@ -56,10 +64,7 @@ export function formatRank(rankItem: J2RankBook, withDelta = true): string {
  * @param {boolean} withDelta 是否显示今日增长收藏
  * @return
  */
-export function formatFavoriteCount(
-  rankItem: J2RankBook,
-  withDelta = true
-): string {
+export function formatFavoriteCount(rankItem: J2RankBook, withDelta = true): string {
   const statLen = rankItem.statList.length
   if (statLen === 0) {
     return '0'
@@ -84,26 +89,15 @@ export function toChartData(rankItem: any[], isIncrement = false) {
       let favoriteCount = t.favoriteCount
       let ticketCount = t.ticketCount
       if (isIncrement) {
-        favoriteCount =
-          i === 0 ? 0 : t.favoriteCount - item.statList[i - 1].favoriteCount
-        ticketCount =
-          i === 0 ? 0 : t.ticketCount - item.statList[i - 1].favoriteCount
+        favoriteCount = i === 0 ? 0 : t.favoriteCount - item.statList[i - 1].favoriteCount
+        ticketCount = i === 0 ? 0 : t.ticketCount - item.statList[i - 1].favoriteCount
       }
-      rst.push([
-        t.time,
-        item.book.id,
-        item.book.name,
-        t.score,
-        favoriteCount,
-        ticketCount,
-      ])
+      rst.push([t.time, item.book.id, item.book.name, t.score, favoriteCount, ticketCount])
     })
     return rst
   }
 
-  const tmp: any = [
-    ['time', 'id', 'name', 'rank', 'favoriteCount', 'ticketCount'],
-  ]
+  const tmp: any = [['time', 'id', 'name', 'rank', 'favoriteCount', 'ticketCount']]
   rankItem.forEach((v) => {
     tmp.push(...parseItem(v))
   })

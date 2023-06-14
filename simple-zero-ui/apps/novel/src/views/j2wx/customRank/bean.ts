@@ -1,13 +1,6 @@
 import { useStorage } from '@vueuse/core'
 import type { RemovableRef } from '@vueuse/core'
-
-export type CustomRank = {
-  id: number
-  name: string
-  password: string
-  desc?: string
-  bookIdList: string[]
-}
+import type { CustomRank } from '@/common'
 
 export const getDefaultRank = (): CustomRank => ({ id: -1, name: '', password: '', bookIdList: [] })
 

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type { CustomRank } from '@/views/j2wx/customRank/bean'
-import type { J2RankBook } from '@/common'
+import type { CustomRank, J2RankBook } from '@/common'
 import { rankList } from '@/views/j2wx/customRank/bean'
 import common from '@/common'
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { isEmptyStr } from '@leiax00/utils'
-import type { CustomRank } from '@/views/j2wx/customRank/bean'
+import type { CustomRank } from '@/common'
 import { TYPE_OPERATE, getDefaultRank, rankList } from '@/views/j2wx/customRank/bean'
 
 defineOptions({ name: 'CustomRank' })
@@ -49,8 +49,12 @@ const canSave = computed(() => {
           </div>
         </div>
         <el-button-group class="w-full mt-6">
-          <el-button type="primary" size="large" class="w-1/2" @click="changeOperate(TYPE_OPERATE.ADD)">新增 Rank</el-button>
-          <el-button type="primary" size="large" class="w-1/2" @click="changeOperate(TYPE_OPERATE.LOAD)">加载 Rank</el-button>
+          <el-button type="primary" size="large" class="w-1/2" @click="changeOperate(TYPE_OPERATE.ADD)"
+            >新增 Rank</el-button
+          >
+          <el-button type="primary" size="large" class="w-1/2" @click="changeOperate(TYPE_OPERATE.LOAD)"
+            >加载 Rank</el-button
+          >
         </el-button-group>
       </div>
       <div v-else-if="pageData.curOperate === TYPE_OPERATE.ADD" :class="`add-rank-wrapper ${addClazz}`">
