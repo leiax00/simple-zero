@@ -4,21 +4,20 @@ import { isEmptyStr } from '@leiax00/utils'
 import { tipMsg } from '@leiax00/zero-ui'
 import type { CustomRank, J2RankBook } from '@/common'
 import common from '@/common'
-import { getDefaultRank, rankList } from '@/views/j2wx/customRank/bean'
+import { getDefaultRank, rankList, selectRank } from '@/views/j2wx/customRank/bean'
 
 defineOptions({ name: 'CustomRankDetail' })
 const props = defineProps<{
   id: number
 }>()
 const { id } = toRefs(props)
+
 const pageData = reactive<{
-  selectRank: CustomRank
   selectRankInfo: J2RankBook[]
   newRank: CustomRank
   key: string
   novelId: string
 }>({
-  selectRank: rankList.value[id.value] || {},
   selectRankInfo: [],
   newRank: getDefaultRank(),
   key: '',
@@ -26,11 +25,12 @@ const pageData = reactive<{
 })
 
 const onSelectRank = function () {
-  if (!pageData.selectRank.id) {
+  const rankId = selectRank.value.id
+  if (!rankId) {
     return
   }
   pageData.selectRankInfo = []
-  common.apis.getJ2wxCustomRankInfo(pageData.selectRank.id).then((resp) => {
+  common.apis.getJ2wxCustomRankInfo(rankId).then((resp) => {
     pageData.selectRankInfo = resp.data
   })
 }
@@ -61,6 +61,7 @@ const loadRank = () => {
       const rank = resp.data as CustomRank
       rankList.value[rank.id || 'default'] = rank
       message = `已添加榜单: ${rank.name}`
+      pageData.key = ''
     }
     tipMsg(message, type)
   })
@@ -83,6 +84,7 @@ const removeRank = () => {
           .map((key) => [key, rankList.value[key]])
       )
       message = `移除榜单: ${rank.name} 成功!`
+      pageData.key = ''
     }
     tipMsg(message, type)
   })
@@ -92,12 +94,12 @@ const addNovel = () => {
   if (isEmptyStr(pageData.novelId)) {
     return
   }
-  const selectRankId = pageData.selectRank.id as number
+  const selectRankId = selectRank.value.id as number
   common.apis.addNovel2CustomRank(selectRankId, pageData.novelId.split(',')).then((resp) => {
     let [message, type] = [`添加书籍失败!`, 'error']
     if (resp.code === 0) {
       ;[message, type] = ['添加书籍成功!', 'success']
-      pageData.selectRank = resp.data
+      selectRank.value = resp.data
       rankList.value[selectRankId] = resp.data
       pageData.novelId = ''
       onSelectRank()
@@ -109,12 +111,12 @@ const delNovel = () => {
   if (isEmptyStr(pageData.novelId)) {
     return
   }
-  const selectRankId = pageData.selectRank.id as number
+  const selectRankId = selectRank.value.id as number
   common.apis.delNovelFromCustomRank(selectRankId, pageData.novelId.split(',')).then((resp) => {
     let [message, type] = [`移除书籍失败!`, 'error']
     if (resp.code === 0) {
       ;[message, type] = ['移除书籍成功!', 'success']
-      pageData.selectRank = resp.data
+      selectRank.value = resp.data
       rankList.value[selectRankId] = resp.data
       pageData.novelId = ''
       onSelectRank()
@@ -128,6 +130,10 @@ const canSave = computed(() => {
 })
 
 onMounted(() => {
+  const rank = rankList.value[id.value]
+  if (rank) {
+    selectRank.value = rank
+  }
   onSelectRank()
 })
 </script>
@@ -139,7 +145,7 @@ onMounted(() => {
         <div class="cur-rank-wrapper">
           <div class="label select-label">选中Rank榜单</div>
           <el-select
-            v-model="pageData.selectRank"
+            v-model="selectRank"
             value-key="id"
             filterable
             class="w-full"
@@ -209,7 +215,7 @@ onMounted(() => {
       </small-screen-collapse>
     </div>
     <div class="item table-wrapper">
-      <div class="table-title">{{ `榜单: ${pageData.selectRank.name || '未选择'}` }}</div>
+      <div class="table-title">{{ `榜单: ${selectRank.name || '未选择'}` }}</div>
       <j2wx-rank-table :table-data="pageData.selectRankInfo" />
     </div>
   </div>

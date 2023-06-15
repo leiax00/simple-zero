@@ -15,13 +15,19 @@ class J2wxMapper:
 
     @staticmethod
     def get_rank_list(channel_key):
-        return J2Rank.select().where(J2Rank.channel_key == channel_key)
+        try:
+            return J2Rank.select().where(J2Rank.channel_key == channel_key)
+        except DoesNotExist:
+            return []
 
     @staticmethod
     def get_rank_stat_in_today(rank_id, zero=None):
         if zero is None:
             zero = today_zero()
-        return list(J2RankStat.select().where(J2RankStat.id == rank_id, J2RankStat.time >= zero))
+        try:
+            return list(J2RankStat.select().where(J2RankStat.id == rank_id, J2RankStat.time >= zero))
+        except DoesNotExist:
+            return []
 
     @staticmethod
     def get_stat_info_in_today_by_ids(novel_ids, zero=None):
@@ -31,7 +37,10 @@ class J2wxMapper:
 
     @staticmethod
     def get_novel_info_by_ids(novel_ids):
-        return list(J2Book.select().where(J2Book.id.in_(novel_ids)))
+        try:
+            return list(J2Book.select().where(J2Book.id.in_(novel_ids)))
+        except DoesNotExist:
+            return []
 
     def add_novel_by_batch(self, novels):
         for i in range(0, len(novels), self.one_batch):
@@ -91,11 +100,17 @@ class J2wxMapper:
 
     @staticmethod
     def get_custom_rank_by_id(rank_id):
-        return J2CustomRank.get_by_id(rank_id)
+        try:
+            return J2CustomRank.get_by_id(rank_id)
+        except DoesNotExist:
+            return None
 
     @staticmethod
     def get_custom_rank_by_key(password):
-        return J2CustomRank.get(J2CustomRank.password == password)
+        try:
+            return J2CustomRank.get(J2CustomRank.password == password)
+        except DoesNotExist:
+            return None
 
     @staticmethod
     def save_custom_rank(data):
@@ -123,12 +138,15 @@ class J2wxMapper:
 
     @staticmethod
     def get_all_custom_rank_novels():
-        rank_list = list(J2CustomRank.select())
         novel_ids = set([])
-        for rank in rank_list:
-            if rank.novel_ids is None:
-                continue
-            novel_ids = novel_ids | set(rank.novel_ids)
+        try:
+            rank_list = list(J2CustomRank.select())
+            for rank in rank_list:
+                if rank.novel_ids is None:
+                    continue
+                novel_ids = novel_ids | set(rank.novel_ids)
+        except Exception:
+            pass
         return novel_ids
 
     #  ====================== redis ============================

@@ -25,6 +25,8 @@ class J2wxStat:
     def pull_custom_rank(self, param=None):
         logging.info(f'start to pull custom rank info.')
         novel_ids = self.mapper.get_all_custom_rank_novels()
+        if len(novel_ids) == 0:
+            return
         collector = self.puller.pull_novel_info_by_batch(param, novel_ids)
         with db.atomic() as tcn:
             self._save_book(collector)

@@ -6,6 +6,7 @@ export const getDefaultRank = (): CustomRank => ({ name: '', password: '', bookI
 
 const defaultRankList: Record<string, CustomRank> = {}
 export const rankList: RemovableRef<Record<string, CustomRank>> = useStorage('custom-rank-list', defaultRankList)
+export const selectRank: RemovableRef<CustomRank> = useStorage('local-select-custom-rank', {} as CustomRank)
 
 export const TYPE_OPERATE = {
   SHOW: 'show',
