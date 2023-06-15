@@ -110,7 +110,7 @@ class J2wxPuller:
         return self.collector
 
     def _set_channel_key(self, channel_key):
-        if channel_key is not None:
+        if channel_key is not None or channel_key != '':
             self.channel_key = channel_key
 
     def pull_rank(self, data):
