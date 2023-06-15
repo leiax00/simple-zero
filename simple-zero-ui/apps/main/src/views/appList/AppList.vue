@@ -1,23 +1,20 @@
 <template>
-  <div :id="route.meta.serve.name" class="app-view" />
+  <div :id="name" class="app-view" />
 </template>
 
 <script setup lang="ts">
 import { onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { loadMicroApp } from 'qiankun'
+import type { Serve } from '@/beans'
 
 defineOptions({ name: 'AppList' })
 
 const route = useRoute()
-const { name, domain, prefix } = route.meta.serve as {
-  name: string
-  domain: string
-  prefix: string
-}
-const servOpts = {
+const { name, domain, prefix, devDomain } = route.meta.serve as Serve
+const servOpts: any = {
   name,
-  entry: domain,
+  entry: import.meta.env.DEV ? devDomain : domain,
   container: `#${name}`,
   activeRule: prefix,
   props: { name },

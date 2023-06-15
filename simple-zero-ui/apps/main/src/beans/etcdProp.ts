@@ -23,6 +23,7 @@ export type Serve = {
   name: string
   prefix: string
   domain: string
+  devDomain?: string
 }
 
 export type etcdCommon = {

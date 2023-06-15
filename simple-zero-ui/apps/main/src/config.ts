@@ -17,9 +17,7 @@ export async function loadAppConf() {
   //   value: Base64.stringify(Utf8.parse(JSON.stringify(settings)))
   // }, { headers })
   // 查询以 app.ui开头的所有服务的配置
-  const key = Base64.stringify(
-    Utf8.parse(import.meta.env.VITE_APP_CONFIG_ETCD_KEY)
-  )
+  const key = Base64.stringify(Utf8.parse(import.meta.env.VITE_APP_CONFIG_ETCD_KEY))
   const resp = await axios.get(`/config/v1/prop/${key}`, {
     params: { prefix: 1 },
   })
