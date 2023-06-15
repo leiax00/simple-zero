@@ -229,8 +229,6 @@ class J2wxPuller:
                         self.collector.stat_list.add(stat_info)
                     if retry < 3:
                         logging.info(f'retry to pull novel: {novel_id} success')
-                    logging.info(book.to_camel_dict())
-                    logging.info(stat_info.to_camel_dict())
                     break
             except Exception as e:
                 retry -= 1
