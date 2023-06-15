@@ -96,6 +96,19 @@ def save_custom_rank():
         return jsonify(Response().fill(-1, e.__str__()))
 
 
+@api.route('/j2wx/custom-rank/load')
+def get_custom_rank_by_key():
+    """
+    通过秘钥获取自定义榜单
+    :return:
+    """
+    key = request.args.get('key')
+    rank = j2wx_serve.get_custom_rank_by_key(key)
+    if rank is None:
+        return jsonify(Response().fill(-1, 'NO_RANK'))
+    return jsonify(Response().with_ok(rank))
+
+
 @api.route('/j2wx/custom-rank/del', methods=['DELETE'])
 def del_custom_rank():
     """

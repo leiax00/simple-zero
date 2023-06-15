@@ -94,6 +94,10 @@ class J2wxMapper:
         return J2CustomRank.get_by_id(rank_id)
 
     @staticmethod
+    def get_custom_rank_by_key(password):
+        return J2CustomRank.get(J2CustomRank.password == password)
+
+    @staticmethod
     def save_custom_rank(data):
         return J2CustomRank.create(**data)
 
