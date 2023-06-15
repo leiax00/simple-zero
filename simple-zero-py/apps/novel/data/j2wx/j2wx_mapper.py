@@ -121,6 +121,16 @@ class J2wxMapper:
             rank.save()
             return rank
 
+    @staticmethod
+    def get_all_custom_rank_novels():
+        rank_list = list(J2CustomRank.select())
+        novel_ids = set([])
+        for rank in rank_list:
+            if rank.novel_ids is None:
+                continue
+            novel_ids = novel_ids | set(rank.novel_ids)
+        return novel_ids
+
     #  ====================== redis ============================
     def get_novel_ids_by_rank_id(self, rank_id):
         return self.c_redis.zrange(f'{REDIS_KEY_PREFIX}/j2wx/rank/{rank_id}', 0, -1)

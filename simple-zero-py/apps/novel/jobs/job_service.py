@@ -18,7 +18,8 @@ class JobService(IJob):
         executor.join_batch({
             '测试add': self.add,
             '更新书架': self.update_bookshelf,
-            '晋江文学数据分析': self.j2wx.pull
+            '晋江文学数据分析': self.j2wx.pull,
+            'custom-rank-pull': self.j2wx.pull_custom_rank
         })
 
     @staticmethod

@@ -78,7 +78,7 @@ class J2wxPuller:
 
     def pull(self, channel_key):
         self.loop = get_loop()
-        self.channel_key = channel_key
+        self._set_channel_key(channel_key)
         with requests.request(**self.api.get_channel_home(channel_key), verify=False) as resp:
             data_list = resp.json().get('data')
         self.collector = Collector()
@@ -93,14 +93,24 @@ class J2wxPuller:
         self.loop.close()
         return self.collector
 
-    def pull_novel_info_by_batch(self, novel_ids):
+    def pull_novel_info_by_batch(self, channel_key, novel_ids):
         async def async_pull():
             async with aiohttp.ClientSession() as session:
                 semaphore = asyncio.Semaphore(10)
                 tasks = []
                 for novel_id in novel_ids:
                     tasks.append(self.pull_novel_info(session, semaphore, novel_id))
-                return
+                await asyncio.gather(*tasks)
+
+        self._set_channel_key(channel_key)
+        self.loop = get_loop()
+        self.loop.run_until_complete(asyncio.wait([self.loop.create_task(async_pull())]))
+        self.loop.close()
+        return self.collector
+
+    def _set_channel_key(self, channel_key):
+        if channel_key is not None:
+            self.channel_key = channel_key
 
     def pull_rank(self, data):
         tmps = []
@@ -219,6 +229,8 @@ class J2wxPuller:
                         self.collector.stat_list.add(stat_info)
                     if retry < 3:
                         logging.info(f'retry to pull novel: {novel_id} success')
+                    logging.info(book.to_camel_dict())
+                    logging.info(stat_info.to_camel_dict())
                     break
             except Exception as e:
                 retry -= 1

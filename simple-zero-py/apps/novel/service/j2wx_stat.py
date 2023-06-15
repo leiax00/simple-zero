@@ -3,24 +3,30 @@
 import logging
 
 from config import db
-from data.j2wx.j2wx import j2wx_puller
+from data.j2wx.j2wx import J2wxPuller
 from data.j2wx.j2wx_mapper import j2wx_mapper
 
 
 class J2wxStat:
     def __init__(self):
-        self.puller = j2wx_puller
         self.mapper = j2wx_mapper
 
     def pull(self, param=None):
         logging.info(f'start to pull j2wx info. channel key / param is: {param}')
         channel_key = param
-        collector = self.puller.pull(channel_key)
+        collector = J2wxPuller().pull(channel_key)
         with db.atomic() as tcn:
             self._save_rank(collector)
             self._save_book(collector)
             self._save_rank_stat(channel_key, collector)
         return True
+
+    def pull_custom_rank(self, param=None):
+        logging.info(f'start to pull custom rank info.')
+        novel_ids = self.mapper.get_all_custom_rank_novels()
+        collector = J2wxPuller().pull_novel_info_by_batch(param, novel_ids)
+        with db.atomic() as tcn:
+            self._save_book(collector)
 
     def _save_rank(self, collector):
         channel_list = list(collector.channel_list)
