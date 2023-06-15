@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { tipMsg } from '@leiax00/zero-ui'
 
 const getBaseUrl = () => {
   const domain = import.meta.env.VITE_APP_DOMAIN.endsWith('/')
@@ -30,6 +31,7 @@ serve.interceptors.response.use(
     return Promise.resolve(resp.data)
   },
   (error) => {
+    tipMsg('网络异常,请稍后重试!', 'error')
     return Promise.reject(error)
   }
 )

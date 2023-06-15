@@ -7,7 +7,13 @@
           <el-collapse-item name="1">
             <template #title>
               <div class="select-rank mr-2">当前榜单:</div>
-              <el-select v-model="pageData.selectRank" :placeholder="selectRankShowText" value-key="rankId" filterable @change="onSelectRank">
+              <el-select
+                v-model="pageData.selectRank"
+                :placeholder="selectRankShowText"
+                value-key="rankId"
+                filterable
+                @change="onSelectRank"
+              >
                 <el-option v-for="item in pageData.rankList" :key="item.rankId" :label="item.rankName" :value="item" />
               </el-select>
             </template>

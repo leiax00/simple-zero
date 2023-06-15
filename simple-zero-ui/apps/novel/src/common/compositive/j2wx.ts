@@ -29,7 +29,7 @@ export type J2RankBook = {
 }
 
 export type CustomRank = {
-  id: number
+  id?: number
   name: string
   password: string
   desc?: string

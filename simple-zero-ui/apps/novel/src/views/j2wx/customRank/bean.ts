@@ -2,7 +2,7 @@ import { useStorage } from '@vueuse/core'
 import type { RemovableRef } from '@vueuse/core'
 import type { CustomRank } from '@/common'
 
-export const getDefaultRank = (): CustomRank => ({ id: -1, name: '', password: '', bookIdList: [] })
+export const getDefaultRank = (): CustomRank => ({ name: '', password: '', bookIdList: [] })
 
 const defaultRankList: Record<string, CustomRank> = {}
 export const rankList: RemovableRef<Record<string, CustomRank>> = useStorage('custom-rank-list', defaultRankList)

@@ -58,12 +58,8 @@ watch(isDark, () => {
     pageData.option.yAxis.splitLine.lineStyle.color = colors.zinc['300']
   }
   pageData.option.series?.forEach((item) => {
-    item.lineStyle.color = isDark.value
-      ? colors.emerald['500']
-      : colors.emerald['500']
-    item.endLabel.color = isDark.value
-      ? colors.emerald['500']
-      : colors.emerald['500']
+    item.lineStyle.color = isDark.value ? colors.emerald['500'] : colors.emerald['500']
+    item.endLabel.color = isDark.value ? colors.emerald['500'] : colors.emerald['500']
   })
   pageData.myChart?.setOption(pageData.option)
 })

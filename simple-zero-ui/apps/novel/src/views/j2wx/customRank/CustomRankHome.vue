@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { isEmptyStr } from '@leiax00/utils'
 import type { CustomRank } from '@/common'
 import { TYPE_OPERATE, getDefaultRank, rankList } from '@/views/j2wx/customRank/bean'
+import common from '@/common'
 
 defineOptions({ name: 'CustomRank' })
 const pageData = reactive<{
@@ -16,8 +17,11 @@ const changeOperate = (operate: string) => {
 }
 
 const saveRank = () => {
-  rankList.value[pageData.newRank.id || 'default'] = pageData.newRank as CustomRank
-  pageData.curOperate = TYPE_OPERATE.SHOW
+  common.apis.createCustomRank(pageData.newRank as CustomRank).then((resp) => {
+    const rank = resp.data as CustomRank
+    rankList.value[rank.id || 'default'] = rank
+    pageData.curOperate = TYPE_OPERATE.SHOW
+  })
 }
 
 const router = useRouter()

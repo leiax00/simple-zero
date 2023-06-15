@@ -37,7 +37,7 @@ export const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'rank',
-        component: () => import('@/views/j2wx/customRank/CustomRankHome.vue'),
+        component: () => import('@/views/j2wx/customRank/CustomRankDetail.vue'),
         meta: { title: 'J2wx - Personal Rank', roles: [] },
       },
       {

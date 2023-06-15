@@ -1,15 +1,6 @@
 <template>
-  <el-tabs
-    v-model="data.searchEngin.active"
-    type="border-card"
-    @tab-change="focusInput(enginIndex)"
-  >
-    <el-tab-pane
-      v-for="item in data.searchEngin.enginList"
-      :key="item.key"
-      :name="item.key"
-      :label="item.label"
-    >
+  <el-tabs v-model="data.searchEngin.active" type="border-card" @tab-change="focusInput(enginIndex)">
+    <el-tab-pane v-for="item in data.searchEngin.enginList" :key="item.key" :name="item.key" :label="item.label">
       <el-input
         ref="search"
         v-model="data.searchKey"
@@ -39,14 +30,11 @@ const data = reactive({
 })
 
 const enginIndex = computed(() =>
-  data.searchEngin.enginList.findIndex(
-    (item: Engin) => item.key === searchEngin.value.active
-  )
+  data.searchEngin.enginList.findIndex((item: Engin) => item.key === searchEngin.value.active)
 )
 const changeSearchEngin = function (reverse = false) {
   const index = enginIndex.value
-  let newIndex =
-    index === -1 ? 0 : (index + 1) % data.searchEngin.enginList.length
+  let newIndex = index === -1 ? 0 : (index + 1) % data.searchEngin.enginList.length
   if (reverse) {
     if (index === -1) {
       newIndex = 0

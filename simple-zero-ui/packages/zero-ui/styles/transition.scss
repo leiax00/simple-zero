@@ -51,3 +51,31 @@
     transform: translateX(-100%);
   }
 }
+
+.rotated-180 {
+  animation: rotate-180 0.3s;
+  transform-origin: center;
+}
+
+.-rotated-180 {
+  animation: rotate--180 0.3s;
+  transform-origin: center;
+}
+
+@keyframes rotate-180 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes rotate--180 {
+  0% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
