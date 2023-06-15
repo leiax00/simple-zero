@@ -103,6 +103,7 @@ class J2wxPuller:
                 await asyncio.gather(*tasks)
 
         self._set_channel_key(channel_key)
+        self.collector = Collector()
         self.loop = get_loop()
         self.loop.run_until_complete(asyncio.wait([self.loop.create_task(async_pull())]))
         self.loop.close()
