@@ -26,7 +26,7 @@ class J2wxServe:
             rank_stat_list = self.mapper.get_rank_stat_in_today(rank_id, zero)
             stat_list = self.mapper.get_stat_info_in_today_by_ids(novel_ids, zero)
             books = self.mapper.get_novel_info_by_ids(novel_ids)
-            novels = constructor.construct_j2data(books, stat_list, rank_stat_list)
+            novels = constructor.construct_j2data(novel_ids, books, stat_list, rank_stat_list)
 
         logging.info(len(novels))
         return novels
@@ -39,7 +39,7 @@ class J2wxServe:
             zero = zero - datetime.timedelta(days=7)
             stat_list = self.mapper.get_stat_info_in_today_by_ids(rank.novel_ids, zero)
             books = self.mapper.get_novel_info_by_ids(rank.novel_ids)
-            novels = constructor.construct_j2data(books, stat_list)
+            novels = constructor.construct_j2data(rank.novel_ids, books, stat_list)
         return novels
 
     def save_custom_rank(self, data):

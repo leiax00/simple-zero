@@ -37,13 +37,21 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  showRank: {
+    type: Boolean,
+    default: true,
+  },
+  rankWithDelta: {
+    type: Boolean,
+    default: true,
+  },
 })
-const { tableData } = toRefs(props)
+const { tableData, showRank, rankWithDelta } = toRefs(props)
 
 const tableColumns = computed((): TableColumn[] => {
   const tmp: TableColumn[] = [{ key: 'id', type: 'expand', width: 40 }]
-  if (breakpoints.greaterOrEqual('sm').value) {
-    tmp.push({ key: 'score', label: '排名', width: 80, formatter: formatRank })
+  if (breakpoints.greaterOrEqual('sm').value && showRank.value) {
+    tmp.push({ key: 'score', label: '排名', width: 80, formatter: getRank })
   }
   tmp.push({ key: 'name', label: '小说', formatter: formatName })
   if (breakpoints.greaterOrEqual('md').value) {
@@ -51,7 +59,7 @@ const tableColumns = computed((): TableColumn[] => {
   }
   tmp.push({
     key: 'favorite',
-    label: '收藏(今)',
+    label: '收藏（delta）',
     formatter: formatFavoriteCount,
   })
   return tmp
@@ -64,6 +72,10 @@ const pageData = reactive<{
   singleExpand: true,
   expandList: [],
 })
+
+const getRank = (row: J2RankBook) => {
+  return formatRank(row, rankWithDelta.value)
+}
 
 const formatName = (row: J2RankBook) => {
   return row.book.name

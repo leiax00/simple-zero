@@ -104,3 +104,22 @@ export function toChartData(rankItem: any[], isIncrement = false) {
 
   return tmp
 }
+
+/**
+ * 按照统计信息中favoriteCount的变化量进行排序, 排序策略: 倒序
+ * @param bookList 排序后的数据
+ */
+export function sortJ2RankBookByDeltaFavoriteCount(bookList: J2RankBook[]): J2RankBook[] {
+  bookList = bookList.sort((a, b) => {
+    const aDelta = a.statList[a.statList.length - 1].favoriteCount - a.statList[0].favoriteCount
+    const bDelta = b.statList[a.statList.length - 1].favoriteCount - b.statList[0].favoriteCount
+    return aDelta - bDelta >= 0 ? -1 : 1
+  })
+  bookList = bookList.map((item, index) => {
+    item.statList.forEach((statItem) => {
+      statItem.score = index + 1
+    })
+    return item
+  })
+  return bookList
+}

@@ -32,9 +32,9 @@ const lineList = [
   { label: '字数', val: data.value.book.size },
   { label: '标签', val: data.value.book.tags },
   { label: '类型', val: data.value.book.type },
-  { label: '排行(今日涨幅)', val: formatRank(data.value as J2RankBook) },
+  { label: '排行(涨幅)', val: formatRank(data.value as J2RankBook) },
   {
-    label: '收藏(今日涨幅)',
+    label: '收藏(涨幅)',
     val: formatFavoriteCount(data.value as J2RankBook),
   },
 ]

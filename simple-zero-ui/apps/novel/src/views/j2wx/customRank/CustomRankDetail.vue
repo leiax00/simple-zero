@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { isEmptyStr } from '@leiax00/utils'
 import { tipMsg } from '@leiax00/zero-ui'
 import type { CustomRank, J2RankBook } from '@/common'
-import common from '@/common'
+import common, { sortJ2RankBookByDeltaFavoriteCount } from '@/common'
 import { getDefaultRank, rankList, selectRank } from '@/views/j2wx/customRank/bean'
 
 defineOptions({ name: 'CustomRankDetail' })
@@ -31,7 +31,7 @@ const onSelectRank = function () {
   }
   pageData.selectRankInfo = []
   common.apis.getJ2wxCustomRankInfo(rankId).then((resp) => {
-    pageData.selectRankInfo = resp.data
+    pageData.selectRankInfo = sortJ2RankBookByDeltaFavoriteCount(resp.data)
   })
 }
 
@@ -216,7 +216,7 @@ onMounted(() => {
     </div>
     <div class="item table-wrapper">
       <div class="table-title">{{ `榜单: ${selectRank.name || '未选择'}` }}</div>
-      <j2wx-rank-table :table-data="pageData.selectRankInfo" />
+      <j2wx-rank-table :table-data="pageData.selectRankInfo" :rank-with-delta="false" />
     </div>
   </div>
 </template>

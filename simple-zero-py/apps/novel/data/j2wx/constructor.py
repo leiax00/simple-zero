@@ -39,7 +39,15 @@ def construct_j2stat(book_data, stat_data, now, channel_key, novel_id=None):
     )
 
 
-def construct_j2data(books, stat_list, rank_stat_list=None):
+def construct_j2data(novel_ids, books, stat_list, rank_stat_list=None):
+    """
+    构造传输数据
+    :param novel_ids: 排序的novel id
+    :param books: 查询到的书籍信息
+    :param stat_list: 查询到的统计信息
+    :param rank_stat_list: 查询到的榜单统计信息
+    :return:
+    """
     if rank_stat_list is None:
         rank_stat_list = []
     # { time: {novel_id: score}, .... }
@@ -50,8 +58,12 @@ def construct_j2data(books, stat_list, rank_stat_list=None):
         tmp = stat_map.get(item.id, [])
         tmp.append(item)
         stat_map[item.id] = tmp
+    novel_map = {item.id: item for item in books}
     novels = []
-    for book in books:
+    for novel_id in novel_ids:
+        book = novel_map.get(novel_id)
+        if book is None:
+            continue
         stat_dto_list = [
             J2StatDto().
             with_param(
