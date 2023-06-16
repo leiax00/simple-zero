@@ -112,7 +112,7 @@ export function toChartData(rankItem: any[], isIncrement = false) {
 export function sortJ2RankBookByDeltaFavoriteCount(bookList: J2RankBook[]): J2RankBook[] {
   bookList = bookList.sort((a, b) => {
     const aDelta = a.statList[a.statList.length - 1].favoriteCount - a.statList[0].favoriteCount
-    const bDelta = b.statList[a.statList.length - 1].favoriteCount - b.statList[0].favoriteCount
+    const bDelta = b.statList[b.statList.length - 1].favoriteCount - b.statList[0].favoriteCount
     return aDelta - bDelta >= 0 ? -1 : 1
   })
   bookList = bookList.map((item, index) => {
