@@ -3,7 +3,7 @@
 from data.bi_qu_ge.parser import BiQuHtmlParser
 from utils.httpHelper import *
 
-domain = 'https://www.xbiquwx.la'
+domain = 'https://www.biquzw.info/'
 
 
 class APIS(Enum):
