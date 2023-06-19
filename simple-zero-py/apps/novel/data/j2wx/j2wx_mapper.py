@@ -33,7 +33,7 @@ class J2wxMapper:
     def get_stat_info_in_today_by_ids(novel_ids, zero=None):
         if zero is None:
             zero = today_zero()
-        return list(J2Stat.select().where(J2Stat.id.in_(novel_ids), J2Stat.time >= zero))
+        return list(J2Stat.select().where(J2Stat.id.in_(novel_ids), J2Stat.time >= zero).order_by(J2Stat.time))
 
     @staticmethod
     def get_novel_info_by_ids(novel_ids):
