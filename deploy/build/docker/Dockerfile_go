@@ -1,4 +1,4 @@
-FROM golang:1.20.2 AS builder
+FROM 10.1.0.7:5000/lib/golang:1.20.2 AS builder
 
 ARG RELATIVE_PATH
 ARG APP_NAME
@@ -11,7 +11,7 @@ WORKDIR /src/simple-zero-go/app/${RELATIVE_PATH}
 RUN go env -w GOFLAGS="-buildvcs=false"
 RUN GOPROXY=https://goproxy.cn,direct make build
 
-FROM debian:stable-slim
+FROM 10.1.0.7:5000/lib/debian:stable-slim
 MAINTAINER "leiax00@outlook.com"
 
 ARG RELATIVE_PATH
