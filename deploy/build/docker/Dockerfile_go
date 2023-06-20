@@ -8,8 +8,10 @@ COPY . /src
 WORKDIR /src/simple-zero-go/app/${RELATIVE_PATH}
 
 #  #12 52.88 error obtaining VCS status: exit status 128
-RUN go env -w GOFLAGS="-buildvcs=false"
-RUN GOPROXY=https://goproxy.cn,direct make build
+RUN go env -w GOFLAGS="-buildvcs=false" && go env -w GO111MODULE=on && go env -w GOPROXY=https://goproxy.cn,direct
+RUN #GOPROXY=https://goproxy.cn,direct make build
+RUN go env
+RUN make build
 
 FROM 10.1.0.7:5000/lib/debian:stable-slim
 MAINTAINER "leiax00@outlook.com"
