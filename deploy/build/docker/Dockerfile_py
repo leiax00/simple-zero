@@ -1,11 +1,11 @@
-FROM python:3.9 as builder
+FROM hub.leiax00.cn/lib/python:3.9 as builder
 MAINTAINER "leiax00@outlook.com"
 
 ARG RELATIVE_PATH
 
 COPY . /src
 
-FROM python:3.9.16-slim-buster
+FROM hub.leiax00.cn/lib/python:3.9.17-slim-bullseye
 MAINTAINER "leiax00@outlook.com"
 
 ARG RELATIVE_PATH
