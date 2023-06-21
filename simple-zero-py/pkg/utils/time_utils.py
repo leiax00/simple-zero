@@ -27,6 +27,19 @@ def today_zero():
     )
 
 
+def current_hour():
+    """
+    获取当前准点时间, 忽略分秒毫秒
+    :return:
+    """
+    now_date = now()
+    return now_date - datetime.timedelta(
+        minutes=now_date.minute,
+        seconds=now_date.second,
+        microseconds=now_date.microsecond
+    )
+
+
 def datetime_2_num(date):
     return int(time.mktime(date.timetuple()) * 1000)
 

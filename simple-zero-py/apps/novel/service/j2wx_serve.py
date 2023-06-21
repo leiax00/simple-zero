@@ -7,7 +7,7 @@ from config import db
 from data.j2wx import constructor
 from data.j2wx.j2wx import j2wx_puller
 from data.j2wx.j2wx_mapper import j2wx_mapper
-from utils.time_utils import today_zero
+from utils.time_utils import today_zero, now, current_hour
 
 
 class J2wxServe:
@@ -31,12 +31,12 @@ class J2wxServe:
         logging.info(len(novels))
         return novels
 
-    def get_custom_rank_info(self, rank_id):
+    def get_custom_rank_info(self, rank_id, before_hour):
+        before_hour = before_hour or 7 * 24
         logging.info(f'start to query custom rank, rank id is: {rank_id}')
         with db.atomic() as tcn:
             rank = self.mapper.get_custom_rank_by_id(rank_id)
-            zero = today_zero()
-            zero = zero - datetime.timedelta(days=7)
+            zero = current_hour() - datetime.timedelta(days=before_hour // 24, hours=before_hour % 24)
             stat_list = self.mapper.get_stat_info_in_today_by_ids(rank.novel_ids, zero)
             books = self.mapper.get_novel_info_by_ids(rank.novel_ids)
             novels = constructor.construct_j2data(rank.novel_ids, books, stat_list)

@@ -80,7 +80,8 @@ def get_custom_rank_info(rank_id):
     :param rank_id: 自定义榜单的id
     :return: 榜单数据
     """
-    return jsonify(Response().with_ok(j2wx_serve.get_custom_rank_info(rank_id)))
+    before_hour = request.args.get('beforeHour', 7 * 24)
+    return jsonify(Response().with_ok(j2wx_serve.get_custom_rank_info(rank_id, int(before_hour))))
 
 
 @api.route('/j2wx/custom-rank/new', methods=['POST'])
