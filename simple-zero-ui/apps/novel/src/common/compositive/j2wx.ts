@@ -74,7 +74,8 @@ export function formatFavoriteCount(rankItem: J2RankBook, withDelta = true): str
     return `${score}`
   }
   const prevScore = rankItem.statList[0].favoriteCount
-  return `${score}(${score - prevScore})`
+  const scoreBefore2Hour = statLen >= 2 ? rankItem.statList[statLen - 2].favoriteCount : 0
+  return `${score}(${score - prevScore} - ${score - scoreBefore2Hour})`
 }
 
 /**

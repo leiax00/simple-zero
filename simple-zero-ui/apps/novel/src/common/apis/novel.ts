@@ -24,8 +24,8 @@ export function getJ2wxRankInfo(channelKey: string, rankId: string): Promise<Com
   return serve.get(`/j2wx/channel/${channelKey}/${rankId}`)
 }
 
-export function getJ2wxCustomRankInfo(rankId: any): Promise<CommonResp> {
-  return serve.get(`/j2wx/custom-rank/${rankId}`)
+export function getJ2wxCustomRankInfo(rankId: any, beforeHour: number): Promise<CommonResp> {
+  return serve.get(`/j2wx/custom-rank/${rankId}`, { params: { beforeHour } })
 }
 
 export function createCustomRank(rank: CustomRank): Promise<CommonResp> {
