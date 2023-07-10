@@ -31,6 +31,7 @@ export type etcdCommon = {
   firstRun: string
   static: string
   svgUri: string
+  github?: string
   searchEngin?: Engin[]
 }
 

@@ -6,13 +6,11 @@
       </a>
     </el-col>
     <el-col :span="24">
-      <sz-icon icon-class="copyright" class-name="icon-3" />
-      <span class="footer-text">{{
-        `${new Date().getFullYear()} ${pageData.copyright}`
-      }}</span>
+      <sz-icon icon-class="copyright" class="icon-3" />
+      <span class="footer-text">{{ `${new Date().getFullYear()} ${pageData.copyright}` }}</span>
     </el-col>
     <el-col :span="24">
-      <sz-icon icon-class="copyright" class-name="icon-3" />
+      <sz-icon icon-class="copyright" class="icon-3" />
       <span class="footer-text">{{ pageData.selfCopyright }}</span>
     </el-col>
     <el-col :span="24">
@@ -24,12 +22,7 @@
     </el-col>
     <el-col v-if="pageData.copyRightSn" :span="24">
       <sz-icon icon-class="aixin-left" />
-      <a
-        href="https://beian.miit.gov.cn/"
-        target="_blank"
-        class="footer-text"
-        >{{ pageData.copyRightSn }}</a
-      >
+      <a href="https://beian.miit.gov.cn/" target="_blank" class="footer-text">{{ pageData.copyRightSn }}</a>
       <sz-icon icon-class="aixin-right" />
     </el-col>
   </el-row>

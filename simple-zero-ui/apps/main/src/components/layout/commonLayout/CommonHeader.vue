@@ -12,6 +12,7 @@
     </div>
     <div class="header-right">
       <sz-theme-toggler />
+      <sz-icon v-if="config.common.github" icon-class="github" class="cursor-pointer icon-6" @click="toMyGithub" />
     </div>
   </div>
 </template>
@@ -23,13 +24,16 @@ import { useApp } from '@/store/app'
 defineOptions({
   name: 'CommonHeader',
 })
-const appConf = useApp()
-const logoUrl = appConf.logoUrl
+const { logoUrl, uiCtl, config } = useApp()
 const showAsideIcon = computed(() => {
-  return appConf.uiCtl.showAside ? 'shouqicaidan' : 'zhankaicaidan'
+  return uiCtl.showAside ? 'shouqicaidan' : 'zhankaicaidan'
 })
 const changeAsideStatus = () => {
-  appConf.uiCtl.showAside = !appConf.uiCtl.showAside
+  uiCtl.showAside = !uiCtl.showAside
+}
+
+const toMyGithub = () => {
+  window.open(config.common.github)
 }
 </script>
 
@@ -59,6 +63,12 @@ const changeAsideStatus = () => {
     }
     .header-gt-sm {
       @apply hidden sm:block;
+    }
+    & > div {
+      @apply align-middle;
+      & + div {
+        @apply ml-4;
+      }
     }
   }
 }
