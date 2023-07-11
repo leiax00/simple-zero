@@ -10,12 +10,7 @@
       <el-scrollbar>
         <el-menu :default-active="activeRoute">
           <template v-for="menuGroup in menus">
-            <el-menu-item
-              v-for="item in menuGroup.data"
-              :key="item.id"
-              :index="item.path"
-              @click="openMenuItem(item)"
-            >
+            <el-menu-item v-for="item in menuGroup.data" :key="item.id" :index="item.path" @click="openMenuItem(item)">
               {{ item.name }}
             </el-menu-item>
           </template>

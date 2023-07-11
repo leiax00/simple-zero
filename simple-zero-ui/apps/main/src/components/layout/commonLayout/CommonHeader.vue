@@ -2,7 +2,7 @@
   <div class="common-header">
     <div class="header-logo">
       <div class="menu" @click="changeAsideStatus">
-        <sz-icon :icon-class="showAsideIcon" class="icon-24" />
+        <sz-icon :icon-class="showAsideIcon" class="icon-5" />
       </div>
       <div class="logo ml-3 sm:ml-0">
         <router-link class="nav-item" to="/">
@@ -48,7 +48,7 @@ const toMyGithub = () => {
       @apply inline-block align-middle;
     }
     .menu {
-      @apply sm:hidden;
+      @apply sm:hidden align-top;
     }
     .logo {
       @apply mr-6;
@@ -71,5 +71,9 @@ const toMyGithub = () => {
       }
     }
   }
+}
+
+.icon-5 {
+  @apply w-5 h-5;
 }
 </style>
