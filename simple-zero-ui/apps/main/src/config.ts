@@ -4,18 +4,6 @@ import type { EtcdConf } from '@/beans'
 
 export async function loadAppConf() {
   const { Base64, Utf8 } = CryptoJS.enc
-  // const { data } = await axios.post(
-  //   'https://etcd.leiax00.cn/v3/auth/authenticate',
-  //   {
-  //     name: 'uiUser',
-  //     password: '12345678',
-  //   }
-  // )
-  // const headers = { Authorization: data.token }
-  // await axios.post('https://etcd.leiax00.cn/v3/kv/put', {
-  //   key: Base64.stringify(Utf8.parse('app.ui.ui-main')),
-  //   value: Base64.stringify(Utf8.parse(JSON.stringify(settings)))
-  // }, { headers })
   // 查询以 app.ui开头的所有服务的配置
   const key = Base64.stringify(Utf8.parse(import.meta.env.VITE_APP_CONFIG_ETCD_KEY))
   const resp = await axios.get(`/config/v1/prop/${key}`, {
