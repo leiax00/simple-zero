@@ -1,7 +1,7 @@
 <template>
   <el-row class="layout-footer">
     <el-col :span="24">
-      <a class="nav-item" href="/">
+      <a class="nav-item inline-block" href="/">
         <img :src="logoUrl" alt="Simple Zero" class="h-7" />
       </a>
     </el-col>
