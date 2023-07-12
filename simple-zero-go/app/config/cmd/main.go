@@ -26,7 +26,7 @@ var (
 
 func init() {
 	flag.StringVar(&cfg.conf, "conf", "./app/config/configs", "config path, eg: -conf config.yaml")
-	flag.StringVar(&cfg.etcd, "etcd", "10.1.0.3:2377;10.1.0.3:2381;10.1.0.3:2383", "etcd server, eg: ip1:port;ip2:port")
+	flag.StringVar(&cfg.etcd, "etcd", "10.1.0.3:22379;10.1.0.3:22381;10.1.0.3:22383", "etcd server, eg: ip1:port;ip2:port")
 }
 
 func newApp(conf *conf.Config, logger *logger2.Logger, httpServer *server.HttpServer, register *etcd.Registry) *App {
