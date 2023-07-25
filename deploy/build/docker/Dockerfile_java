@@ -1,0 +1,15 @@
+FROM amazoncorretto:11.0.20-alpine3.18
+MAINTAINER "leiax00@outlook.com"
+
+ARG APP_NAME
+ENV APP_PORT=80
+ENV APP_PROFILE=prod
+
+COPY /simple-zero-java/$APP_NAME/target/$APP_NAME.jar /app/app.jar
+
+WORKDIR /app
+
+ENTRYPOINT "java" \
+    "-Dserver.port=$APP_PORT" \
+    "-Dspring.profiles.active=$APP_PROFILE" \
+    "-jar" "app.jar"
