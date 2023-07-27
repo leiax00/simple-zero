@@ -12,7 +12,7 @@ from routes.api import api
 from xxl_executor.executor import init_xxl
 from xxl_executor.routes import api as xxl_api
 
-SERVER_PREFIX = '/novel/v1'
+SERVER_PREFIX = '/api/novel'
 
 init_logger()
 

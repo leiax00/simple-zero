@@ -7,7 +7,7 @@ from domain.response import Response
 from service.j2wx_serve import j2wx_serve
 from service.service import novel
 
-name = 'api'
+name = 'v1'
 
 api = Blueprint(name, __name__)
 

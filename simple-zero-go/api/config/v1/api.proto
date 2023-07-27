@@ -8,12 +8,12 @@ option go_package = "github.com/leiax00/simple-zero/api/config/v1;api";
 service Config {
   rpc GetProp (PropCond) returns (PropReply) {
     option (google.api.http) = {
-      get: "/config/v1/prop/{key}",
+      get: "/api/config/v1/prop/{key}",
     };
   }
   rpc SetUiConf(UIConfig) returns (UIConfigReply) {
     option (google.api.http) = {
-      post: "/config/v1/ui-conf",
+      post: "/api/config/v1/ui-conf",
     };
   }
 }

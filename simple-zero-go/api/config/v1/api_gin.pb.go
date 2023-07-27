@@ -26,8 +26,8 @@ type ConfigCtl struct {
 
 func RegisterConfigHttpServer(r gin.IRouter, srv ConfigHttpServer) {
 	ctl := &ConfigCtl{srv}
-	r.Handle("GET", "/config/v1/prop/:key", ctl._GetProp0)
-	r.Handle("POST", "/config/v1/ui-conf", ctl._SetUiConf0)
+	r.Handle("GET", "/api/config/v1/prop/:key", ctl._GetProp0)
+	r.Handle("POST", "/api/config/v1/ui-conf", ctl._SetUiConf0)
 }
 
 func (ctl *ConfigCtl) _GetProp0(ctx *gin.Context) {
