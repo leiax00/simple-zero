@@ -62,8 +62,8 @@ function getServer() {
       'Access-Control-Allow-Origin': '*',
     },
     proxy: {
-      '/config/v1/': {
-        target: 'http://10.1.0.4:11001',
+      '/api/config/v1/': {
+        target: 'http://10.1.0.4:11002',
         changeOrigin: true,
       },
     },

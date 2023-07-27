@@ -6,7 +6,7 @@ export async function loadAppConf() {
   const { Base64, Utf8 } = CryptoJS.enc
   // 查询以 app.ui开头的所有服务的配置
   const key = Base64.stringify(Utf8.parse(import.meta.env.VITE_APP_CONFIG_ETCD_KEY))
-  const resp = await axios.get(`/config/v1/prop/${key}`, {
+  const resp = await axios.get(`/api/config/v1/prop/${key}`, {
     params: { prefix: 1 },
   })
   const conf: EtcdConf = { menus: [], serves: [] }

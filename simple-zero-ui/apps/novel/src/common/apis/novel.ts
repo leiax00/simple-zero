@@ -1,4 +1,3 @@
-import type { AxiosResponse } from 'axios'
 import type { CustomRank } from '@/common'
 import serve from '@/common/apis/serve'
 

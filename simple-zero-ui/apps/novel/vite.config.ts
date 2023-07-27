@@ -16,8 +16,7 @@ import pkgInfo from './package.json'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base:
-    mode === 'development' ? '/' : loadEnv(mode, process.cwd()).VITE_APP_DOMAIN,
+  base: mode === 'development' ? '/' : loadEnv(mode, process.cwd()).VITE_APP_DOMAIN,
   resolve: {
     // extensions: ['.js', '.ts', '.tsx', '.jsx'],
     alias: {
@@ -68,8 +67,8 @@ function getServer() {
       'Access-Control-Allow-Origin': '*',
     },
     proxy: {
-      '/novel/v1/api/': {
-        target: 'http://10.1.0.4:11000/',
+      '/api/novel/v1/': {
+        target: 'http://10.1.0.4:11002/',
         changeOrigin: true,
       },
     },
