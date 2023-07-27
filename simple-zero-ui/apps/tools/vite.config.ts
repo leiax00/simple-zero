@@ -16,7 +16,7 @@ import pkgInfo from './package.json'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: loadEnv(mode, process.cwd()).VITE_APP_DOMAIN,
+  // base: loadEnv(mode, process.cwd()).VITE_APP_DOMAIN,
   resolve: {
     // extensions: ['.js', '.ts', '.tsx', '.jsx'],
     alias: {
