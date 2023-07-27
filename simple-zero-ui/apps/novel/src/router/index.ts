@@ -3,7 +3,7 @@ import type { Router } from 'vue-router'
 import { routes } from '@/router/routes'
 
 const router: Router = createRouter({
-  history: createWebHistory('/novel'),
+  history: createWebHistory(import.meta.env.VITE_APP_PREFIX),
   routes,
 })
 

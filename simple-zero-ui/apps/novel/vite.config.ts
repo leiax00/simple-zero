@@ -48,7 +48,7 @@ function getPlugins(mode: string): any {
       resolvers: [ElementPlusResolver({ importStyle: 'sass' }), SzResolver()],
     }),
     qiankun(pkgInfo.name, {
-      useDevMode: mode === 'development',
+      useDevMode: true,
     }),
     viteCompression({ threshold: 100 * 1024 }), // > 100kb则压缩
   ]
