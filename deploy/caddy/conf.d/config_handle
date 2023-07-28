@@ -1,6 +1,6 @@
-handle /config/v1/* {
+handle /api/config/v1/* {
   reverse_proxy {
-    to http://10.1.0.4:11001
+    to https://leiax00.cn
     header_up Host ip:port
     header_down Access-Control-Allow-Origin *
     header_down Access-Control-Allow-Methods *

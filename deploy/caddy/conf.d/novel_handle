@@ -1,6 +1,6 @@
-handle /novel/v1/api/* {
+handle /api/novel/v1/* {
   reverse_proxy {
-    to http://10.1.0.4:11000
+    to https://leiax00.cn
     header_up Host ip:port
     header_down Access-Control-Allow-Origin *
     header_down Access-Control-Allow-Methods *
