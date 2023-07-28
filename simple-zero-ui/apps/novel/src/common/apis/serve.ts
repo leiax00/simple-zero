@@ -2,7 +2,7 @@ import axios from 'axios'
 import { tipMsg } from '@leiax00/zero-ui'
 
 const getBaseUrl = () => {
-  return '/api/novel/v1'
+  return `/api/${import.meta.env.VITE_APP_NAME}/${import.meta.env.VITE_APP_VERSION}`
 }
 
 const serve = axios.create({
