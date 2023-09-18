@@ -10,10 +10,13 @@
 
     <artifactId>sz-common</artifactId>
     <packaging>pom</packaging>
-    <description>sz-common通用模块</description>
+    <description>sz-common: 通用模块, 组件模块</description>
 
     <modules>
         <module>sz-common-core</module>
         <module>sz-common-redis</module>
+        <module>sz-common-security</module>
+        <module>sz-common-datascope</module>
+        <module>sz-common-datasource</module>
     </modules>
 </project>
