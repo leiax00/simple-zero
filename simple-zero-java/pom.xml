@@ -11,8 +11,10 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>sz-api</module>
         <module>sz-gateway</module>
         <module>sz-common</module>
+        <module>sz-modules</module>
     </modules>
 
     <properties>
@@ -23,6 +25,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <spring-boot.version>2.7.13</spring-boot.version>
+        <spring-boot-grpc.version>2.14.0.RELEASE</spring-boot-grpc.version>
         <spring-cloud.version>2021.0.8</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
         <spring-boot-admin.version>2.7.10</spring-boot-admin.version>
@@ -31,7 +34,9 @@
         <commons.io.version>2.11.0</commons.io.version>
         <fastjson.version>2.0.34</fastjson.version>
         <jjwt.version>0.9.1</jjwt.version>
+        <transmittable-thread-local.version>2.14.3</transmittable-thread-local.version>
         <lombok.version>1.18.28</lombok.version>
+        <grpc.version>1.57.2</grpc.version>
     </properties>
 
     <dependencies>
@@ -109,6 +114,40 @@
                 <version>${jjwt.version}</version>
             </dependency>
 
+            <!-- 线程传递值 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${transmittable-thread-local.version}</version>
+            </dependency>
+
+            <!-- grpc -->
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-netty</artifactId>
+                <version>${grpc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-protobuf</artifactId>
+                <version>${grpc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-stub</artifactId>
+                <version>${grpc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.devh</groupId>
+                <artifactId>grpc-server-spring-boot-starter</artifactId>
+                <version>${spring-boot-grpc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.devh</groupId>
+                <artifactId>grpc-client-spring-boot-starter</artifactId>
+                <version>${spring-boot-grpc.version}</version>
+            </dependency>
+
             <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
             <dependency>
                 <groupId>org.projectlombok</groupId>
@@ -126,6 +165,24 @@
             <dependency>
                 <groupId>cn.leiax00</groupId>
                 <artifactId>sz-common-redis</artifactId>
+                <version>${sz.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.leiax00</groupId>
+                <artifactId>sz-common-security</artifactId>
+                <version>${sz.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.leiax00</groupId>
+                <artifactId>sz-common-datascope</artifactId>
+                <version>${sz.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.leiax00</groupId>
+                <artifactId>sz-api-system</artifactId>
                 <version>${sz.version}</version>
             </dependency>
         </dependencies>
@@ -175,7 +232,7 @@
 
     <pluginRepositories>
         <pluginRepository>
-            <id>public</id>
+            <id>central</id>
             <name>aliyun nexus</name>
             <url>https://maven.aliyun.com/repository/public</url>
             <releases>
