@@ -27,6 +27,12 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>cn.leiax00</groupId>
             <artifactId>sz-api-system</artifactId>
@@ -35,9 +41,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!--        <dependency>-->
-<!--            <groupId>cn.leiax00</groupId>-->
-<!--            <artifactId>sz-common-datascope</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>cn.leiax00</groupId>
+            <artifactId>sz-common-datascope</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.leiax00</groupId>
+            <artifactId>sz-common-datasource</artifactId>
+        </dependency>
     </dependencies>
 </project>

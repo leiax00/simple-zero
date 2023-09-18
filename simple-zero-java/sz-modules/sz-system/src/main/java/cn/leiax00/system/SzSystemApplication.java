@@ -1,13 +1,12 @@
 package cn.leiax00.system;
 
-//import cn.leiax00.common.security.annotation.EnableCustomConfig;
+import cn.leiax00.common.security.annotation.EnableCustomConfig;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
-//@EnableCustomConfig
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+@EnableCustomConfig
+@SpringBootApplication
 public class SzSystemApplication {
     public static void main(String[] args) {
         SpringApplication.run(SzSystemApplication.class, args);

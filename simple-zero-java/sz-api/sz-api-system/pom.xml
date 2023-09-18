@@ -12,6 +12,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>cn.leiax00</groupId>
+            <artifactId>sz-common-core</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-netty</artifactId>
         </dependency>

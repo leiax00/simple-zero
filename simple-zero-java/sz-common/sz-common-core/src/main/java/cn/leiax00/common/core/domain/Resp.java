@@ -1,11 +1,9 @@
 package cn.leiax00.common.core.domain;
 
 import cn.leiax00.common.core.constant.Constants;
-import lombok.Data;
 
 import java.io.Serializable;
 
-@Data
 public class Resp<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -63,5 +61,29 @@ public class Resp<T> implements Serializable {
 
     public static <T> boolean isOk(Resp<T> resp) {
         return Resp.SUCCESS == resp.code;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
     }
 }

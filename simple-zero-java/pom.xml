@@ -30,6 +30,9 @@
         <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
         <spring-boot-admin.version>2.7.10</spring-boot-admin.version>
 
+        <druid.version>1.2.16</druid.version>
+        <dynamic-ds.version>3.5.2</dynamic-ds.version>
+
         <pagehelper.boot.version>1.4.7</pagehelper.boot.version>
         <commons.io.version>2.11.0</commons.io.version>
         <fastjson.version>2.0.34</fastjson.version>
@@ -46,10 +49,10 @@
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.projectlombok</groupId>-->
+<!--            <artifactId>lombok</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -183,6 +186,12 @@
             <dependency>
                 <groupId>cn.leiax00</groupId>
                 <artifactId>sz-api-system</artifactId>
+                <version>${sz.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.leiax00</groupId>
+                <artifactId>sz-common-datasource</artifactId>
                 <version>${sz.version}</version>
             </dependency>
         </dependencies>
