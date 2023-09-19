@@ -2,6 +2,7 @@ package cn.leiax00.common.security.handler;
 
 import cn.leiax00.common.core.constant.HttpStatus;
 import cn.leiax00.common.core.exception.ServiceException;
+import cn.leiax00.common.core.exception.auth.NotLoginException;
 import cn.leiax00.common.core.exception.auth.NotPermissionException;
 import cn.leiax00.common.core.exception.auth.NotRoleException;
 import cn.leiax00.common.core.utils.StringUtils;
@@ -27,6 +28,17 @@ import javax.servlet.http.HttpServletRequest;
 public class GlobalExceptionHandler
 {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    /**
+     * 未登录
+     */
+    @ExceptionHandler(NotLoginException.class)
+    public AjaxResult handleNotLoginException(NotLoginException e, HttpServletRequest request)
+    {
+        String requestURI = request.getRequestURI();
+        log.error("请求地址'{}',未登录系统'{}'", requestURI, e.getMessage());
+        return AjaxResult.error(HttpStatus.UNAUTHORIZED, "未登录系统, 请先登录");
+    }
 
     /**
      * 权限码异常
