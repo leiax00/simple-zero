@@ -17,6 +17,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>cn.leiax00</groupId>
             <artifactId>sz-common-redis</artifactId>
         </dependency>

@@ -1,7 +1,7 @@
 package cn.leiax00.common.datascope.aspect;
 
 import cn.leiax00.common.core.context.SecurityContextHolder;
-import cn.leiax00.common.core.domain.BaseEntity;
+import cn.leiax00.common.core.web.domain.BaseEntity;
 import cn.leiax00.common.core.text.Convert;
 import cn.leiax00.common.core.utils.StringUtils;
 import cn.leiax00.common.datascope.annotation.DataScope;

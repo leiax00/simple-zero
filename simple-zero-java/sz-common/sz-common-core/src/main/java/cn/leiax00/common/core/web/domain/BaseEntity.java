@@ -1,4 +1,4 @@
-package cn.leiax00.common.core.domain;
+package cn.leiax00.common.core.web.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -41,7 +41,7 @@ public class BaseEntity implements Serializable
 
     /** 请求参数 */
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private Map<String, Object> params = new HashMap<>();
+    private Map<String, Object> params;
 
     public String getSearchValue()
     {

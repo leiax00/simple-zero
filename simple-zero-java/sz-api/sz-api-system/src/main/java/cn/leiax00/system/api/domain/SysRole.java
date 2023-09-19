@@ -1,6 +1,6 @@
 package cn.leiax00.system.api.domain;
 
-import cn.leiax00.common.core.domain.BaseEntity;
+import cn.leiax00.common.core.web.domain.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 

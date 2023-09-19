@@ -1,7 +1,7 @@
 package cn.leiax00.common.core.utils;
 
 import cn.leiax00.common.core.constant.Constants;
-import cn.leiax00.common.core.domain.Resp;
+import cn.leiax00.common.core.web.domain.Resp;
 import cn.leiax00.common.core.text.Convert;
 import com.alibaba.fastjson2.JSON;
 import org.springframework.core.io.buffer.DataBuffer;
