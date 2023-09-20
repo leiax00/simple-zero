@@ -140,6 +140,12 @@
                 <version>${grpc.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java-util</artifactId>
+                <version>3.21.7</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
                 <groupId>net.devh</groupId>
                 <artifactId>grpc-server-spring-boot-starter</artifactId>
                 <version>${spring-boot-grpc.version}</version>
