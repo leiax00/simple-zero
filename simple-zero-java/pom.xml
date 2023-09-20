@@ -12,7 +12,6 @@
 
     <modules>
         <module>sz-api</module>
-        <module>sz-gateway</module>
         <module>sz-common</module>
         <module>sz-modules</module>
     </modules>
