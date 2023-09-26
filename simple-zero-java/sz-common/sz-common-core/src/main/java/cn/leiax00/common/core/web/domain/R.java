@@ -4,7 +4,7 @@ import cn.leiax00.common.core.constant.Constants;
 
 import java.io.Serializable;
 
-public class Resp<T> implements Serializable {
+public class R<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -23,44 +23,44 @@ public class Resp<T> implements Serializable {
 
     private T data;
 
-    private Resp() {
+    private R() {
     }
 
-    public static <T> Resp<T> ok(T data) {
+    public static <T> R<T> ok(T data) {
         return restResult(data, SUCCESS, null);
     }
 
-    public static <T> Resp<T> ok(T data, String msg) {
+    public static <T> R<T> ok(T data, String msg) {
         return restResult(data, SUCCESS, msg);
     }
 
-    public static <T> Resp<T> fail(String msg) {
+    public static <T> R<T> fail(String msg) {
         return restResult(null, FAIL, msg);
     }
 
-    public static <T> Resp<T> fail(T data) {
+    public static <T> R<T> fail(T data) {
         return restResult(data, FAIL, null);
     }
 
-    public static <T> Resp<T> fail(T data, String msg) {
+    public static <T> R<T> fail(T data, String msg) {
         return restResult(data, FAIL, msg);
     }
 
-    public static <T> Resp<T> fail(T data, int code, String msg) {
+    public static <T> R<T> fail(T data, int code, String msg) {
         return restResult(data, code, msg);
     }
 
 
-    private static <T> Resp<T> restResult(T data, int code, String msg) {
-        Resp<T> apiResult = new Resp<>();
+    private static <T> R<T> restResult(T data, int code, String msg) {
+        R<T> apiResult = new R<>();
         apiResult.setCode(code);
         apiResult.setData(data);
         apiResult.setMsg(msg);
         return apiResult;
     }
 
-    public static <T> boolean isOk(Resp<T> resp) {
-        return Resp.SUCCESS == resp.code;
+    public static <T> boolean isOk(R<T> resp) {
+        return R.SUCCESS == resp.code;
     }
 
     public int getCode() {

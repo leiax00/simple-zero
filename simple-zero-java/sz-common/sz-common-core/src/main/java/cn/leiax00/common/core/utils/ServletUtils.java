@@ -1,7 +1,7 @@
 package cn.leiax00.common.core.utils;
 
 import cn.leiax00.common.core.constant.Constants;
-import cn.leiax00.common.core.web.domain.Resp;
+import cn.leiax00.common.core.web.domain.R;
 import cn.leiax00.common.core.text.Convert;
 import com.alibaba.fastjson2.JSON;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -283,7 +283,7 @@ public class ServletUtils
      */
     public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, Object value)
     {
-        return webFluxResponseWriter(response, HttpStatus.OK, value, Resp.FAIL);
+        return webFluxResponseWriter(response, HttpStatus.OK, value, R.FAIL);
     }
 
     /**
@@ -327,7 +327,7 @@ public class ServletUtils
     {
         response.setStatusCode(status);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, contentType);
-        Resp<?> result = Resp.fail(code, value.toString());
+        R<?> result = R.fail(code, value.toString());
         DataBuffer dataBuffer = response.bufferFactory().wrap(JSON.toJSONString(result).getBytes());
         return response.writeWith(Mono.just(dataBuffer));
     }

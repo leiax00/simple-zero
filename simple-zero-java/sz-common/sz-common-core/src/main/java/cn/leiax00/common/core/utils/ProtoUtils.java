@@ -23,7 +23,15 @@ public class ProtoUtils {
      * proto对象转换为Map
      */
     public static <T extends MessageOrBuilder> Map<String, Object> proto2Map(T t) throws InvalidProtocolBufferException {
-        return JSON.parseObject(proto2JsonStr(t), new TypeReference<Map<String, Object>>() {});
+        return JSON.parseObject(proto2JsonStr(t), new TypeReference<Map<String, Object>>() {
+        });
+    }
+
+    /**
+     * proto对象转pojo对象
+     */
+    public static <T extends MessageOrBuilder, V> T proto2Obj(T t, TypeReference<T> typeReference) throws InvalidProtocolBufferException {
+        return JSON.parseObject(proto2JsonStr(t), typeReference);
     }
 
     /**
@@ -31,6 +39,14 @@ public class ProtoUtils {
      */
     public static <T extends Message.Builder> Message jsonStr2Proto(String jsonStr, T t) throws InvalidProtocolBufferException {
         JsonFormat.parser().merge(jsonStr, t);
+        return t.build();
+    }
+
+    /**
+     * proto对象转pojo对象
+     */
+    public static <T extends Message.Builder, V> Message obj2Proto(V v, T t) throws InvalidProtocolBufferException {
+        JsonFormat.parser().merge(JSON.toJSONString(v), t);
         return t.build();
     }
 }

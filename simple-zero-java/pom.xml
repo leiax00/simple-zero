@@ -199,6 +199,12 @@
                 <artifactId>sz-common-datasource</artifactId>
                 <version>${sz.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>cn.leiax00</groupId>
+                <artifactId>sz-common-log</artifactId>
+                <version>${sz.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
