@@ -18,5 +18,6 @@
         <module>sz-common-security</module>
         <module>sz-common-datascope</module>
         <module>sz-common-datasource</module>
+        <module>sz-common-log</module>
     </modules>
 </project>
