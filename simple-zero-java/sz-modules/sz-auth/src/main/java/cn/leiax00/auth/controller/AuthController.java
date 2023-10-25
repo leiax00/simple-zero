@@ -25,7 +25,7 @@ public class AuthController {
 
     @PostMapping("login")
     public R<?> login(@RequestBody LoginBody form) throws InvalidProtocolBufferException {
-        Map<String, Object> login = loginService.login(form);
+        Map<String, Object> login = loginService.login(form.getUsername(), form.getPassword());
         return R.ok(login);
     }
 

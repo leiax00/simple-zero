@@ -3,6 +3,7 @@ package cn.leiax00.common.core.utils;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
+import com.google.protobuf.Descriptors;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 import com.google.protobuf.MessageOrBuilder;
@@ -15,8 +16,20 @@ public class ProtoUtils {
     /**
      * proto对象转换为json字符串
      */
+    public static <T extends MessageOrBuilder> String proto2JsonStr(T t, Descriptors.Descriptor descriptor) throws InvalidProtocolBufferException {
+        JsonFormat.Printer printer = JsonFormat.printer();
+        if (descriptor != null) {
+            JsonFormat.TypeRegistry typeRegistry = JsonFormat.TypeRegistry.newBuilder()
+                .add(descriptor)
+                .build();
+            printer.usingTypeRegistry(typeRegistry);
+        }
+
+        return printer.print(t);
+    }
+
     public static <T extends MessageOrBuilder> String proto2JsonStr(T t) throws InvalidProtocolBufferException {
-        return JsonFormat.printer().print(t);
+        return proto2JsonStr(t, null);
     }
 
     /**

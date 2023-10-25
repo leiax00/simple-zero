@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+
+//option java_multiple_files = true;
+option java_package = "cn.leiax00.api.system.v1";
+option java_outer_classname = "User";
+
+// The greeting service definition.
+service UserService {
+  // Sends a greeting
+  rpc getUserInfo (UserRequest) returns (UserReply) {
+  }
+}
+
+// The request message containing the user's name.
+message UserRequest {
+  string username = 1;
+  int64 userId = 2;
+}
+
+// The response message containing the greetings
+message UserReply {
+  int32 code = 1;
+  string msg = 2;
+  google.protobuf.Any data = 3;
+}
+
+message UserInfo {
+  int32 userId = 1;
+  string username = 2;
+  string password = 3;
+}
