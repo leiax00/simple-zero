@@ -29,6 +29,7 @@ public class LoginService {
     @Autowired
     private RedisService redisService;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private RemoteUserService remoteUserService;
 
