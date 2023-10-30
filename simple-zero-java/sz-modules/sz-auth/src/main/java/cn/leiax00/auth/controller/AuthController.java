@@ -5,6 +5,7 @@ import cn.leiax00.auth.domain.dto.RegisterBody;
 import cn.leiax00.auth.service.LoginService;
 import cn.leiax00.common.core.web.domain.R;
 import cn.leiax00.common.security.service.TokenService;
+import cn.leiax00.system.api.model.LoginUser;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,7 +26,7 @@ public class AuthController {
 
     @PostMapping("login")
     public R<?> login(@RequestBody LoginBody form) throws InvalidProtocolBufferException {
-        Map<String, Object> login = loginService.login(form.getUsername(), form.getPassword());
+        LoginUser login = loginService.login(form.getUsername(), form.getPassword());
         return R.ok(login);
     }
 

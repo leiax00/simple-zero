@@ -3,10 +3,12 @@ package cn.leiax00.system.controller;
 import cn.leiax00.common.core.utils.StringUtils;
 import cn.leiax00.common.core.web.controller.BaseController;
 import cn.leiax00.common.core.web.domain.AjaxResult;
+import cn.leiax00.common.core.web.domain.R;
 import cn.leiax00.common.core.web.page.TableDataInfo;
 import cn.leiax00.common.security.utils.SecurityUtils;
 import cn.leiax00.system.api.domain.SysRole;
 import cn.leiax00.system.api.domain.SysUser;
+import cn.leiax00.system.api.model.LoginUser;
 import cn.leiax00.system.service.IPermissionService;
 import cn.leiax00.system.service.ISysRoleService;
 import cn.leiax00.system.service.ISysUserService;
@@ -156,5 +158,23 @@ public class SysUserController extends BaseController {
         userService.checkUserDataScope(user.getUserId());
         user.setUpdateBy(SecurityUtils.getUsername());
         return toAjax(userService.updateUserStatus(user));
+    }
+
+    @GetMapping("/info/{username}")
+    public R<LoginUser> infoByUsername(@PathVariable("username") String username) {
+        SysUser sysUser = userService.selectUserByUserName(username);
+        if (StringUtils.isNull(sysUser))
+        {
+            return R.fail("用户名或密码错误");
+        }
+        // 角色集合
+        Set<String> roles = permissionService.getRolePermission(sysUser);
+        // 权限集合
+        Set<String> permissions = permissionService.getMenuPermission(sysUser);
+        LoginUser sysUserVo = new LoginUser();
+        sysUserVo.setSysUser(sysUser);
+        sysUserVo.setRoles(roles);
+        sysUserVo.setPermissions(permissions);
+        return R.ok(sysUserVo);
     }
 }

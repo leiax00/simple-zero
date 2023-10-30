@@ -2,10 +2,12 @@ package cn.leiax00.system;
 
 import cn.leiax00.common.security.annotation.EnableCustomConfig;
 
+import cn.leiax00.common.security.annotation.EnableSzFeignClients;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @EnableCustomConfig
+@EnableSzFeignClients
 @SpringBootApplication
 public class SzSystemApplication {
     public static void main(String[] args) {

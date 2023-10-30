@@ -1,1 +1,2 @@
 cn.leiax00.system.api.service.SimpleServiceClient
+cn.leiax00.system.api.factory.RemoteUserFallbackFactory

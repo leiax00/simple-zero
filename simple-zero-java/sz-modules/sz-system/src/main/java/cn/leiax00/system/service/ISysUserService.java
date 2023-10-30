@@ -30,4 +30,6 @@ public interface ISysUserService {
     int resetPwd(SysUser user);
 
     int updateUserStatus(SysUser user);
+
+    SysUser selectUserByUserName(String username);
 }

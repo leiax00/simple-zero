@@ -2,13 +2,17 @@ package cn.leiax00.auth.service;
 
 import cn.leiax00.api.system.v1.Simple;
 import cn.leiax00.common.core.constant.CacheConstants;
+import cn.leiax00.common.core.constant.SecurityConstants;
 import cn.leiax00.common.core.constant.UserConstants;
 import cn.leiax00.common.core.exception.ServiceException;
 import cn.leiax00.common.core.text.Convert;
 import cn.leiax00.common.core.utils.ProtoUtils;
 import cn.leiax00.common.core.utils.StringUtils;
 import cn.leiax00.common.core.utils.ip.IpUtils;
+import cn.leiax00.common.core.web.domain.R;
 import cn.leiax00.common.redis.service.RedisService;
+import cn.leiax00.system.api.model.LoginUser;
+import cn.leiax00.system.api.service.RemoteUserService;
 import cn.leiax00.system.api.service.SimpleServiceClient;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +29,10 @@ public class LoginService {
     @Autowired
     private RedisService redisService;
 
-    public Map<String, Object> login(String username, String password) throws InvalidProtocolBufferException {
+    @Autowired
+    private RemoteUserService remoteUserService;
+
+    public LoginUser login(String username, String password) throws InvalidProtocolBufferException {
         if (StringUtils.isAnyBlank(username, password)) {
             throw new ServiceException("用户/密码必须填写");
         }
@@ -45,8 +52,7 @@ public class LoginService {
             throw new ServiceException("很遗憾，访问IP已被列入系统黑名单");
         }
 
-        Simple.HelloRequest request = Simple.HelloRequest.newBuilder().setName(username).build();
-        Simple.HelloReply reply = client.sayHello(request);
-        return ProtoUtils.proto2Map(reply);
+        R<LoginUser> userResult = this.remoteUserService.getUserInfo(username, SecurityConstants.INNER);
+        return userResult.getData();
     }
 }

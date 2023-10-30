@@ -17,4 +17,6 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     int insertUser(SysUser user);
 
     int updateUser(SysUser user);
+
+    SysUser selectUserByUserName(String username);
 }

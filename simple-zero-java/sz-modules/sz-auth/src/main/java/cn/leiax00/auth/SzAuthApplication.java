@@ -1,5 +1,6 @@
 package cn.leiax00.auth;
 
+import cn.leiax00.common.security.annotation.EnableSzFeignClients;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -7,6 +8,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 /**
  * 网关启动程序
  */
+@EnableSzFeignClients
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class SzAuthApplication {
     public static void main(String[] args) {
