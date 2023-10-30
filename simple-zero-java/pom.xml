@@ -33,6 +33,7 @@
         <dynamic-ds.version>3.5.2</dynamic-ds.version>
 
         <pagehelper.boot.version>1.4.7</pagehelper.boot.version>
+        <mybatis.plus.version>3.5.4</mybatis.plus.version>
         <commons.io.version>2.11.0</commons.io.version>
         <fastjson.version>2.0.34</fastjson.version>
         <jjwt.version>0.9.1</jjwt.version>
@@ -95,6 +96,23 @@
                 <version>${pagehelper.boot.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-annotation</artifactId>
+                <version>${mybatis.plus.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
+                <version>${mybatis.plus.version}</version>
+                <scope>compile</scope>
+            </dependency>
             <!-- io常用工具类 -->
             <dependency>
                 <groupId>commons-io</groupId>

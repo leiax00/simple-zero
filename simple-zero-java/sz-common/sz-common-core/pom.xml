@@ -93,5 +93,10 @@
             <artifactId>protobuf-java-util</artifactId>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-annotation</artifactId>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>
