@@ -1,3 +1,36 @@
+-- --------------------------------- 参数配置表 -----------------------------------------
+-- 删除表，如果存在
+drop table if exists sys_config;
+
+-- 创建表
+create table sys_config
+(
+    config_id    bigserial constraint sys_config_pk primary key,
+    config_name  varchar(100) default '',
+    config_key   varchar(100) default '',
+    config_value varchar(500) default '',
+    config_type  char(1)      default 'N',
+    create_by    varchar(64)  default '',
+    create_time  timestamptz,
+    update_by    varchar(64)  default '',
+    update_time  timestamptz,
+    remark       varchar(500)
+);
+
+comment on table sys_config is '参数配置表';
+comment on column sys_config.config_id is '参数主键';
+comment on column sys_config.config_name is '参数名称';
+comment on column sys_config.config_key is '参数键名';
+comment on column sys_config.config_value is '参数键值';
+comment on column sys_config.config_type is '系统内置（Y是 N否）';
+comment on column sys_config.create_by is '创建者';
+comment on column sys_config.create_time is '创建时间';
+comment on column sys_config.update_by is '更新者';
+comment on column sys_config.update_time is '更新时间';
+comment on column sys_config.remark is '备注';
+
+insert into sys_config values(1, '账号自助-是否开启用户注册功能', 'sys.account.registerUser', 'false',         'Y', 'admin', now(), '', null, '是否开启注册用户功能（true开启，false关闭）');
+
 -- --------------------------------- 部门表 -----------------------------------------
 -- 删除表，如果存在
 DROP TABLE IF EXISTS sys_dept;

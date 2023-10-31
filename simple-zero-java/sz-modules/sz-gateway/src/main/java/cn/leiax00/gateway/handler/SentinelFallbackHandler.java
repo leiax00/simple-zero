@@ -1,4 +1,4 @@
-package cn.leiax00.handler;
+package cn.leiax00.gateway.handler;
 
 import cn.leiax00.common.core.utils.ServletUtils;
 import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.GatewayCallbackManager;

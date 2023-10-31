@@ -1,6 +1,6 @@
-package cn.leiax00.config;
+package cn.leiax00.gateway.config;
 
-import cn.leiax00.handler.SentinelFallbackHandler;
+import cn.leiax00.gateway.handler.SentinelFallbackHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;

@@ -9,6 +9,7 @@ import cn.leiax00.common.security.utils.SecurityUtils;
 import cn.leiax00.system.api.domain.SysRole;
 import cn.leiax00.system.api.domain.SysUser;
 import cn.leiax00.system.api.model.LoginUser;
+import cn.leiax00.system.service.IConfigService;
 import cn.leiax00.system.service.IPermissionService;
 import cn.leiax00.system.service.ISysRoleService;
 import cn.leiax00.system.service.ISysUserService;
@@ -32,6 +33,9 @@ public class SysUserController extends BaseController {
 
     @Autowired
     private ISysRoleService roleService;
+
+    @Autowired
+    private IConfigService configService;
 
     /**
      * 获取用户列表
@@ -176,5 +180,19 @@ public class SysUserController extends BaseController {
         sysUserVo.setRoles(roles);
         sysUserVo.setPermissions(permissions);
         return R.ok(sysUserVo);
+    }
+
+    @PostMapping("/register")
+    public R<Boolean> register(@RequestBody SysUser sysUser) {
+        String username = sysUser.getUserName();
+        if (!("true".equals(configService.selectConfigByKey("sys.account.registerUser"))))
+        {
+            return R.fail("当前系统没有开启注册功能！");
+        }
+        if (!userService.checkUserNameUnique(sysUser))
+        {
+            return R.fail("保存用户'" + username + "'失败，注册账号已存在");
+        }
+        return R.ok(userService.registerUser(sysUser));
     }
 }

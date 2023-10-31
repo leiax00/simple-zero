@@ -1,4 +1,4 @@
-package cn.leiax00.filter;
+package cn.leiax00.gateway.filter;
 
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;

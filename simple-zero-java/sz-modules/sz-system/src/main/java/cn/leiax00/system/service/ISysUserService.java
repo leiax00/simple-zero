@@ -32,4 +32,6 @@ public interface ISysUserService {
     int updateUserStatus(SysUser user);
 
     SysUser selectUserByUserName(String username);
+
+    boolean registerUser(SysUser sysUser);
 }

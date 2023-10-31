@@ -12,7 +12,7 @@
     <artifactId>sz-common-core</artifactId>
 
     <description>
-        sz-common-core缓存服务
+        sz-common-core
     </description>
 
     <dependencies>
@@ -97,6 +97,12 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-annotation</artifactId>
             <scope>compile</scope>
+        </dependency>
+
+        <!-- Jaxb -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
         </dependency>
     </dependencies>
 </project>

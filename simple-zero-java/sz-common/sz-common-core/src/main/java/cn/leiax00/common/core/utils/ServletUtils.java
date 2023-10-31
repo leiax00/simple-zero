@@ -8,6 +8,7 @@ import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 import org.springframework.web.context.request.RequestAttributes;
@@ -186,6 +187,19 @@ public class ServletUtils
             }
         }
         return map;
+    }
+
+    public static void addHeader(ServerHttpRequest.Builder mutate, String name, Object value) {
+        if (value == null) {
+            return;
+        }
+        String valueStr = value.toString();
+        String valueEncode = urlEncode(valueStr);
+        mutate.header(name, valueEncode);
+    }
+
+    public static void removeHeader(ServerHttpRequest.Builder mutate, String name) {
+        mutate.headers(httpHeaders -> httpHeaders.remove(name)).build();
     }
 
     /**
