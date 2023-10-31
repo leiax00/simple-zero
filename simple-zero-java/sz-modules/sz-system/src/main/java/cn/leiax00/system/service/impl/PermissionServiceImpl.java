@@ -20,6 +20,7 @@ public class PermissionServiceImpl implements IPermissionService {
 
     @Autowired
     private ISysMenuService menuService;
+
     @Override
     public Set<String> getRolePermission(SysUser user) {
         Set<String> permissionSet = new HashSet<>();
@@ -38,18 +39,14 @@ public class PermissionServiceImpl implements IPermissionService {
             permissionSet.add("*:*:*");
         } else {
             List<SysRole> roles = user.getRoles();
-            if (!CollectionUtils.isEmpty(roles))
-            {
+            if (!CollectionUtils.isEmpty(roles)) {
                 // 多角色设置permissions属性，以便数据权限匹配权限
-                for (SysRole role : roles)
-                {
+                for (SysRole role : roles) {
                     Set<String> rolePerms = menuService.selectMenuPermsByRoleId(role.getRoleId());
                     role.setPermissions(rolePerms);
                     permissionSet.addAll(rolePerms);
                 }
-            }
-            else
-            {
+            } else {
                 permissionSet.addAll(menuService.selectMenuPermsByUserId(user.getUserId()));
             }
         }

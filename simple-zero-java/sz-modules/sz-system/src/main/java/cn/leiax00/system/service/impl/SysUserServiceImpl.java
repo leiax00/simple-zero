@@ -133,8 +133,7 @@ public class SysUserServiceImpl implements ISysUserService {
     }
 
     @Override
-    public int updateUserStatus(SysUser user)
-    {
+    public int updateUserStatus(SysUser user) {
         return userMapper.updateUser(user);
     }
 

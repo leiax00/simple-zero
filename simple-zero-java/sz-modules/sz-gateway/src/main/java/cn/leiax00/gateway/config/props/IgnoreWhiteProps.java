@@ -9,26 +9,23 @@ import java.util.List;
 
 /**
  * 放行白名单配置
- * 
+ *
  * @author ruoyi
  */
 @Configuration
 @RefreshScope
 @ConfigurationProperties(prefix = "security.ignore")
-public class IgnoreWhiteProps
-{
+public class IgnoreWhiteProps {
     /**
      * 放行白名单配置，网关不校验此处的白名单
      */
     private List<String> whites = new ArrayList<>();
 
-    public List<String> getWhites()
-    {
+    public List<String> getWhites() {
         return whites;
     }
 
-    public void setWhites(List<String> whites)
-    {
+    public void setWhites(List<String> whites) {
         this.whites = whites;
     }
 }

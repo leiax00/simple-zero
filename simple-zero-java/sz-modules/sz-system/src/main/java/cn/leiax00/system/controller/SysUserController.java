@@ -124,8 +124,7 @@ public class SysUserController extends BaseController {
      * 根据用户编号获取授权角色
      */
     @GetMapping("/authRole/{userId}")
-    public AjaxResult authRole(@PathVariable("userId") Long userId)
-    {
+    public AjaxResult authRole(@PathVariable("userId") Long userId) {
         AjaxResult ajax = AjaxResult.success();
         SysUser user = userService.selectUserById(userId);
         List<SysRole> roles = roleService.selectRolesByUserId(userId);
@@ -138,16 +137,14 @@ public class SysUserController extends BaseController {
      * 授权用户新角色集 - 老角色集失效
      */
     @PutMapping("/authRole")
-    public AjaxResult insertAuthRole(Long userId, Long[] roleIds)
-    {
+    public AjaxResult insertAuthRole(Long userId, Long[] roleIds) {
         userService.checkUserDataScope(userId);
         userService.insertUserAuth(userId, roleIds);
         return success();
     }
 
     @PutMapping("/resetPwd")
-    public AjaxResult resetPwd(@RequestBody SysUser user)
-    {
+    public AjaxResult resetPwd(@RequestBody SysUser user) {
         userService.checkUserAllowed(user);
         userService.checkUserDataScope(user.getUserId());
         user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
@@ -156,8 +153,7 @@ public class SysUserController extends BaseController {
     }
 
     @PutMapping("/changeStatus")
-    public AjaxResult changeStatus(@RequestBody SysUser user)
-    {
+    public AjaxResult changeStatus(@RequestBody SysUser user) {
         userService.checkUserAllowed(user);
         userService.checkUserDataScope(user.getUserId());
         user.setUpdateBy(SecurityUtils.getUsername());
@@ -167,8 +163,7 @@ public class SysUserController extends BaseController {
     @GetMapping("/info/{username}")
     public R<LoginUser> infoByUsername(@PathVariable("username") String username) {
         SysUser sysUser = userService.selectUserByUserName(username);
-        if (StringUtils.isNull(sysUser))
-        {
+        if (StringUtils.isNull(sysUser)) {
             return R.fail("用户名或密码错误");
         }
         // 角色集合
@@ -185,12 +180,10 @@ public class SysUserController extends BaseController {
     @PostMapping("/register")
     public R<Boolean> register(@RequestBody SysUser sysUser) {
         String username = sysUser.getUserName();
-        if (!("true".equals(configService.selectConfigByKey("sys.account.registerUser"))))
-        {
+        if (!("true".equals(configService.selectConfigByKey("sys.account.registerUser")))) {
             return R.fail("当前系统没有开启注册功能！");
         }
-        if (!userService.checkUserNameUnique(sysUser))
-        {
+        if (!userService.checkUserNameUnique(sysUser)) {
             return R.fail("保存用户'" + username + "'失败，注册账号已存在");
         }
         return R.ok(userService.registerUser(sysUser));

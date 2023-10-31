@@ -20,8 +20,8 @@ public class ProtoUtils {
         JsonFormat.Printer printer = JsonFormat.printer();
         if (descriptor != null) {
             JsonFormat.TypeRegistry typeRegistry = JsonFormat.TypeRegistry.newBuilder()
-                .add(descriptor)
-                .build();
+                    .add(descriptor)
+                    .build();
             printer.usingTypeRegistry(typeRegistry);
         }
 

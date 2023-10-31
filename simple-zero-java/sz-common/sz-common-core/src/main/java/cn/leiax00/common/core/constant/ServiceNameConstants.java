@@ -3,8 +3,7 @@ package cn.leiax00.common.core.constant;
 /**
  * 服务名称
  */
-public class ServiceNameConstants
-{
+public class ServiceNameConstants {
     /**
      * 认证服务的serviceid
      */

@@ -2,12 +2,10 @@ package cn.leiax00.common.log.enums;
 
 /**
  * 操作状态
- * 
- * @author ruoyi
  *
+ * @author ruoyi
  */
-public enum BusinessStatus
-{
+public enum BusinessStatus {
     /**
      * 成功
      */
