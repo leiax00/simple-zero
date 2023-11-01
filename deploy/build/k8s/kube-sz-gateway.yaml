@@ -1,0 +1,69 @@
+apiVersion: v1
+kind: List
+items:
+  - apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: sz-gateway-ingress
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
+        app-owner: simple-zero
+    spec:
+      ingressClassName: nginx
+      tls:
+        - hosts:
+            - "leiax00.cn"
+            - "*.leiax00.cn"
+          secretName: default-sct-tls
+      rules:
+        - host: 'leiax00.cn'
+          http:
+            paths:
+              - path: /api
+                pathType: Prefix
+                backend:
+                  service:
+                    name: sz-gateway-svc
+                    port:
+                      name: http
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: sz-gateway-svc
+      annotations:
+        app-owner: simple-zero
+    spec:
+      ports:
+        - port: 80
+          name: http
+          targetPort: 10000
+      selector:
+        app: sz-gateway
+      type: ClusterIP
+
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: sz-gateway
+      annotations:
+        app-owner: simple-zero
+    spec:
+      selector:
+        matchLabels:
+          app: sz-gateway
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            app: sz-gateway
+          annotations:
+            app-owner: simple-zero
+        spec:
+          containers:
+            - name: sz-gateway
+              image: 10.1.0.7:5000/leiax00/sz-gateway:test
+              ports:
+                - containerPort: 10000
+              env:
+                - name: APP_PORT
+                  value: '10000'

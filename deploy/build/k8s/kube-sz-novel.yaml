@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: List
+items:
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: sz-novel-svc
+      annotations:
+        app-owner: simple-zero
+    spec:
+      ports:
+        - port: 80
+          name: http
+          targetPort: 80
+      selector:
+        app: sz-novel
+      type: ClusterIP
+
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: sz-novel
+      annotations:
+        app-owner: simple-zero
+    spec:
+      selector:
+        matchLabels:
+          app: sz-novel
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            app: sz-novel
+        spec:
+          containers:
+            - name: sz-novel
+              image: 10.1.0.7:5000/leiax00/sz-novel:1.0.2
+              ports:
+                - containerPort: 80

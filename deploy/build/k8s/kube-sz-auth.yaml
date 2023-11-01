@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: List
+items:
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: sz-auth-svc
+      annotations:
+        app-owner: simple-zero
+    spec:
+      ports:
+        - port: 80
+          name: sz-auth
+          targetPort: 10002
+      selector:
+        app: sz-auth
+      type: ClusterIP
+
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: sz-auth
+      annotations:
+        app-owner: simple-zero
+    spec:
+      selector:
+        matchLabels:
+          app: sz-auth
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            app: sz-auth
+          annotations:
+            app-owner: simple-zero
+        spec:
+          containers:
+            - name: sz-auth
+              image: 10.1.0.7:5000/leiax00/sz-auth:test
+              ports:
+                - containerPort: 10002
+              env:
+                - name: APP_PORT
+                  value: '10002'
