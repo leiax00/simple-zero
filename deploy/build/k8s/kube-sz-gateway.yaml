@@ -61,9 +61,12 @@ items:
         spec:
           containers:
             - name: sz-gateway
-              image: 10.1.0.7:5000/leiax00/sz-gateway:test
+              image: 10.1.0.7:5000/leiax00/sz-gateway:1.0.2
+              imagePullPolicy: IfNotPresent
               ports:
                 - containerPort: 10000
               env:
+                - name: TZ
+                  value: Asia/Shanghai
                 - name: APP_PORT
                   value: '10000'

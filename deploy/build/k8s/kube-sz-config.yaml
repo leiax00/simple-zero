@@ -4,40 +4,40 @@ items:
   - apiVersion: v1
     kind: Service
     metadata:
-      name: sz-novel-svc
+      name: sz-config-svc
       annotations:
         app-owner: simple-zero
     spec:
       ports:
         - port: 80
-          name: http
+          name: sz-config
           targetPort: 80
       selector:
-        app: sz-novel
+        app: sz-config
       type: ClusterIP
 
   - apiVersion: apps/v1
     kind: Deployment
     metadata:
-      name: sz-novel
+      name: sz-config
       annotations:
         app-owner: simple-zero
     spec:
       selector:
         matchLabels:
-          app: sz-novel
+          app: sz-config
       replicas: 1
       template:
         metadata:
           labels:
-            app: sz-novel
+            app: sz-config
+          annotations:
+            app-owner: simple-zero
         spec:
           containers:
-            - name: sz-novel
-              image: 10.1.0.7:5000/leiax00/sz-novel:1.0.2
+            - name: sz-config
+              image: 10.1.0.7:5000/leiax00/sz-config:1.0.2
               imagePullPolicy: IfNotPresent
-              ports:
-                - containerPort: 80
               env:
                 - name: TZ
                   value: Asia/Shanghai

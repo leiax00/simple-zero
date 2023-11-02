@@ -36,9 +36,12 @@ items:
         spec:
           containers:
             - name: sz-system
-              image: 10.1.0.7:5000/leiax00/sz-system:test
+              image: 10.1.0.7:5000/leiax00/sz-system:1.0.2
+              imagePullPolicy: IfNotPresent
               ports:
                 - containerPort: 10001
               env:
+                - name: TZ
+                  value: Asia/Shanghai
                 - name: APP_PORT
                   value: '10001'
