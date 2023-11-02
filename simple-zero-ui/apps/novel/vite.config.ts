@@ -68,7 +68,7 @@ function getServer() {
     },
     proxy: {
       '/api/novel/v1/': {
-        target: 'http://10.1.0.4:11002/',
+        target: 'https://leiax00.cn',
         changeOrigin: true,
       },
     },

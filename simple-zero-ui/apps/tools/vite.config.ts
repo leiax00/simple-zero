@@ -67,8 +67,8 @@ function getServer() {
       'Access-Control-Allow-Origin': '*',
     },
     proxy: {
-      '/novel/v1/api/': {
-        target: 'http://10.1.0.1/',
+      '/api/tools/v1/': {
+        target: 'https://leiax00.cn',
         changeOrigin: true,
       },
     },
