@@ -62,7 +62,7 @@ function getServer() {
       'Access-Control-Allow-Origin': '*',
     },
     proxy: {
-      '/api/config/v1/': {
+      '/api/': {
         target: 'https://leiax00.cn',
         changeOrigin: true,
       },
