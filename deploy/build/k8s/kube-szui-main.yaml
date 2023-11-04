@@ -26,6 +26,9 @@ items:
                     name: szui-main-svc
                     port:
                       name: http
+        - host: 'novel.leiax00.cn'
+          http:
+            paths:
               - path: /novel
                 pathType: Prefix
                 backend:
@@ -33,6 +36,9 @@ items:
                     name: szui-novel-svc
                     port:
                       name: http
+        - host: 'tools.leiax00.cn'
+          http:
+            paths:
               - path: /tools
                 pathType: Prefix
                 backend:

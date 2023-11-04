@@ -14,9 +14,9 @@ MAINTAINER "leiax00@outlook.com"
 
 ARG RELATIVE_PATH
 
-WORKDIR /app/${RELATIVE_PATH}
+WORKDIR /app
 
-COPY --from=builder /src/simple-zero-ui/apps/${RELATIVE_PATH}/dist /app/${RELATIVE_PATH}/
+COPY --from=builder /src/simple-zero-ui/apps/${RELATIVE_PATH}/dist /app/
 COPY --from=builder /src/deploy/caddy/sz-${RELATIVE_PATH}/Caddyfile /etc/caddy/Caddyfile
 COPY --from=builder /src/deploy/caddy/conf.d /etc/caddy/conf.d/
 

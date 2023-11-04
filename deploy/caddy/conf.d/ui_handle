@@ -1,0 +1,13 @@
+@ui {
+  not path /api/*  # 定义ui文件匹配器
+}
+
+handle {
+  root @ui /app
+  encode gzip
+  try_files {path} index.html
+  file_server
+  header Access-Control-Allow-Origin *   # 配置允许跨域请求的 Origin
+  header Access-Control-Allow-Headers *  # 配置允许跨域请求的方法
+  header Access-Control-Allow-Methods *  # 配置允许跨域请求的 header
+}

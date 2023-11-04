@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: List
+items:
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: sz-ui-pvc
+      annotations:
+        volume.alpha.kubernetes.io/storage-class: nfs-client
+    spec:
+      accessModes:
+        - ReadWriteMany
+      resources:
+        requests:
+          storage: 256Mi
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: sz-ui-svc
+      annotations:
+        app-owner: simple-zero
+    spec:
+      ports:
+        - port: 80
+          name: http
+          targetPort: 80
+      selector:
+        app: sz-ui
+      type: ClusterIP
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: sz-ui
+      annotations:
+        app-owner: simple-zero
+    spec:
+      selector:
+        matchLabels:
+          app: sz-ui
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            app: sz-ui
+          annotations:
+            app-owner: simple-zero
+        spec:
+          containers:
+            - name: sz-ui
+              image: 10.1.0.7:5000/lib/caddy:2.6.2-alpine
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: TZ
+                  value: Asia/Shanghai
+              volumeMounts:
+                - mountPath: /app
+                  subPath: dist
+                  name: szui-volume
+                - mountPath: /etc/caddy
+                  subPath: caddy
+                  name: szui-volume
+          volumes:
+            - name: szui-volume
+              persistentVolumeClaim:
+                claimName: sz-ui-pvc
+
