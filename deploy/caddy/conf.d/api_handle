@@ -1,0 +1,9 @@
+handle /api/config/v1/* {
+  reverse_proxy {
+    to https://leiax00.cn
+    header_up Host ip:port
+    header_down Access-Control-Allow-Origin *
+    header_down Access-Control-Allow-Methods *
+    header_down Access-Control-Allow-Headers *
+  }
+}
