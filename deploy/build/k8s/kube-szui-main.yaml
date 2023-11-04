@@ -83,7 +83,6 @@ items:
           containers:
             - name: szui-main
               image: 10.1.0.7:5000/leiax00/szui-main:1.0.2
-              imagePullPolicy: Always
               env:
                 - name: TZ
                   value: Asia/Shanghai

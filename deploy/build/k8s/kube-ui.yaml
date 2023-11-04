@@ -48,7 +48,6 @@ items:
           containers:
             - name: sz-ui
               image: 10.1.0.7:5000/lib/caddy:2.6.2-alpine
-              imagePullPolicy: IfNotPresent
               env:
                 - name: TZ
                   value: Asia/Shanghai

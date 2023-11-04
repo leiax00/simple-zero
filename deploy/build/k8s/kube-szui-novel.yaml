@@ -37,7 +37,6 @@ items:
           containers:
             - name: szui-novel
               image: 10.1.0.7:5000/leiax00/szui-novel:1.0.2
-              imagePullPolicy: Always
               env:
                 - name: TZ
                   value: Asia/Shanghai
