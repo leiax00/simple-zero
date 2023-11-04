@@ -69,6 +69,7 @@ export const updateReadProgress = function (bid: string, cid: string, curPos: nu
 }
 
 export const formatImgUrl = (url: string) => {
+  console.log(`${url} -- ${location.protocol}`)
   if (!url.startsWith(location.protocol)) {
     url = `${location.origin}/api${new URL(url).pathname}`
   }
