@@ -35,7 +35,7 @@ items:
           containers:
             - name: sz-novel
               image: 10.1.0.7:5000/leiax00/sz-novel:1.0.2
-              imagePullPolicy: IfNotPresent
+              imagePullPolicy: Always
               ports:
                 - containerPort: 80
               env:

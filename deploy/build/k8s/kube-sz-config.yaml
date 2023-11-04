@@ -37,7 +37,7 @@ items:
           containers:
             - name: sz-config
               image: 10.1.0.7:5000/leiax00/sz-config:1.0.2
-              imagePullPolicy: IfNotPresent
+              imagePullPolicy: Always
               env:
                 - name: TZ
                   value: Asia/Shanghai
