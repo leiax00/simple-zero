@@ -29,7 +29,7 @@ items:
         - host: 'novel.leiax00.cn'
           http:
             paths:
-              - path: /novel
+              - path: /
                 pathType: Prefix
                 backend:
                   service:
@@ -39,7 +39,7 @@ items:
         - host: 'tools.leiax00.cn'
           http:
             paths:
-              - path: /tools
+              - path: /
                 pathType: Prefix
                 backend:
                   service:
