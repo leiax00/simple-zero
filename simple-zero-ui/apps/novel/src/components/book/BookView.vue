@@ -1,24 +1,14 @@
 <template>
   <div class="main-book">
-    <div
-      class="flex flex-wrap justify-start items-start space-y-6 sm:flex-nowrap sm:space-y-0"
-    >
+    <div class="flex flex-wrap justify-start items-start space-y-6 sm:flex-nowrap sm:space-y-0">
       <div class="w-sz-150 flex-shrink-0">
-        <img
-          class="object-fill"
-          :src="bookInfo.book.icon"
-          :alt="bookInfo.book.name"
-        />
+        <img class="object-fill" :src="formatImgUrl(bookInfo.book.icon)" :alt="bookInfo.book.name" />
       </div>
       <div class="book-info text-left sm:ml-6 flex-grow">
         <div class="item">
           <div class="font-bold">书籍名称:</div>
           <div class="ml-3">{{ bookInfo.book.name }}</div>
-          <el-button
-            type="primary"
-            @click="add2BookList({ book: bookInfo.book })"
-            >收藏</el-button
-          >
+          <el-button type="primary" @click="add2BookList({ book: bookInfo.book })">收藏</el-button>
         </div>
         <div class="item">
           <div class="font-bold">作者:</div>
@@ -49,11 +39,7 @@
       </el-button-group>
     </div>
     <div class="catalog-list mt-4">
-      <div
-        v-for="(item, index) in catalogList"
-        :key="index"
-        class="catalog-item"
-      >
+      <div v-for="(item, index) in catalogList" :key="index" class="catalog-item">
         <span @click="openChapter(item)">{{ item.name }}</span>
       </div>
     </div>
@@ -64,7 +50,7 @@
 import { computed, ref, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
 import type { Book, CatalogBase } from '@/views/bean'
-import { add2BookList } from '@/components/book/bean'
+import { add2BookList, formatImgUrl } from '@/components/book/bean'
 
 defineOptions({ name: 'BookView' })
 

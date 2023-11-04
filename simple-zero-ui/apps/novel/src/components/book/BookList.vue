@@ -17,12 +17,7 @@
           @click="openNovel(novel as Novel)"
         >
           <div class="book-item-logo w-sz-160 h-sz-212">
-            <img
-              class="object-fill"
-              :src="novel.book.icon"
-              :alt="novel.book.name"
-              width="150"
-            />
+            <img class="object-fill" :src="formatImgUrl(novel.book.icon)" :alt="novel.book.name" width="150" />
           </div>
           <div class="book-item-text">{{ novel.book.name }}</div>
         </div>
@@ -34,7 +29,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { useTimeoutFn } from '@vueuse/core'
-import { Novel, novelManager } from '@/components/book/bean'
+import { Novel, formatImgUrl, novelManager } from '@/components/book/bean'
 import { useApp } from '@/store/app'
 
 defineOptions({
@@ -62,9 +57,7 @@ onMounted(() => {
 const openNovel = function (novel: Novel) {
   const routeData = {
     bid: novel.book.bid,
-    cid: novel.readProgress
-      ? novel.readProgress.cid
-      : novel.book.latest_chapter,
+    cid: novel.readProgress ? novel.readProgress.cid : novel.book.latest_chapter,
     pos: novel.readProgress ? novel.readProgress.pos : { curPos: 0 },
   }
   appStore.setRouteData(routeData)

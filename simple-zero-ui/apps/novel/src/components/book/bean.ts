@@ -22,12 +22,9 @@ export type NovelManager = {
   novels: Record<string, Novel>
 }
 
-export const novelManager: RemovableRef<NovelManager> = useStorage(
-  'novel-list',
-  {
-    novels: {},
-  }
-)
+export const novelManager: RemovableRef<NovelManager> = useStorage('novel-list', {
+  novels: {},
+})
 
 export const add2BookList = function (novel: Novel) {
   novelManager.value.novels[novel.book.bid] = novel
@@ -56,11 +53,7 @@ export const calcCurPos = function (bid: string): number {
   return Math.max(Math.floor((curPos * curHeight) / pageHeight) - 20, 0)
 }
 
-export const updateReadProgress = function (
-  bid: string,
-  cid: string,
-  curPos: number
-) {
+export const updateReadProgress = function (bid: string, cid: string, curPos: number) {
   const novel = novelManager.value.novels[bid]
   if (!novel) {
     return
@@ -73,4 +66,11 @@ export const updateReadProgress = function (
       pageHeight: document.documentElement.scrollHeight,
     },
   }
+}
+
+export const formatImgUrl = (url: string) => {
+  if (!url.startsWith(location.protocol)) {
+    url = `${location.origin}/${new URL(url).pathname}`
+  }
+  return url
 }
