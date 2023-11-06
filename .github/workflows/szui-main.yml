@@ -22,7 +22,7 @@ on:
       - v*
 
 jobs:
-  build_main:
+  build_image:
     # 如果需要在构建前进行测试的话需要取消下面的注释和上面对应的 test 动作的注释。
     # needs: test
 
@@ -57,6 +57,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USER }}/szui-${{ github.event.inputs.appName }}:${{ github.event.inputs.appVersion }}
 
   deploy:
+    needs: build_image
     runs-on: ubuntu-latest
 
     steps:
