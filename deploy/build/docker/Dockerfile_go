@@ -11,7 +11,7 @@ WORKDIR /src/simple-zero-go/app/${RELATIVE_PATH}
 RUN go env -w GOFLAGS="-buildvcs=false"
 RUN GOPROXY=https://goproxy.cn,direct make build
 
-FROM 10.1.0.7:5000/lib/debian:stable-slim
+FROM debian:stable-slim
 MAINTAINER "leiax00@outlook.com"
 
 ARG RELATIVE_PATH
