@@ -19,8 +19,8 @@ init_logger()
 app = Flask(__name__)
 app.json = SelfJsonProvider(app)
 # 允许格式: [api] , [url_prefix, api]
-register_route(app, api, SERVER_PREFIX)
-register_route(app, xxl_api, SERVER_PREFIX)
+register_route(app, api, force_prefix=True)
+register_route(app, xxl_api, force_prefix=True)
 
 
 @app.before_request
