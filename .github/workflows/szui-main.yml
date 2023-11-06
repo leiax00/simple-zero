@@ -1,4 +1,4 @@
-name: sz-ui
+name: szui-main
 
 on:
   workflow_dispatch: 
@@ -14,15 +14,15 @@ on:
       hubPlatforms:
         description: 镜像平台
         required: false
-        default: linux/amd64,linux/arm64/v8
-      
+        default: linux/amd64
+
   push:
     # 每次 push tag 时进行构建，不需要每次 push 都构建。使用通配符匹配每次 tag 的提交，记得 tag 名一定要以 v 开头
     tags:
       - v*
 
 jobs:
-  push:
+  build_main:
     # 如果需要在构建前进行测试的话需要取消下面的注释和上面对应的 test 动作的注释。
     # needs: test
 
@@ -54,4 +54,4 @@ jobs:
           # linux/amd64,linux/arm64/v8
           platforms: ${{ github.event.inputs.hubPlatforms }}
           push: true
-          tags: szui-${{ github.event.inputs.appName }}:${{ github.event.inputs.appVersion }}
+          tags: ${{ secrets.DOCKERHUB_USER }}/szui-${{ github.event.inputs.appName }}:${{ github.event.inputs.appVersion }}
