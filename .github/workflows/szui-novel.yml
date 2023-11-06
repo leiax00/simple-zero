@@ -1,4 +1,4 @@
-name: szui-main
+name: szui-novel
 
 on:
   workflow_dispatch: 
