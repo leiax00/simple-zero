@@ -10,7 +10,7 @@ from domain.response import Response
 from utils.async_utils import async_run
 from xxl_executor.config import XxlTask
 
-name = 'xxl-executor'
+name = 'xxl'
 
 api = Blueprint(name, __name__)
 
