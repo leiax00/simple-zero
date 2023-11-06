@@ -37,6 +37,7 @@ items:
           containers:
             - name: sz-system
               image: leiax00/sz-system:1.0.2
+              imagePullPolicy: Always
               ports:
                 - containerPort: 10001
               env:

@@ -37,6 +37,7 @@ items:
           containers:
             - name: sz-auth
               image: leiax00/sz-auth:1.0.2
+              imagePullPolicy: Always
               ports:
                 - containerPort: 10002
               env:

@@ -35,6 +35,7 @@ items:
           containers:
             - name: sz-novel
               image: leiax00/sz-novel:1.0.2
+              imagePullPolicy: Always
               ports:
                 - containerPort: 80
               env:

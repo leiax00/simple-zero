@@ -37,6 +37,7 @@ items:
           containers:
             - name: szui-tools
               image: leiax00/szui-tools:1.0.2
+              imagePullPolicy: Always
               env:
                 - name: TZ
                   value: Asia/Shanghai

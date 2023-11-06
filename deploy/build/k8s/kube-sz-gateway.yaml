@@ -62,6 +62,7 @@ items:
           containers:
             - name: sz-gateway
               image: leiax00/sz-gateway:1.0.2
+              imagePullPolicy: Always
               ports:
                 - containerPort: 10000
               env:

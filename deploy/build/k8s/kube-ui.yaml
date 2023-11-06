@@ -48,6 +48,7 @@ items:
           containers:
             - name: sz-ui
               image: caddy:2.6.2-alpine
+              imagePullPolicy: Always
               env:
                 - name: TZ
                   value: Asia/Shanghai
