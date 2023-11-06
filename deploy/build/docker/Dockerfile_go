@@ -1,4 +1,4 @@
-FROM 10.1.0.7:5000/lib/golang:1.20.2 AS builder
+FROM golang:1.20.2 AS builder
 
 ARG RELATIVE_PATH
 ARG APP_NAME

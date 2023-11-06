@@ -36,7 +36,7 @@ items:
         spec:
           containers:
             - name: szui-tools
-              image: 10.1.0.7:5000/leiax00/szui-tools:1.0.2
+              image: leiax00/szui-tools:1.0.2
               env:
                 - name: TZ
                   value: Asia/Shanghai

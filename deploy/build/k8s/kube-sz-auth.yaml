@@ -36,7 +36,7 @@ items:
         spec:
           containers:
             - name: sz-auth
-              image: 10.1.0.7:5000/leiax00/sz-auth:1.0.2
+              image: leiax00/sz-auth:1.0.2
               ports:
                 - containerPort: 10002
               env:
