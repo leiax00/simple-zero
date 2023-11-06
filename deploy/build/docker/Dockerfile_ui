@@ -1,4 +1,4 @@
-FROM 10.1.0.7:5000/lib/node:18.16.0-bullseye-slim as builder
+FROM node:18.16.0-bullseye-slim as builder
 MAINTAINER "leiax00@outlook.com"
 
 ARG RELATIVE_PATH
@@ -9,7 +9,7 @@ RUN npm config set registry https://registry.npmmirror.com/
 RUN ls -al && npm install -g pnpm && pnpm i && \
     pnpm -F sz-${RELATIVE_PATH} build:${RELATIVE_PATH}
 
-FROM 10.1.0.7:5000/lib/caddy:2.6.2-alpine
+FROM caddy:2.6.2-alpine
 MAINTAINER "leiax00@outlook.com"
 
 ARG RELATIVE_PATH
