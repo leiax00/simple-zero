@@ -3,6 +3,8 @@
 import asyncio
 import selectors
 
+__all__ = ['async_run', 'get_loop']
+
 
 def async_run(feature):
     """

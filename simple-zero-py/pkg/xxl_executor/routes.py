@@ -1,13 +1,11 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
-import asyncio
 import logging
 
-from flask import Blueprint, jsonify, request, g, current_app
+from flask import Blueprint, jsonify, request
 
 from config import xxl
 from domain.response import Response
-from utils.async_utils import async_run
 from xxl_executor.config import XxlTask
 
 name = 'xxl'

@@ -4,13 +4,11 @@ import asyncio
 import logging
 import threading
 from enum import Enum
-from queue import Queue
 from time import sleep
 
 import aiohttp
 import requests
 
-from utils.async_utils import async_run, get_loop
 from utils.httpHelper import Api, HttpMethod, Header
 from xxl_executor.Job import IJob
 from xxl_executor.config import XxlConfig, XxlTask

@@ -12,8 +12,6 @@ from routes.api import api
 from xxl_executor.executor import init_xxl
 from xxl_executor.routes import api as xxl_api
 
-SERVER_PREFIX = '/api/novel'
-
 init_logger()
 
 app = Flask(__name__)
@@ -35,14 +33,15 @@ def after_request(response):
     return response
 
 
-host = config.config.get('host')
-port = config.config.get('port')
-logging.info(f'\n\n{"*" * 100}\nserver start on: {host}:{port}\n{"*" * 100}\n\n')
-asyncio.run(init_xxl(config.xxl, JobService()))
-
 if __name__ == '__main__':
     # app.config.from_mapping({'CUSTOM': Config.__dict__})  # CUSTOM必须大写
     # app.run('0.0.0.0', 11000, debug=True)
+
+    host = config.config.get('host')
+    port = config.config.get('port')
+    logging.info(f'\n\n{"*" * 100}\nserver start on: {host}:{port}\n{"*" * 100}\n\n')
+
+    asyncio.run(init_xxl(config.xxl, JobService()))
 
     server = pywsgi.WSGIServer((host, port), app)
     server.serve_forever()

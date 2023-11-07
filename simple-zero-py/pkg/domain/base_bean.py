@@ -1,6 +1,5 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
-import re
 
 from peewee import Model
 from playhouse.shortcuts import model_to_dict

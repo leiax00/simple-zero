@@ -67,16 +67,16 @@ def register_route(app, api, prefix='/', force_prefix=False):
     """
     注册api
     :param app: flask应用app
-    :param api: 要注册的API集合, Blueprint, 为元组时, 第一个为api的prefix, 第二个为api, 否则为api
+    :param api: 要注册的API, Blueprint
     :param prefix: api前缀
     :param force_prefix: 是否强制使用prefix作为前缀, 否则为 prefix/{api[0] | api.name}
     :return:
     """
-    if (isinstance(api, tuple) or isinstance(api, list)) and len(api) >= 2:
-        prefix = f'{prefix}/{api[0]}' if not force_prefix else f'{prefix}'
-        api.url_prefix = prefix
-        app.register_blueprint(api[1])
-    else:
-        prefix = f'{prefix}/{api.name}' if not force_prefix else f'{prefix}'
-        api.url_prefix = prefix
-        app.register_blueprint(api)
+    api_prefix = None
+    if force_prefix is True:
+        api_prefix = prefix
+    if prefix != '/':
+        api_prefix = f'{prefix}/{api.name}'
+    if api_prefix is not None:
+        api.url_prefix = api_prefix
+    app.register_blueprint(api)
