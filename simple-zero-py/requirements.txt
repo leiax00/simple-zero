@@ -1,0 +1,17 @@
+fastapi~=0.104.1
+uvicorn[standard]
+python-multipart
+python-jose[cryptography]
+passlib[bcrypt]
+SQLAlchemy
+psycopg2
+nacos-sdk-python
+pyyaml
+pydantic
+anyio
+httpx
+beautifulsoup4
+lxml
+chardet
+redis
+aioredis[hiredis]
