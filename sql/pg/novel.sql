@@ -12,7 +12,7 @@ create table novel.author
     create_time     timestamptz,
     create_by       varchar(64),
     update_time     timestamptz,
-    update_by       timestamptz
+    update_by       varchar(64)
 );
 
 comment on table novel.author is '作者表';
@@ -44,7 +44,7 @@ create table novel.platform
     create_time   timestamptz,
     create_by     varchar(64),
     update_time   timestamptz,
-    update_by     timestamptz
+    update_by     varchar(64)
 );
 
 comment on table novel.platform is '平台表';
@@ -68,8 +68,8 @@ create table novel.book
 (
     id                bigserial           not null
         constraint book_pk primary key,
-    cat_id            int8,
-    cat_name          varchar(64),
+    book_id            varchar(24),
+    book_type          varchar(64),
     cover             varchar(255),
     book_name         varchar(64),
     author_id         int8,
@@ -86,19 +86,20 @@ create table novel.book
     sign_status       char(1) default 'N',
     book_status       char(1),
     status            char    default '0' not null,
-    create_time       timestamptz,
+    create_time       timestamptz default now(),
     create_by         varchar(64),
     update_time       timestamptz,
-    update_by         timestamptz
+    update_by         varchar(64)
 
 );
+create unique index book_pk2 on novel.book using btree (book_id);
 
 comment on table novel.book is '小说表';
 comment on column novel.book.id is '主键ID';
-comment on column novel.book.cat_id is '分类ID';
-comment on column novel.book.cat_name is '分类名';
+comment on column novel.book.book_id is '书籍原始ID';
+comment on column novel.book.book_type is '分类名';
 comment on column novel.book.cover is '小说封面url';
-comment on column novel.book.book_name is '主键ID';
+comment on column novel.book.book_name is '书籍名称';
 comment on column novel.book.author_id is '作者id';
 comment on column novel.book.author_name is '作者名';
 comment on column novel.book.book_desc is '书籍描述';
@@ -107,9 +108,9 @@ comment on column novel.book.score is '评分';
 comment on column novel.book.count is '收藏数/点击量等';
 comment on column novel.book.word_count is '总字数';
 comment on column novel.book.comment_count is '评论数';
-comment on column novel.book.last_chapter_id is '主键ID';
-comment on column novel.book.last_chapter_name is '主键ID';
-comment on column novel.book.last_chapter_time is '主键ID';
+comment on column novel.book.last_chapter_id is '最新章节ID';
+comment on column novel.book.last_chapter_name is '最新章节名称';
+comment on column novel.book.last_chapter_time is '最新更新时间';
 comment on column novel.book.sign_status is '签约状态: N未签约, Y已签约';
 comment on column novel.book.book_status is '状态，0：入库，1：上架';
 comment on column novel.book.status is '本站状态: 0:可用, 1不可用, 2已删除';
@@ -124,20 +125,21 @@ create table novel.book_index
 (
     id          bigserial        not null
         constraint book_index_pk primary key,
-    book_id     int8,
-    index_num   int8,
+    book_id     varchar(24),
+    index_num   varchar(24),
     index_name  varchar(64),
-    word_count  int4,
+    word_count  int4 default 0,
     status      char default '0' not null,
-    create_time timestamptz,
+    create_time timestamptz default now(),
     create_by   varchar(64),
     update_time timestamptz,
-    update_by   timestamptz
+    update_by   varchar(64)
 );
+create unique index book_index_pk2 on novel.book_index using btree (book_id, index_num);
 
 comment on table novel.book_index is '小说目录表';
 comment on column novel.book_index.id is '主键ID';
-comment on column novel.book_index.book_id is '书籍ID';
+comment on column novel.book_index.book_id is '书籍原始ID';
 comment on column novel.book_index.index_num is '目录号';
 comment on column novel.book_index.index_name is '目录名';
 comment on column novel.book_index.word_count is '字数';
@@ -153,13 +155,25 @@ create table novel.book_content
 (
     id       bigserial not null
         constraint book_content_pk primary key,
-    index_id int8,
-    content  text
+    book_id varchar(24),
+    index_num varchar(24),
+    content  text,
+    create_time timestamptz default now(),
+    create_by   varchar(64),
+    update_time timestamptz,
+    update_by   varchar(64)
 );
+create unique index book_content_pk2 on novel.book_content using btree (book_id, index_num);
+
 comment on table novel.book_content is '小说章节内容表';
 comment on column novel.book_content.id is '主键ID';
-comment on column novel.book_content.index_id is '目录ID';
+comment on column novel.book_content.book_id is '书籍原始ID';
+comment on column novel.book_content.index_num is '目录号';
 comment on column novel.book_content.content is '章节内容';
+comment on column novel.book_index.create_time is '创建时间';
+comment on column novel.book_index.create_by is '创建者';
+comment on column novel.book_index.update_time is '更新时间';
+comment on column novel.book_index.update_by is '更新者';
 
 -- =========================== 小说爬虫源站表 ===========================
 drop table if exists novel.crawl_source;
@@ -170,10 +184,11 @@ create table novel.crawl_source
     source_name varchar(64),
     crawl_rule  jsonb   default '{}'::jsonb,
     status      char(1) default '0',
+    remark      text,
     create_time timestamptz,
     create_by   varchar(64),
     update_time timestamptz,
-    update_by   timestamptz
+    update_by   varchar(64)
 );
 comment on table novel.crawl_source is '小说爬虫源站表';
 comment on column novel.crawl_source.id is '主键ID';
@@ -185,27 +200,49 @@ comment on column novel.crawl_source.create_by is '创建者';
 comment on column novel.crawl_source.update_time is '更新时间';
 comment on column novel.crawl_source.update_by is '更新者';
 
+-- =========================== 小说爬虫源与小说映射表 ===========================
+drop table if exists novel.crawl_book;
+create table novel.crawl_book
+(
+    id bigserial not null
+        constraint crawl_book_pk primary key,
+    crawl_id int8,
+    book_id varchar(24),
+    create_time    timestamptz default now(),
+    create_by      varchar(64),
+    update_time    timestamptz,
+    update_by      varchar(64)
+);
+comment on table novel.crawl_book is '小说爬虫爬取记录表';
+comment on column novel.crawl_book.id is '主键ID';
+comment on column novel.crawl_book.crawl_id is '爬虫源ID';
+comment on column novel.crawl_book.book_id is '爬取书籍ID';
+comment on column novel.crawl_book.create_time is '创建时间';
+comment on column novel.crawl_book.create_by is '创建者';
+comment on column novel.crawl_book.update_time is '更新时间';
+comment on column novel.crawl_book.update_by is '更新者';
+
 -- =========================== 小说爬虫爬取记录表 ===========================
 drop table if exists novel.crawl_record;
 create table novel.crawl_record
 (
     id             bigserial not null
         constraint crawl_record_pk primary key,
-    source_id      int8,
-    source_book_id int8,
+    crawl_id      int8,
+    book_id int8,
     status         char(1) default '0',
     exec_count     int2,
     index_count    int2,
-    create_time    timestamptz,
+    create_time    timestamptz default now(),
     create_by      varchar(64),
     update_time    timestamptz,
-    update_by      timestamptz
+    update_by      varchar(64)
 );
 
 comment on table novel.crawl_record is '小说爬虫爬取记录表';
 comment on column novel.crawl_record.id is '主键ID';
-comment on column novel.crawl_record.source_id is '爬虫源ID';
-comment on column novel.crawl_record.source_book_id is '爬取书籍ID';
+comment on column novel.crawl_record.crawl_id is '爬虫源ID';
+comment on column novel.crawl_record.book_id is '爬取书籍ID';
 comment on column novel.crawl_record.status is '状态: 0失败, 1成功, 2未执行';
 comment on column novel.crawl_record.exec_count is '执行次数';
 comment on column novel.crawl_record.index_count is '获取的章节数';
@@ -239,8 +276,8 @@ create table novel.book_dict_type
     create_time timestamptz,
     create_by   varchar(64),
     update_time timestamptz,
-    update_by   timestamptz,
-    remark      varchar(500)
+    update_by   varchar(64),
+    remark      text
 );
 
 comment on table novel.book_dict_type is '小说字典类型表';
@@ -273,7 +310,7 @@ create table novel.book_dict_data
     create_time timestamptz,
     create_by   varchar(64),
     update_time timestamptz,
-    update_by   timestamptz,
+    update_by   varchar(64),
     remark      varchar(500)
 );
 
