@@ -7,6 +7,8 @@ import type { EtcdConf } from '@/beans'
 import pinia from '@/store'
 import router, { updateRouterByServes } from '@/router'
 import { useApp } from '@/store/app'
+import '@leiax00/zero-ui/components/SzIcon/src/iconfont.js'
+
 loadAppConf().then((conf: EtcdConf) => {
   updateRouterByServes(conf.serves || [])
   const app = createApp(App)

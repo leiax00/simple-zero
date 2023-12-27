@@ -1,6 +1,6 @@
 import { writeFile } from 'node:fs/promises'
 import * as path from 'node:path'
-import consola from 'consola'
+import log from 'consola'
 // @ts-ignore
 import pkg from '../../zero-ui/package.json' // need to be checked
 import { uiPath } from './pkgPath'
@@ -17,7 +17,7 @@ function getVersion() {
 const version = getVersion()
 
 async function main() {
-  consola.info(`Version: ${version}`)
+  log.info(`Version: ${version}`)
   await writeFile(
     path.resolve(uiPath, 'version.ts'),
     `export const version = '${version}'

@@ -12,7 +12,7 @@ import Sidecar from 'gitter-sidecar/dist/sidecar-module'
 import CommonLayout from './commonLayout/CommonLayout.vue'
 
 defineOptions({ name: 'Layout' })
-const sidecar = new Sidecar({
+new Sidecar({
   room: 'exploding-universe/universe',
 })
 </script>

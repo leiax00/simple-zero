@@ -49,7 +49,7 @@ export const useApp: StoreDefinition = defineStore('app', {
     setConfig(conf: EtcdConf) {
       this.config = conf
       // eslint-disable-next-line @typescript-eslint/no-empty-function
-      this.loadSvgSrc().then(() => {})
+      // this.loadSvgSrc().then(() => {})
     },
     async loadSvgSrc(cb?: () => void) {
       if (!this.uiCtl.isLoaded4svgSrc) {

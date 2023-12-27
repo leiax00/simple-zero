@@ -25,7 +25,7 @@ export default defineConfig({
       },
     }),
     dts({
-      outputDir: [join(outputDir, 'es')],
+      outDir: [join(outputDir, 'es')],
       afterBuild: mergeDts,
     }),
   ],
@@ -52,7 +52,7 @@ export default defineConfig({
     lib: {
       entry: resolve('index.ts'),
       name: pkgName,
-      formats: ['es', 'cjs', 'umd'],
+      // formats: ['es', 'umd'],
       // fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
@@ -73,17 +73,7 @@ export default defineConfig({
           entryFileNames: '[name].mjs',
         },
         {
-          format: 'cjs',
-          exports: 'named',
-          globals: { vue: 'Vue' },
-          //配置打包根目录
-          dir: join(outputDir, 'lib'),
-          //让打包目录和我们目录对应
-          preserveModules: true,
-          preserveModulesRoot: resolve(),
-          entryFileNames: '[name].js',
-        },
-        {
+          name: pkgName,
           format: 'umd',
           exports: 'named',
           globals: { vue: 'Vue' },

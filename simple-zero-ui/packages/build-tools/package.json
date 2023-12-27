@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "gen:version": "tsx scripts/gen-version.ts"
+    "gen:version": "tsx --no-warnings scripts/gen-version.ts"
   },
   "keywords": [],
   "author": "",
