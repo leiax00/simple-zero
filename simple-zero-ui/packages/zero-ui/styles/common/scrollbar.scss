@@ -1,0 +1,28 @@
+/* 修改滚动条的样式 */
+/* 将滚动条的颜色设置为蓝色，轨道颜色设置为灰色 */
+/* 适用于Webkit引擎浏览器 */
+::-webkit-scrollbar {
+  @apply w-1 rounded;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-zinc-600 rounded;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-none;
+}
+
+/* 适用于IE9及以上版本的IE浏览器 */
+//noinspection CssInvalidPseudoSelector
+::-ms-scrollbar {
+  @apply w-1 rounded;
+}
+
+::-ms-thumb {
+  @apply bg-zinc-600 rounded;
+}
+
+::-ms-track {
+  @apply bg-none;
+}

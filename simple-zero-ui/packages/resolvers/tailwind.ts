@@ -1,10 +1,12 @@
+import type { Config } from 'tailwindcss'
+
 const constObj = {
   LOGO_MAX_WIDTH: '150PX',
   RIGHT_NAV_PX: '200px',
 }
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export const tailwind = {
   darkMode: 'class',
   corePlugins: {
     preflight: false,
@@ -24,6 +26,11 @@ module.exports = {
         'aside-red-right': '2px 0 8px -4px red',
         'aside-red-top': '0 -2px 8px -4px red',
       },
+      colors: {
+        zinc: {
+          '410': '#909399',
+        },
+      },
     },
     screens: {
       sm: '640px',
@@ -36,4 +43,4 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-}
+} satisfies Config

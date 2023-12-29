@@ -65,8 +65,5 @@ onMounted(refreshRunInfo)
   .footer-text {
     @apply mx-2;
   }
-  .icon-3 {
-    @apply h-3 w-3;
-  }
 }
 </style>

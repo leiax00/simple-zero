@@ -45,8 +45,7 @@ const toggleDark = useToggle(isDark)
   box-sizing: border-box;
   background: var(--sz-bg-color-mute);
   cursor: pointer;
-  transition: border-color var(--el-transition-duration),
-    background-color var(--el-transition-duration);
+  transition: border-color var(--el-transition-duration), background-color var(--el-transition-duration);
 
   .switch__action,
   .switch__icon {
@@ -62,8 +61,7 @@ const toggleDark = useToggle(isDark)
     background-color: var(--el-bg-color);
     transform: translateX(0);
     color: var(--text-color-light);
-    transition: border-color var(--el-transition-duration),
-      background-color var(--el-transition-duration),
+    transition: border-color var(--el-transition-duration), background-color var(--el-transition-duration),
       transform var(--el-transition-duration);
 
     .switch__icon {
@@ -81,8 +79,7 @@ const toggleDark = useToggle(isDark)
 
         .dark-icon,
         .light-icon {
-          transition: color var(--el-transition-duration),
-            opacity var(--el-transition-duration);
+          transition: color var(--el-transition-duration), opacity var(--el-transition-duration);
         }
 
         .light-icon {

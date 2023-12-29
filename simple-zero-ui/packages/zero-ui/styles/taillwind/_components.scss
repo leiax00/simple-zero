@@ -1,0 +1,18 @@
+@layer components {
+  // 毛玻璃背景, body使用fixed transform scale-105; 内部用absolute
+  .bg-body {
+    &:before {
+      position: absolute;
+      content: "";
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--el-bg-color) center no-repeat;
+      background-size: cover;
+      z-index: -1;
+      -webkit-filter: blur(4px);
+      filter: blur(var(--sz-bg-filter-blur));
+    }
+  }
+}

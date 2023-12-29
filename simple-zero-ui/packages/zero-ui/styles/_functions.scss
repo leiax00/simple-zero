@@ -1,0 +1,12 @@
+@function split-string($string, $delimiter) {
+  $result: (); // 创建一个空列表来存储拆分后的字符串
+
+  @while (str-index($string, $delimiter) != null) {
+    $index: str-index($string, $delimiter); // 获取分隔符在字符串中的索引
+    $result: append($result, str-slice($string, 1, $index - 1)); // 将分隔符之前的部分添加到列表中
+    $string: str-slice($string, $index + str-length($delimiter)); // 更新字符串，去除已拆分部分和分隔符
+  }
+
+  $result: append($result, $string); // 将最后一部分添加到列表中
+  @return $result; // 返回拆分后的列表
+}

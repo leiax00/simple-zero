@@ -24,36 +24,21 @@ const index: Directive = {
           if (!ripple) {
             ripple = document.createElement('span')
             ripple.className = 'waves-ripple'
-            ripple.style.height = ripple.style.width = `${Math.max(
-              rect.width,
-              rect.height
-            )}px`
+            ripple.style.height = ripple.style.width = `${Math.max(rect.width, rect.height)}px`
             target.appendChild(ripple)
           } else {
             ripple.className = 'waves-ripple'
           }
           switch (opts.type) {
             case 'center':
-              ripple.style.top = `${
-                rect.height / 2 - ripple.offsetHeight / 2
-              }px`
+              ripple.style.top = `${rect.height / 2 - ripple.offsetHeight / 2}px`
               ripple.style.left = `${rect.width / 2 - ripple.offsetWidth / 2}px`
               break
             default:
               // @ts-ignore
-              ripple.style.top = `${
-                e.pageY -
-                rect.top -
-                ripple.offsetHeight / 2 -
-                document.body.scrollTop
-              }px`
+              ripple.style.top = `${e.pageY - rect.top - ripple.offsetHeight / 2 - document.body.scrollTop}px`
               // @ts-ignore
-              ripple.style.left = `${
-                e.pageX -
-                rect.left -
-                ripple.offsetWidth / 2 -
-                document.body.scrollLeft
-              }px`
+              ripple.style.left = `${e.pageX - rect.left - ripple.offsetWidth / 2 - document.body.scrollLeft}px`
           }
           ripple.style.backgroundColor = opts.color
           ripple.className = 'waves-ripple z-active'

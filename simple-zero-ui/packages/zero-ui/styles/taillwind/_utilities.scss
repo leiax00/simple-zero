@@ -1,0 +1,39 @@
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .common-grid {
+    @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 justify-items-center;
+    @apply gap-4 sm:gap-x-8 md:gap-x-12 lg:gap-x-16;
+    @apply w-full lg:w-3/4 mx-auto;
+  }
+
+  .common-grid-1 {
+    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 justify-items-center;
+    @apply gap-4 sm:gap-x-8 md:gap-x-12 lg:gap-x-16;
+    @apply w-full lg:w-3/4 mx-auto;
+  }
+}
+
+@layer utilities {
+  .title-level-1 {
+    @apply font-bold text-2xl mb-8;
+  }
+  .title-level-2 {
+    @apply font-bold text-xl mb-6;
+  }
+  .common-text {
+    @apply text-base;
+  }
+  .tip-text {
+    @apply text-xs italic;
+  }
+}

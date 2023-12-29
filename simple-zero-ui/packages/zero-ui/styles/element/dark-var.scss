@@ -1,0 +1,21 @@
+@use "../colors";
+
+@forward 'element-plus/theme-chalk/src/dark/var.scss' with (
+  $bg-color: (
+    'page': colors.get('zinc-800'),
+    '': colors.get('zinc-800'),
+    'overlay': colors.get('zinc-800')
+  ),
+  $text-color: (
+    'primary': colors.get('zinc-300'),
+    'regular': colors.get('zinc-400'),
+    'secondary': colors.get('zinc-410'),
+    'placeholder': colors.get('zinc-600'),
+    'disabled': colors.get('zinc-600'),
+  ),
+  $box-shadow: (
+    'light': (
+      0px 0px 12px colors.get('zinc-700'),
+    )
+  ),
+);

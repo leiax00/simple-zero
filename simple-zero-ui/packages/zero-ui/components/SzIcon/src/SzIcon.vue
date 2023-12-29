@@ -1,6 +1,6 @@
 <template>
   <div class="sz-icon">
-    <svg :class="`svg-icon ${className}`" aria-hidden="true">
+    <svg :class="`inline-block w-full h-full fill-current overflow-hidden ${className}`" aria-hidden="true">
       <use :xlink:href="iconName" />
     </svg>
   </div>
@@ -20,20 +20,4 @@ const { iconClass, className } = toRefs<IconProps>(props)
 const iconName = computed(() => `#sz-${iconClass?.value}`)
 </script>
 
-<style lang="scss" scoped>
-.sz-icon {
-  @apply inline-block h-4 w-4;
-}
-
-.svg-icon {
-  display: inline-block;
-  width: 100%;
-  height: 100%;
-  fill: currentColor;
-  overflow: hidden;
-}
-
-.icon-6 {
-  @apply w-6 h-6;
-}
-</style>
+<style lang="scss" scoped></style>
