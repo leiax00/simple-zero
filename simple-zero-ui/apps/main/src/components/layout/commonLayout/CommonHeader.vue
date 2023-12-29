@@ -12,8 +12,13 @@
     </div>
     <div class="header-right">
       <sz-theme-toggler />
-      <sz-icon v-if="config.common.github" icon-class="github" class="cursor-pointer icon-6 text-red-600" @click="toMyGithub" />
-      <sz-icon icon-class="user" class="cursor-pointer icon-6 text-red-600" @click="toMyGithub" />
+      <sz-icon
+        v-if="config.common.github"
+        icon-class="github"
+        class="cursor-pointer icon-6"
+        @click="toMyGithub"
+      />
+      <sz-icon icon-class="user" class="cursor-pointer icon-6" @click="toMyGithub" />
     </div>
   </div>
 </template>
