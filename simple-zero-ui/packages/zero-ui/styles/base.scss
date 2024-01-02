@@ -17,6 +17,7 @@ body {
     @apply fixed transform scale-x-105 scale-y-150;
   }
 }
+
 html, body, #app, .app {
   @apply h-full m-0;
   @apply text-base font-normal antialiased ;
@@ -28,5 +29,9 @@ html, body, #app, .app {
   }
   .root-with-no-micro {
     @apply p-4;
+  }
+
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px var(--el-bg-color) inset; /* 设置为需要的背景色 */
   }
 }

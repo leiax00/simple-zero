@@ -6,12 +6,7 @@
         {{ menuGroup.name }}
       </div>
       <div class="route-list">
-        <sz-link
-          v-for="item in menuGroup.data"
-          :key="item.id"
-          :type="item.type || 'route'"
-          :to="item.path"
-        >
+        <sz-link v-for="item in menuGroup.data" :key="item.id" :type="item.type || 'route'" :to="item.path">
           <el-card v-ripple shadow="always">{{ item.name }}</el-card>
         </sz-link>
       </div>

@@ -12,13 +12,8 @@
     </div>
     <div class="header-right">
       <sz-theme-toggler />
-      <sz-icon
-        v-if="config.common.github"
-        icon-class="github"
-        class="cursor-pointer icon-6"
-        @click="toMyGithub"
-      />
-      <sz-icon icon-class="user" class="cursor-pointer icon-6" @click="toMyGithub" />
+      <sz-icon v-if="config.common.github" icon-class="github" class="cursor-pointer icon-6" @click="toMyGithub" />
+      <sz-icon icon-class="user" class="cursor-pointer icon-6" @click="toLoginPage" />
     </div>
   </div>
 </template>
@@ -34,12 +29,17 @@ const { logoUrl, uiCtl, config } = useApp()
 const showAsideIcon = computed(() => {
   return uiCtl.showAside ? 'shouqicaidan' : 'zhankaicaidan'
 })
+const router = useRouter()
+
 const changeAsideStatus = () => {
   uiCtl.showAside = !uiCtl.showAside
 }
 
 const toMyGithub = () => {
   window.open(config.common.github)
+}
+const toLoginPage = () => {
+  router.push({ path: '/login' })
 }
 </script>
 

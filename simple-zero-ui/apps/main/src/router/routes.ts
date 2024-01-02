@@ -13,6 +13,11 @@ export const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/Home.vue'),
         meta: { title: 'Home', roles: [] },
       },
+      {
+        path: '/login',
+        component: () => import('@/views/login/Login.vue'),
+        meta: { title: 'Login', roles: [] },
+      },
     ],
   },
   {

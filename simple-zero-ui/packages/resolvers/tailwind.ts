@@ -5,7 +5,6 @@ const constObj = {
   RIGHT_NAV_PX: '200px',
 }
 
-/** @type {import('tailwindcss').Config} */
 export const tailwind = {
   darkMode: 'class',
   corePlugins: {
