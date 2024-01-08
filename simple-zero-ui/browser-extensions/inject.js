@@ -1,0 +1,5 @@
+console.log('????????????????')
+document.addEventListener('sz-bbm', (event) => {
+  console.log('aaaaaaaaaaaa')
+  console.log(event.data)
+})
