@@ -1,0 +1,19 @@
+.el-input {
+  &.el-input--suffix {
+    .el-input__wrapper {
+      .el-input__suffix {
+        .el-input__suffix-inner {
+          width: 22px;  // 修复el-input在密码输入框时, 无密码情况下输入, 输入框长度改变的问题(眼睛占位)
+        }
+      }
+    }
+  }
+}
+
+.el-popper {
+  &.no-arrow {
+    .el-popper__arrow {
+      @apply hidden;
+    }
+  }
+}

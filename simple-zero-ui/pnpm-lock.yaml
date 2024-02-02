@@ -4,6 +4,9 @@ importers:
 
   .:
     dependencies:
+      '@element-plus/icons-vue':
+        specifier: ^2.3.1
+        version: 2.3.1(vue@3.3.13)
       '@leiax00/constants':
         specifier: workspace:*
         version: link:packages/constants
@@ -622,8 +625,8 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /@element-plus/icons-vue@2.0.10(vue@3.3.13):
-    resolution: {integrity: sha512-ygEZ1mwPjcPo/OulhzLE7mtDrQBWI8vZzEWSNB2W/RNCRjoQGwbaK4N8lV4rid7Ts4qvySU3njMN7YCiSlSaTQ==}
+  /@element-plus/icons-vue@2.3.1(vue@3.3.13):
+    resolution: {integrity: sha512-XxVUZv48RZAd87ucGS48jPf6pKu0yV5UCg9f4FFwtrYxXOwWuVJo6wOvSLKEoMQKjv8GsX/mhP6UsC1lRwbUWg==}
     peerDependencies:
       vue: ^3.2.0
     dependencies:
@@ -2820,7 +2823,7 @@ packages:
       vue: ^3.2.0
     dependencies:
       '@ctrl/tinycolor': 3.5.0
-      '@element-plus/icons-vue': 2.0.10(vue@3.3.13)
+      '@element-plus/icons-vue': 2.3.1(vue@3.3.13)
       '@floating-ui/dom': 1.0.12
       '@popperjs/core': /@sxzz/popperjs-es@2.11.7
       '@types/lodash': 4.14.191
