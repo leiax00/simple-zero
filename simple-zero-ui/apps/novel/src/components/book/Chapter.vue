@@ -3,20 +3,8 @@
     <div class="chapter-name">{{ pageData.chapter.name }}</div>
     <div class="chapter-text" v-html="chapterText" />
     <div class="btn-group">
-      <el-button
-        type="primary"
-        :disabled="pageData.chapter.prev === -1"
-        @click="openPage(true)"
-      >
-        上一章
-      </el-button>
-      <el-button
-        type="primary"
-        :disabled="pageData.chapter.next === -1"
-        @click="openPage(false)"
-      >
-        下一章
-      </el-button>
+      <el-button type="primary" :disabled="pageData.chapter.prev === -1" @click="openPage(true)"> 上一章 </el-button>
+      <el-button type="primary" :disabled="pageData.chapter.next === -1" @click="openPage(false)"> 下一章 </el-button>
     </div>
   </div>
 </template>
@@ -49,9 +37,7 @@ const pageData = reactive<{ chapter: Chapter }>({
   timer: -1,
 })
 const chapterText = computed(() => {
-  return pageData.chapter.content
-    ? pageData.chapter.content.replaceAll('\n', '<br/>')
-    : ''
+  return pageData.chapter.content ? pageData.chapter.content.replaceAll('\n', '<br/>') : ''
 })
 
 onMounted(() => {

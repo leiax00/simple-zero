@@ -9,8 +9,7 @@ import pinia from '@/store'
 let serve: any = null
 const render = (props: QiankunProps = {}) => {
   const { container } = props
-  const app: string | Element =
-    container?.querySelector('#app-tools') || '#app-tools' // 避免 id 重复导致微应用挂载失败
+  const app: string | Element = container?.querySelector('#app-tools') || '#app-tools' // 避免 id 重复导致微应用挂载失败
   serve = createApp(App)
   serve.use(pinia).use(router).mount(app)
 }

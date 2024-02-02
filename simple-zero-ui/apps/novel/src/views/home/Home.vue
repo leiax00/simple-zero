@@ -7,13 +7,7 @@
         class="search-input"
         @keyup.enter="searchBook"
       />
-      <el-button
-        v-ripple
-        type="primary"
-        class="mt-3 sm:mt-0 sm:ml-3"
-        @click="searchBook"
-        >搜索</el-button
-      >
+      <el-button v-ripple type="primary" class="mt-3 sm:mt-0 sm:ml-3" @click="searchBook">搜索</el-button>
     </div>
     <div class="search-book mt-8 text-center flex-grow">
       <book-view v-if="pageData.rst" :book-info="pageData.rst" />

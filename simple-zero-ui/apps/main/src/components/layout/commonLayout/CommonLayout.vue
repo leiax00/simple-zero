@@ -1,11 +1,7 @@
 <template>
   <el-container ref="layout" class="common-layout">
     <Transition name="el-fade-in-linear">
-      <el-aside
-        v-if="appStore.uiCtl.showAside"
-        ref="aside"
-        class="sm:hidden aside-main"
-      >
+      <el-aside v-if="appStore.uiCtl.showAside" ref="aside" class="sm:hidden aside-main">
         <common-aside />
       </el-aside>
     </Transition>

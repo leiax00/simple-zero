@@ -30,11 +30,7 @@ echarts.use([
 ])
 
 export type EChartsOption = echarts.ComposeOption<
-  | DatasetComponentOption
-  | TitleComponentOption
-  | TooltipComponentOption
-  | GridComponentOption
-  | LineSeriesOption
+  DatasetComponentOption | TitleComponentOption | TooltipComponentOption | GridComponentOption | LineSeriesOption
 >
 
 export default echarts

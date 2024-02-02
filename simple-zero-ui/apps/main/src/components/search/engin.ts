@@ -39,13 +39,10 @@ export const defaultEnginList: Engin[] = [
     placeholder: 'Iconfont SVG 图标搜索',
   },
 ]
-export const searchEngin: RemovableRef<EnginManager> = useStorage(
-  'searchEngin',
-  {
-    active: 'baidu',
-    enginList: defaultEnginList,
-  }
-)
+export const searchEngin: RemovableRef<EnginManager> = useStorage('searchEngin', {
+  active: 'baidu',
+  enginList: defaultEnginList,
+})
 
 export const toSearch = function (baseUri: string, searchKey: string) {
   window.open(baseUri + searchKey)

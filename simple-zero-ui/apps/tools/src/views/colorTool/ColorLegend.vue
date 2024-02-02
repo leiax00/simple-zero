@@ -4,17 +4,9 @@
     <div class="content-wrapper">
       <template v-for="(val, key) in colors">
         <template v-if="typeof val === 'object'">
-          <div
-            v-for="(color, no) in val"
-            :key="`${key}-${no}`"
-            class="color-wrapper"
-            @click="copy({ key, no, color })"
-          >
+          <div v-for="(color, no) in val" :key="`${key}-${no}`" class="color-wrapper" @click="copy({ key, no, color })">
             <div class="color-item">
-              <div
-                class="color-picker__color"
-                :style="{ backgroundColor: color }"
-              />
+              <div class="color-picker__color" :style="{ backgroundColor: color }" />
               <div class="color-picker__name">{{ key }}-{{ no }}</div>
               <div class="color-picker__value">{{ color }}</div>
             </div>
@@ -45,9 +37,7 @@ const { toClipboard } = useClipboard()
 const copyColor = ref(true)
 const copy = async (colorObj: { key: string; no: string; color: string }) => {
   try {
-    const content = copyColor.value
-      ? colorObj.color
-      : `${colorObj.key}-${colorObj.no}`
+    const content = copyColor.value ? colorObj.color : `${colorObj.key}-${colorObj.no}`
     await toClipboard(content)
     pickColor.value = colorObj.color
     ElMessage({
