@@ -1,5 +1,5 @@
 import * as path from 'path'
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
@@ -11,26 +11,29 @@ import { SzResolver } from '@leiax00/resolvers'
 import viteCompression from 'vite-plugin-compression'
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
-  resolve: {
-    // extensions: ['.js', '.ts', '.tsx', '.jsx'],
-    alias: {
-      '@/': `${path.resolve(__dirname, 'src')}/`,
-      '@leiax00/': `${path.resolve(__dirname, '../../packages')}/`,
-    },
-  },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `
-        @use "@leiax00/zero-ui/styles/element/index.scss" as *;
-        `,
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '')
+  return {
+    resolve: {
+      // extensions: ['.js', '.ts', '.tsx', '.jsx'],
+      alias: {
+        '@/': `${path.resolve(__dirname, 'src')}/`,
+        '@leiax00/': `${path.resolve(__dirname, '../../packages')}/`,
       },
     },
-  },
-  plugins: getPlugins(mode),
-  server: getServer(),
-}))
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `
+        @use "@leiax00/zero-ui/styles/element/index.scss" as *;
+        `,
+        },
+      },
+    },
+    plugins: getPlugins(mode),
+    server: getServer(Number.parseInt(env.APP_PORT)),
+  }
+})
 
 function getPlugins(mode: string): any {
   const plugins = [
@@ -51,10 +54,10 @@ function getPlugins(mode: string): any {
   return plugins
 }
 
-function getServer() {
+function getServer(port = 10000) {
   return {
     host: '0.0.0.0',
-    port: 10000,
+    port,
     strictPort: false, // 端口占用是否进行下一个端口尝试
     headers: {
       'Access-Control-Allow-Origin': '*',

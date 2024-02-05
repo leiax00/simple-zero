@@ -1,7 +1,6 @@
 import * as path from 'path'
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import DefineOptions from 'unplugin-vue-define-options/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import Inspect from 'vite-plugin-inspect'
@@ -15,31 +14,33 @@ import viteCompression from 'vite-plugin-compression'
 import pkgInfo from './package.json'
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
-  base: mode === 'development' ? '/novel' : loadEnv(mode, process.cwd()).VITE_APP_DOMAIN,
-  resolve: {
-    // extensions: ['.js', '.ts', '.tsx', '.jsx'],
-    alias: {
-      '@/': `${path.resolve(__dirname, 'src')}/`,
-      '@leiax00/': `${path.resolve(__dirname, '../../packages')}/`,
-    },
-  },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@use "@leiax00/zero-ui/styles/element/index.scss" as *;`,
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '')
+  return {
+    base: mode === 'development' ? '/novel' : loadEnv(mode, process.cwd()).VITE_APP_DOMAIN,
+    resolve: {
+      // extensions: ['.js', '.ts', '.tsx', '.jsx'],
+      alias: {
+        '@/': `${path.resolve(__dirname, 'src')}/`,
+        '@leiax00/': `${path.resolve(__dirname, '../../packages')}/`,
       },
     },
-  },
-  plugins: getPlugins(mode),
-  server: getServer(),
-}))
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@use "@leiax00/zero-ui/styles/element/index.scss" as *;`,
+        },
+      },
+    },
+    plugins: getPlugins(mode),
+    server: getServer(Number.parseInt(env.APP_PORT)),
+  }
+})
 
 function getPlugins(mode: string): any {
   const plugins = [
     vue(),
     vueJsx(),
-    DefineOptions(),
     content(),
     AutoImport({
       imports: ['vue', 'vue-router'],
@@ -58,10 +59,10 @@ function getPlugins(mode: string): any {
   return plugins
 }
 
-function getServer() {
+function getServer(port = 80) {
   return {
     host: '0.0.0.0',
-    port: 80,
+    port,
     strictPort: false, // 端口占用是否进行下一个端口尝试
     headers: {
       'Access-Control-Allow-Origin': '*',
