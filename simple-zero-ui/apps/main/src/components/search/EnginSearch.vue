@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div class="relative float-end top-3 right-5 z-10 text-gray-600 text-xs">Ctrl+K / Ctrl+Alt+K</div>
     <el-tabs v-model="data.searchEngin.active" type="border-card" @tab-change="focusInput(enginIndex)">
       <el-tab-pane v-for="item in data.searchEngin.enginList" :key="item.key" :name="item.key" :label="item.label">
         <el-input
@@ -10,6 +9,9 @@
           clearable
           @keyup.enter="toSearch(item.uri, data.searchKey)"
         />
+        <div class="hidden sm:block text-xs text-zinc-300 dark:text-zinc-700 mt-2 text-right">
+          切换引擎:Ctrl+K / Ctrl+Alt+K
+        </div>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -63,7 +65,7 @@ onMounted(() => {
   if (appStore.config.common?.searchEngin) {
     data.searchEngin.enginList = appStore.config.common.searchEngin
   }
-  focusInput(enginIndex.value)
+  // focusInput(enginIndex.value)
 })
 
 const { current } = useMagicKeys({
@@ -81,4 +83,11 @@ watch(current, (v) => {
 })
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+:deep(.el-tabs) {
+  @apply rounded-lg;
+  .el-tabs__header {
+    @apply rounded-tl-lg rounded-tr-lg;
+  }
+}
+</style>
