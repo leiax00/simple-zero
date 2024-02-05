@@ -2,11 +2,11 @@
 /* 将滚动条的颜色设置为蓝色，轨道颜色设置为灰色 */
 /* 适用于Webkit引擎浏览器 */
 ::-webkit-scrollbar {
-  @apply w-1 rounded;
+  @apply w-1 rounded-sm;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-zinc-600 rounded;
+  @apply bg-zinc-600 rounded-sm;
 }
 
 ::-webkit-scrollbar-track {
@@ -16,11 +16,11 @@
 /* 适用于IE9及以上版本的IE浏览器 */
 //noinspection CssInvalidPseudoSelector
 ::-ms-scrollbar {
-  @apply w-1 rounded;
+  @apply w-1 rounded-sm;
 }
 
 ::-ms-thumb {
-  @apply bg-zinc-600 rounded;
+  @apply bg-zinc-600 rounded-sm;
 }
 
 ::-ms-track {
