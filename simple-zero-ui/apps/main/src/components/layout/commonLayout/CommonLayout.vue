@@ -1,7 +1,7 @@
 <template>
   <el-container ref="layout" class="common-layout">
     <Transition name="el-fade-in-linear">
-      <el-aside v-if="appStore.uiCtl.showAside" ref="aside" class="sm:hidden aside-main">
+      <el-aside v-if="uiCtl.showAside" ref="aside" class="sm:hidden aside-main">
         <common-aside />
       </el-aside>
     </Transition>
@@ -22,18 +22,23 @@
 <script setup lang="ts">
 import { onClickOutside } from '@vueuse/core'
 import { useRoute } from 'vue-router'
+import Sidecar from 'gitter-sidecar/dist/sidecar-module'
 import CommonHeader from '@/components/layout/commonLayout/CommonHeader.vue'
 import CommonFooter from '@/components/layout/commonLayout/CommonFooter.vue'
 import { useApp } from '@/store/app'
 defineOptions({ name: 'CommonLayout' })
 
-const appStore = useApp()
+const { uiCtl } = useApp()
 const aside = ref(null)
 onClickOutside(aside, () => {
-  appStore.uiCtl.showAside = false
+  uiCtl.showAside = false
 })
 
 const route = useRoute()
+
+new Sidecar({
+  room: 'exploding-universe/universe',
+})
 </script>
 
 <style lang="scss" scoped>
