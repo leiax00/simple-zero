@@ -13,7 +13,7 @@ useDark({
   storageKey: 'theme-appearance',
 })
 
-const headerFix = ref(false)
+const headerFix = ref(true)
 </script>
 
 <template>
