@@ -53,7 +53,7 @@ watchEffect(() => {
         </el-dropdown-menu>
       </template>
     </el-dropdown>
-    <sz-icon v-else icon-class="user" :class="`cursor-pointer text-teal-500 ${iconClazz}`" @click="routeTo('/login')" />
+    <sz-icon v-else icon-class="user" :class="`cursor-pointer ${iconClazz}`" @click="routeTo('/login')" />
   </div>
 </template>
 

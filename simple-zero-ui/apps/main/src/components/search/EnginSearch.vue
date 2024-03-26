@@ -89,9 +89,11 @@ watch(current, (v) => {
   .el-tabs__header {
     @apply rounded-tl-lg rounded-tr-lg;
   }
-  .el-tabs__item {
-    &:first-child {
-      @apply rounded-tl-xl border-0;
+  .el-tabs__nav-wrap:not(.is-scrollable) {
+    .el-tabs__item {
+      &:first-child {
+        @apply rounded-tl-xl border-0;
+      }
     }
   }
 }
