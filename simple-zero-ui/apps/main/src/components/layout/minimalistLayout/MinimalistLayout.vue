@@ -12,6 +12,8 @@ const route = useRoute()
 useDark({
   storageKey: 'theme-appearance',
 })
+
+const headerFix = ref(false)
 </script>
 
 <template>
@@ -19,11 +21,11 @@ useDark({
     <el-aside class="aside">
       <minimalist-aside />
     </el-aside>
-    <el-container>
+    <el-container :class="headerFix ? '' : 'overflow-auto'">
       <el-header class="header">
         <minimalist-header />
       </el-header>
-      <el-container class="overflow-auto">
+      <el-container :class="headerFix ? 'overflow-auto' : ''">
         <el-main class="layout-main">
           <router-view :key="route.path" />
         </el-main>
