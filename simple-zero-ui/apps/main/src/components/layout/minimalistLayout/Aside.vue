@@ -8,6 +8,7 @@ defineOptions({ name: 'MinimalistAside' })
 const { logoUrl } = useApp()
 
 const isCollapse = ref(true)
+const showTextLogo = ref(true)
 // aside是否脱离文档流, 最大程度保证页面布局不变动(仅收起状态的侧边栏占位)
 const asideFloat = ref(true)
 
@@ -50,6 +51,15 @@ watchEffect(() => {
     isCollapse.value = !isCollapse.value
   }
 })
+watch(isCollapse, () => {
+  if (isCollapse.value) {
+    showTextLogo.value = true
+  } else {
+    setTimeout(() => {
+      showTextLogo.value = false
+    }, 200)
+  }
+})
 const headerH = '40px'
 </script>
 
@@ -63,7 +73,7 @@ const headerH = '40px'
       >
         <span class="logo contents">
           <img
-            v-if="isCollapse"
+            v-if="showTextLogo"
             src="https://static.leiax00.cn/dev/pics/logo-sz.png"
             alt="Simple Zero"
             class="w-4 mt-0.5"
@@ -74,7 +84,7 @@ const headerH = '40px'
     </div>
     <el-menu
       default-active="2"
-      :collapse-transition="false"
+      :collapse-transition="true"
       :style="{ 'min-height': `calc(100% - ${headerH})` }"
       :collapse="isCollapse"
       @select="handleSelect"
@@ -129,8 +139,18 @@ const headerH = '40px'
   }
 
   // 菜单调整宽度
-  :deep(.el-sub-menu__title, .el-menu-item) {
-    @apply pr-12;
+  :deep(.el-menu) {
+    .el-sub-menu__title,
+    .el-menu-item {
+      @apply pr-12;
+    }
+
+    &.el-menu--collapse {
+      .el-sub-menu__title,
+      .el-menu-item {
+        padding: 0 var(--el-menu-base-level-padding);
+      }
+    }
   }
 
   &.aside-main--collapse {

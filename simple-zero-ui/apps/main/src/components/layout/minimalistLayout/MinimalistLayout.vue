@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { useDark, useToggle } from '@vueuse/core'
+import { useDark } from '@vueuse/core'
 import MinimalistAside from './Aside.vue'
 import MinimalistHeader from './Header.vue'
 import MinimalistFooter from './footer.vue'
