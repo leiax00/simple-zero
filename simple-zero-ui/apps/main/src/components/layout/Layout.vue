@@ -8,11 +8,14 @@
 </template>
 
 <script setup lang="ts">
-defineOptions({ name: 'Layout' })
-const layoutName = 'MinimalistLayout'
-const layoutPath = `./${layoutName.charAt(0).toLowerCase() + layoutName.slice(1)}/${layoutName}.vue`
+import { useApp } from '@/store/app'
 
-const layout = shallowRef(defineAsyncComponent(() => import(layoutPath)))
+defineOptions({ name: 'Layout' })
+const { config } = useApp()
+
+const layoutName = config.common?.theme || 'MinimalistLayout'
+const layoutPath = `./${layoutName.charAt(0).toLowerCase() + layoutName.slice(1)}/${layoutName}.vue`
+const layout = shallowRef(defineAsyncComponent(() => import(/* @vite-ignore */ layoutPath)))
 </script>
 
 <style scoped></style>
