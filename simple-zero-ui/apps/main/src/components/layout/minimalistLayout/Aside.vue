@@ -50,12 +50,17 @@ watchEffect(() => {
     isCollapse.value = !isCollapse.value
   }
 })
+const headerH = '40px'
 </script>
 
 <template>
   <div ref="aside" :class="{ 'aside-main': true, ...asideClazz }">
     <div class="aside-header" @click="() => (isCollapse = !isCollapse)">
-      <div class="logo-wrapper h-10 flex flex-row items-center pl-3" title="显示/隐藏侧边栏Ctrl+`">
+      <div
+        class="logo-wrapper flex flex-row items-center pl-3"
+        title="显示/隐藏侧边栏Ctrl+`"
+        :style="{ height: headerH }"
+      >
         <span class="logo contents">
           <img
             v-if="isCollapse"
@@ -70,7 +75,7 @@ watchEffect(() => {
     <el-menu
       default-active="2"
       :collapse-transition="false"
-      :style="{ 'min-height': 'calc(100% - 64px)' }"
+      :style="{ 'min-height': `calc(100% - ${headerH})` }"
       :collapse="isCollapse"
       @select="handleSelect"
     >
