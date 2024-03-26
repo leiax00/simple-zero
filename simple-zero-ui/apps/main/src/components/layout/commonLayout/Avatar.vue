@@ -5,7 +5,7 @@ defineOptions({ name: 'Avatar' })
 
 const serveStore = useServe()
 const router = useRouter()
-const routeTo = (path) => {
+const routeTo = (path: string) => {
   router.push({ path })
 }
 
@@ -21,11 +21,16 @@ const handleCommand = (command: string | number | object) => {
     // do nothing
   }
 }
+
+const isLogin = ref(false)
+watchEffect(() => {
+  isLogin.value = serveStore.isLogin
+})
 </script>
 
 <template>
   <div class="main-avatar inline-block">
-    <el-dropdown v-if="serveStore.isLogin" popper-class="no-arrow" trigger="click" @command="handleCommand">
+    <el-dropdown v-if="isLogin" popper-class="no-arrow" trigger="click" @command="handleCommand">
       <sz-icon icon-class="user" class="cursor-pointer icon-6 text-teal-500" />
       <template #dropdown>
         <el-dropdown-menu>

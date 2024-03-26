@@ -150,6 +150,9 @@ importers:
       splitpanes:
         specifier: ^3.1.5
         version: 3.1.5
+      typeit:
+        specifier: ^8.8.3
+        version: 8.8.3
     devDependencies:
       '@types/crypto-js':
         specifier: ^4.1.1
@@ -1352,6 +1355,10 @@ packages:
 
   /@types/unist@2.0.6:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
+    dev: false
+
+  /@types/web-animations-js@2.2.16:
+    resolution: {integrity: sha512-ATELeWMFwj8eQiH0KmvsCl1V2lu/qx/CjOBmv4ADSZS5u8r4reMyjCXtxG7khqyiwH3IOMNdrON/Ugn94OUcRA==}
     dev: false
 
   /@types/web-bluetooth@0.0.16:
@@ -5737,6 +5744,13 @@ packages:
   /type-fest@0.8.1:
     resolution: {integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==}
     engines: {node: '>=8'}
+    dev: false
+
+  /typeit@8.8.3:
+    resolution: {integrity: sha512-K7nChkj6iyylUi713VBDULUXXLF0pfB6nFPVhNnXTKO2An7NzVz5fjoAHk2FAC3TFLiSnU+QsqhDmap17oBELw==}
+    requiresBuild: true
+    dependencies:
+      '@types/web-animations-js': 2.2.16
     dev: false
 
   /typescript@4.9.4:

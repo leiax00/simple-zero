@@ -12,7 +12,7 @@ service.interceptors.request.use(
     // 是否需要设置 token
     const needToken = (config.headers || {}).needToken !== false
     // 是否需要防止数据重复提交
-    const preventRepeat = (config.headers || {}).preventRepeat !== false
+    const preventRepeat = (config.headers || {}).preventRepeat !== true
     const token = getToken()
     if (token && !needToken) {
       config.headers['Authorization'] = `Bearer ${token}` // 增加前缀Bearer
@@ -35,8 +35,11 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   (resp) => {
     const serverData = resp.data as R<any>
+    console.log(serverData, serverData.code)
     if (serverData.code === 200) {
       return Promise.resolve(serverData.data)
+    } else if (serverData.code === undefined) {
+      return Promise.resolve(resp.data)
     } else {
       tipMsg(`${serverData.msg}`, 'error')
       return Promise.reject(serverData)

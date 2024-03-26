@@ -1,3 +1,3 @@
 export * from './domain'
-export * from './server'
+export * from './modules'
 export * from './service'

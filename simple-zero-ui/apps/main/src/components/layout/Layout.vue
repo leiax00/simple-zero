@@ -1,6 +1,6 @@
 <template>
   <div class="layout-main w-full h-full">
-    <common-layout />
+    <component :is="layout" />
     <el-backtop :bottom="64" :right="24">
       <div>UP</div>
     </el-backtop>
@@ -8,13 +8,11 @@
 </template>
 
 <script setup lang="ts">
-import Sidecar from 'gitter-sidecar/dist/sidecar-module'
-import CommonLayout from './commonLayout/CommonLayout.vue'
-
 defineOptions({ name: 'Layout' })
-new Sidecar({
-  room: 'exploding-universe/universe',
-})
+const layoutName = 'MinimalistLayout'
+const layoutPath = `./${layoutName.charAt(0).toLowerCase() + layoutName.slice(1)}/${layoutName}.vue`
+
+const layout = shallowRef(defineAsyncComponent(() => import(layoutPath)))
 </script>
 
 <style scoped></style>

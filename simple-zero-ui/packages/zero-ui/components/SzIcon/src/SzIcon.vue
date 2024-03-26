@@ -21,7 +21,12 @@ const iconName = computed(() => `#sz-${iconClass?.value}`)
 </script>
 
 <style lang="scss" scoped>
-.svg-icon {
-  @apply inline-block w-full h-full fill-current overflow-hidden;
+.sz-icon {
+  &.active {
+    color: var(--el-color-primary);
+  }
+  .svg-icon {
+    @apply inline-block w-full h-full fill-current overflow-hidden;
+  }
 }
 </style>
