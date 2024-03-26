@@ -13,6 +13,9 @@ declare global {
       class?: any
       style?: any
     }
+    interface IntrinsicElements {
+      [elemName: string]: any
+    }
   }
 }
 
