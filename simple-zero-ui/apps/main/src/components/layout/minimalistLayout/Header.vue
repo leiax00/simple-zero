@@ -10,7 +10,7 @@ const toHome = () => {
   router.push('/')
 }
 const homeClazz = computed(() => {
-  const tmp = ['cursor-pointer w-6 h-6']
+  const tmp = ['cursor-pointer w-5 h-5']
   if (router.currentRoute.value.path === '/home') {
     tmp.push('active')
   }
@@ -46,8 +46,8 @@ onMounted(() => {
       <div class="type-writer flex justify-center text-zinc-500 text-xs" />
     </el-col>
     <el-col :sm="8" :span="12" class="header-right">
-      <sz-theme-toggler />
-      <avatar />
+      <sz-theme-toggler-new />
+      <avatar icon-clazz="icon-5" />
     </el-col>
   </el-row>
 </template>

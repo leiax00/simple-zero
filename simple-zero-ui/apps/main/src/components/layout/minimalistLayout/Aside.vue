@@ -45,7 +45,7 @@ onClickOutside(aside, () => {
   }
 })
 
-const { ctrl, bracketLeft } = useMagicKeys()
+const { ctrl, '`': bracketLeft } = useMagicKeys()
 watchEffect(() => {
   if (ctrl.value && bracketLeft.value) {
     isCollapse.value = !isCollapse.value
@@ -56,7 +56,7 @@ watchEffect(() => {
 <template>
   <div ref="aside" :class="{ 'aside-main': true, ...asideClazz }">
     <div class="aside-header" @click="() => (isCollapse = !isCollapse)">
-      <div class="logo-wrapper h-16 flex flex-row items-center pl-3" title="显示/隐藏侧边栏Ctrl+[">
+      <div class="logo-wrapper h-16 flex flex-row items-center pl-3" title="显示/隐藏侧边栏Ctrl+`">
         <span class="logo contents">
           <img v-if="isCollapse" src="https://static.leiax00.cn/dev/pics/logo-sz.png" alt="Simple Zero" class="w-4" />
           <img v-else :src="logoUrl" alt="Simple Zero" class="w-32" />

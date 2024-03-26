@@ -48,6 +48,7 @@ useDark({
   }
 
   .header {
+    --el-header-height: 2.5rem;
     @apply flex flex-row items-center;
     border-bottom: solid 1px var(--el-menu-border-color);
   }
