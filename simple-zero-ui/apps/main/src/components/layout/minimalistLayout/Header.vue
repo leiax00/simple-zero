@@ -27,7 +27,6 @@ const runTypeWriterInstance = (text: string) => {
 }
 onMounted(() => {
   getYiYan({ c: 'k' }).then((resp) => {
-    console.log(resp, resp.hitokoto)
     const { hitokoto, from, from_who: author } = resp
     const text = `
 <div class="">${hitokoto}</div>

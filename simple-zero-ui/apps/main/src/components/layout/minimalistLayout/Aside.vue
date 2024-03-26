@@ -39,7 +39,6 @@ watch(isCollapse, () => {
 const { width } = useWindowSize()
 const aside = ref(null)
 onClickOutside(aside, () => {
-  console.log(breakpoints.lg)
   if (width.value < breakpointsTailwind.lg) {
     isCollapse.value = true
   }
