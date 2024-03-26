@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onClickOutside, useMagicKeys, useWindowSize } from '@vueuse/core'
-import { breakpoints, breakpointsTailwind } from '@leiax00/constants'
+import { breakpointsTailwind } from '@leiax00/constants'
 import { Document, Menu as IconMenu, Location, Setting } from '@element-plus/icons-vue'
 import { useApp } from '@/store/app'
 
@@ -55,9 +55,14 @@ watchEffect(() => {
 <template>
   <div ref="aside" :class="{ 'aside-main': true, ...asideClazz }">
     <div class="aside-header" @click="() => (isCollapse = !isCollapse)">
-      <div class="logo-wrapper h-16 flex flex-row items-center pl-3" title="显示/隐藏侧边栏Ctrl+`">
+      <div class="logo-wrapper h-10 flex flex-row items-center pl-3" title="显示/隐藏侧边栏Ctrl+`">
         <span class="logo contents">
-          <img v-if="isCollapse" src="https://static.leiax00.cn/dev/pics/logo-sz.png" alt="Simple Zero" class="w-4" />
+          <img
+            v-if="isCollapse"
+            src="https://static.leiax00.cn/dev/pics/logo-sz.png"
+            alt="Simple Zero"
+            class="w-4 mt-0.5"
+          />
           <img v-else :src="logoUrl" alt="Simple Zero" class="w-32" />
         </span>
       </div>

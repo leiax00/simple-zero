@@ -10,6 +10,7 @@ interface Props {
 }
 const props = withDefaults(defineProps<Props>(), {
   size: 'default',
+  height: 20,
 })
 
 const { width, size } = toRefs(props)
@@ -23,6 +24,13 @@ const pageData = reactive({ dark: isDark.value })
 const actionSize = computed(() => {
   const map = { large: 16, default: 12, small: 8 }
   return map[size.value]
+})
+
+const switchStyles = computed(() => {
+  const heightMap = { large: 24, default: 20, small: 16 }
+  return {
+    height: `${heightMap[size.value]}px`,
+  }
 })
 const toggleDark = useToggle(isDark)
 
@@ -64,6 +72,7 @@ const light = defineComponent(() => {
     :size="size"
     :active-action-icon="dark"
     :inactive-action-icon="light"
+    :style="switchStyles"
     @change="toggleDark"
   />
 </template>

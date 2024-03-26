@@ -37,7 +37,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-row class="head-main w-full items-center">
+  <el-row class="head-main w-full items-center leading-5">
     <el-col :sm="8" :span="12">
       <sz-icon icon-class="home" :class="homeClazz" title="首页" @click="toHome" />
     </el-col>
