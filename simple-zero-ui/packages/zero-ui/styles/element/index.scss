@@ -42,6 +42,11 @@
   ),
   $font-family: (
     '': "lxgwwenkai-regular, JetBrainsMono-Regular, JetBrainsMono-Regular, avenir, "helvetica neue", helvetica, ubuntu, roboto, noto, "segoe ui", arial, sans-serif"
+  ),
+  $menu: (
+    'item-height': 48px,
+    'base-level-padding': 12px,
+    'icon-width': 16px,
   )
 );
 
