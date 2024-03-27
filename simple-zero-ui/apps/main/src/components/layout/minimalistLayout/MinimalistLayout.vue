@@ -40,10 +40,6 @@ const headerFix = ref(true)
 <style scoped lang="scss">
 .minimalist-layout {
   --el-aside-width: auto;
-  --el-menu-icon-width: 16px;
-  --el-menu-base-level-padding: 12px;
-  --el-menu-item-height: 36px;
-  --el-menu-sub-item-height: calc(var(--el-menu-item-height) - 6px);
   .aside {
     // 避免展开/合拢aside后主页面抖动
     min-width: calc(var(--el-menu-icon-width) + var(--el-menu-base-level-padding) * 2);
