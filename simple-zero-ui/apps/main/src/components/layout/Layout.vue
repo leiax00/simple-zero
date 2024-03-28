@@ -14,7 +14,7 @@ import { useApp } from '@/store/app'
 defineOptions({ name: 'Layout' })
 const { config } = useApp()
 
-const layoutName = config.common?.theme || 'MinimalistLayout'
+const layoutName = import.meta.env.VITE_APP_THEME || config.common?.theme || 'MinimalistLayout'
 const layout = shallowRef(layoutTheme[layoutName])
 </script>
 
