@@ -14,9 +14,23 @@ items:
         - hosts:
             - "leiax00.cn"
             - "*.leiax00.cn"
-          secretName: default-sct-tls
+          secretName: tls-lax
+        - hosts:
+            - "leiax00.ac.cn"
+            - "*.leiax00.ac.cn"
+          secretName: tls-lax-ac
       rules:
         - host: 'leiax00.cn'
+          http:
+            paths:
+              - path: /api
+                pathType: Prefix
+                backend:
+                  service:
+                    name: sz-gateway-svc
+                    port:
+                      name: http
+        - host: 'leiax00.ac.cn'
           http:
             paths:
               - path: /api

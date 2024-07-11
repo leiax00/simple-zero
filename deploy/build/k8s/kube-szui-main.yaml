@@ -7,6 +7,8 @@ items:
       name: szui-ingress
       annotations:
         kubernetes.io/ingress.class: "nginx"
+        nginx.ingress.kubernetes.io/ssl-redirect: "false"
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
         app-owner: simple-zero
     spec:
       ingressClassName: nginx
@@ -14,9 +16,23 @@ items:
         - hosts:
             - "leiax00.cn"
             - "*.leiax00.cn"
-          secretName: default-sct-tls
+          secretName: tls-lax
+        - hosts:
+            - "leiax00.ac.cn"
+            - "*.leiax00.ac.cn"
+          secretName: tls-lax-ac
       rules:
         - host: 'leiax00.cn'
+          http:
+            paths:
+              - path: /
+                pathType: Prefix
+                backend:
+                  service:
+                    name: szui-main-svc
+                    port:
+                      name: http
+        - host: 'leiax00.ac.cn'
           http:
             paths:
               - path: /
