@@ -33,6 +33,7 @@ export type etcdCommon = {
   svgUri: string
   github?: string
   searchEngin?: Engin[]
+  theme?: string
 }
 
 export type EtcdConf = {

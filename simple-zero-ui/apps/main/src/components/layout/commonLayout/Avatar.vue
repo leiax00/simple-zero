@@ -3,6 +3,14 @@ import { useServe } from '@/store/serve'
 
 defineOptions({ name: 'Avatar' })
 
+interface Props {
+  iconClazz?: string
+}
+
+const props = withDefaults(defineProps<Props>(), { iconClazz: 'icon-6' })
+
+const { iconClazz } = toRefs(props)
+
 const serveStore = useServe()
 const router = useRouter()
 const routeTo = (path: string) => {
@@ -31,7 +39,7 @@ watchEffect(() => {
 <template>
   <div class="main-avatar inline-block">
     <el-dropdown v-if="isLogin" popper-class="no-arrow" trigger="click" @command="handleCommand">
-      <sz-icon icon-class="user" class="cursor-pointer icon-6 text-teal-500" />
+      <sz-icon icon-class="user" :class="`cursor-pointer text-teal-500 ${iconClazz}`" />
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item command="info">
@@ -45,7 +53,7 @@ watchEffect(() => {
         </el-dropdown-menu>
       </template>
     </el-dropdown>
-    <sz-icon v-else icon-class="user" class="cursor-pointer icon-6" @click="routeTo('/login')" />
+    <sz-icon v-else icon-class="user" :class="`cursor-pointer ${iconClazz}`" @click="routeTo('/login')" />
   </div>
 </template>
 

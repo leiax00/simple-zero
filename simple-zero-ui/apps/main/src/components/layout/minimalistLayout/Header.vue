@@ -10,7 +10,7 @@ const toHome = () => {
   router.push('/')
 }
 const homeClazz = computed(() => {
-  const tmp = ['cursor-pointer w-6 h-6']
+  const tmp = ['cursor-pointer w-5 h-5']
   if (router.currentRoute.value.path === '/home') {
     tmp.push('active')
   }
@@ -27,7 +27,6 @@ const runTypeWriterInstance = (text: string) => {
 }
 onMounted(() => {
   getYiYan({ c: 'k' }).then((resp) => {
-    console.log(resp, resp.hitokoto)
     const { hitokoto, from, from_who: author } = resp
     const text = `
 <div class="">${hitokoto}</div>
@@ -38,7 +37,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-row class="head-main w-full items-center">
+  <el-row class="head-main w-full items-center leading-5">
     <el-col :sm="8" :span="12">
       <sz-icon icon-class="home" :class="homeClazz" title="首页" @click="toHome" />
     </el-col>
@@ -46,8 +45,8 @@ onMounted(() => {
       <div class="type-writer flex justify-center text-zinc-500 text-xs" />
     </el-col>
     <el-col :sm="8" :span="12" class="header-right">
-      <sz-theme-toggler />
-      <avatar />
+      <sz-theme-toggler-new />
+      <avatar icon-clazz="icon-5" />
     </el-col>
   </el-row>
 </template>

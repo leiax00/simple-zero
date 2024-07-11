@@ -5,8 +5,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
-import { isEmptyStr } from '@leiax00/utils'
+import { computed, toRefs } from 'vue'
+import { isEmptyStr, isExternalUrl } from '@leiax00/utils'
 import { LINK_TYPE, linkProps } from './vars'
 import type { LinkProps } from './vars'
 
@@ -16,7 +16,7 @@ const props = defineProps(linkProps)
 const { to, type } = toRefs<LinkProps>(props)
 
 const isExternal = computed(() => {
-  return /^(https?:|mailto:|tel:)/.test(to.value)
+  return isExternalUrl(to.value)
 })
 
 const linkType = computed(() => {
@@ -45,7 +45,7 @@ const clazz = computed(() => {
   }
 })
 
-const dispachLink = function (path) {
+const dispachLink = function (path: string) {
   if (isEmptyStr(path)) {
     return {}
   }

@@ -10,3 +10,7 @@ export const strIntercept = (str: string, maxLen: number): string => {
   }
   return str
 }
+
+export const isExternalUrl = (url: string): boolean => {
+  return /^(https?:|mailto:|tel:)/.test(url)
+}

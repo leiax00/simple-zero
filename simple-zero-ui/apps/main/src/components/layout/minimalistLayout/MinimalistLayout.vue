@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { useDark, useToggle } from '@vueuse/core'
+import { useDark } from '@vueuse/core'
 import MinimalistAside from './Aside.vue'
 import MinimalistHeader from './Header.vue'
 import MinimalistFooter from './footer.vue'
@@ -12,6 +12,8 @@ const route = useRoute()
 useDark({
   storageKey: 'theme-appearance',
 })
+
+const headerFix = ref(true)
 </script>
 
 <template>
@@ -19,11 +21,11 @@ useDark({
     <el-aside class="aside">
       <minimalist-aside />
     </el-aside>
-    <el-container>
+    <el-container :class="headerFix ? '' : 'overflow-auto'">
       <el-header class="header">
         <minimalist-header />
       </el-header>
-      <el-container class="overflow-auto">
+      <el-container :class="headerFix ? 'overflow-auto' : ''">
         <el-main class="layout-main">
           <router-view :key="route.path" />
         </el-main>
@@ -38,16 +40,13 @@ useDark({
 <style scoped lang="scss">
 .minimalist-layout {
   --el-aside-width: auto;
-  --el-menu-icon-width: 16px;
-  --el-menu-base-level-padding: 12px;
-  --el-menu-item-height: 36px;
-  --el-menu-sub-item-height: calc(var(--el-menu-item-height) - 6px);
   .aside {
     // 避免展开/合拢aside后主页面抖动
     min-width: calc(var(--el-menu-icon-width) + var(--el-menu-base-level-padding) * 2);
   }
 
   .header {
+    --el-header-height: 2.5rem;
     @apply flex flex-row items-center;
     border-bottom: solid 1px var(--el-menu-border-color);
   }

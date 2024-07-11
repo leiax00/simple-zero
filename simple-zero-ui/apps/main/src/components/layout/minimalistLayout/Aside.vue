@@ -1,18 +1,38 @@
-<script setup lang="ts">
+<script setup lang="tsx">
 import { onClickOutside, useMagicKeys, useWindowSize } from '@vueuse/core'
-import { breakpoints, breakpointsTailwind } from '@leiax00/constants'
-import { Document, Menu as IconMenu, Location, Setting } from '@element-plus/icons-vue'
+import { breakpointsTailwind } from '@leiax00/constants'
+import { isExternalUrl } from '@leiax00/utils'
+import { Location, Setting } from '@element-plus/icons-vue'
 import { useApp } from '@/store/app'
 
 defineOptions({ name: 'MinimalistAside' })
-const { logoUrl } = useApp()
+const { logoUrl, sortedMenus } = useApp()
 
 const isCollapse = ref(true)
+const showTextLogo = ref(true)
 // aside是否脱离文档流, 最大程度保证页面布局不变动(仅收起状态的侧边栏占位)
 const asideFloat = ref(true)
 
+const routeMap = computed(() => {
+  const rst: Record<string, string> = {}
+  for (const menu of sortedMenus) {
+    for (const menuItem of menu.data) {
+      rst[`${menu.id}-${menuItem.id}`] = menuItem.path
+    }
+  }
+  return rst
+})
+
+const router = useRouter()
+
 const handleSelect = (index: string, indexPath: string[]) => {
-  console.log(index, indexPath)
+  const path = routeMap.value[indexPath.join('-')]
+  if (isExternalUrl(path)) {
+    window.open(path, '_blank')
+  } else {
+    router.push(path)
+  }
+  isCollapse.value = true
 }
 
 const asideClazz = reactive<Record<any, any>>({
@@ -34,69 +54,78 @@ watch(isCollapse, () => {
       asideClazz['fixed z-10 lg:relative'] = false
     }
   }, 300) // --el-transition-duration
+
+  if (isCollapse.value) {
+    showTextLogo.value = true
+  } else {
+    setTimeout(() => {
+      showTextLogo.value = false
+    }, 300)
+  }
 })
 
 const { width } = useWindowSize()
 const aside = ref(null)
 onClickOutside(aside, () => {
-  console.log(breakpoints.lg)
   if (width.value < breakpointsTailwind.lg) {
     isCollapse.value = true
   }
 })
 
-const { ctrl, bracketLeft } = useMagicKeys()
+const { ctrl, '`': bracketLeft } = useMagicKeys()
 watchEffect(() => {
   if (ctrl.value && bracketLeft.value) {
     isCollapse.value = !isCollapse.value
   }
 })
+const headerH = '40px'
 </script>
 
 <template>
   <div ref="aside" :class="{ 'aside-main': true, ...asideClazz }">
     <div class="aside-header" @click="() => (isCollapse = !isCollapse)">
-      <div class="logo-wrapper h-16 flex flex-row items-center pl-3" title="显示/隐藏侧边栏Ctrl+[">
+      <div
+        class="logo-wrapper flex flex-row items-center pl-3"
+        title="显示/隐藏侧边栏Ctrl+`"
+        :style="{ height: headerH }"
+      >
         <span class="logo contents">
-          <img v-if="isCollapse" src="https://static.leiax00.cn/dev/pics/logo-sz.png" alt="Simple Zero" class="w-4" />
+          <img v-if="showTextLogo" src="https://static.leiax00.cn/dev/pics/logo-sz.png" alt="Simple Zero" class="w-5" />
           <img v-else :src="logoUrl" alt="Simple Zero" class="w-32" />
         </span>
       </div>
     </div>
     <el-menu
       default-active="2"
-      :collapse-transition="false"
-      :style="{ 'min-height': 'calc(100% - 64px)' }"
+      :collapse-transition="true"
+      :style="{ 'min-height': `calc(100% - ${headerH})` }"
       :collapse="isCollapse"
       @select="handleSelect"
     >
-      <el-sub-menu index="1">
-        <template #title>
+      <template v-for="menu in sortedMenus">
+        <el-menu-item
+          v-if="menu.data.length === 1"
+          :key="`${menu.id}-${menu.data[0].id}`"
+          :index="`${menu.id}-${menu.data[0].id}`"
+        >
+          <!-- todo icon: menu.data[0].icon -->
           <el-icon><location /></el-icon>
-          <span>Navigator One</span>
-        </template>
-        <el-menu-item-group>
-          <template #title><span>Group One</span></template>
-          <el-menu-item index="1-1">item one</el-menu-item>
-          <el-menu-item index="1-2">item two</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="Group Two">
-          <el-menu-item index="1-3">item three</el-menu-item>
-        </el-menu-item-group>
-        <el-sub-menu index="1-4">
-          <template #title><span>item four</span></template>
-          <el-menu-item index="1-4-1">item one</el-menu-item>
+          <template #title>{{ menu.data[0].name }}</template>
+        </el-menu-item>
+        <el-sub-menu v-if="menu.data.length > 1" :key="`${menu.id}`" :index="menu.id">
+          <template #title>
+            <!-- todo icon: menu.icon -->
+            <el-icon><location /></el-icon>
+            <span>{{ menu.name }}</span>
+          </template>
+          <el-menu-item v-for="menuItem in menu.data" :key="menuItem.id" :index="menuItem.id">
+            <!-- todo icon: menu.data[0].icon -->
+            <el-icon><location /></el-icon>
+            <template #title>{{ menuItem.name }}</template>
+          </el-menu-item>
         </el-sub-menu>
-      </el-sub-menu>
-      <el-menu-item index="2">
-        <el-icon><icon-menu /></el-icon>
-        <template #title>Navigator Two</template>
-      </el-menu-item>
-      <el-menu-item index="3" disabled>
-        <el-icon><document /></el-icon>
-        <template #title>Navigator Three</template>
-      </el-menu-item>
-      <el-menu-item index="4" class="setting-item">
+      </template>
+      <el-menu-item index="app-settings" class="setting-item">
         <el-icon><setting /></el-icon>
         <template #title>设置</template>
       </el-menu-item>
@@ -120,8 +149,16 @@ watchEffect(() => {
   }
 
   // 菜单调整宽度
-  :deep(.el-sub-menu__title, .el-menu-item) {
-    @apply pr-12;
+  :deep(.el-menu) {
+    .el-sub-menu__title {
+      @apply pr-32;
+    }
+
+    &.el-menu--collapse {
+      .el-sub-menu__title {
+        padding: 0 var(--el-menu-base-level-padding);
+      }
+    }
   }
 
   &.aside-main--collapse {

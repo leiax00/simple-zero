@@ -35,7 +35,6 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   (resp) => {
     const serverData = resp.data as R<any>
-    console.log(serverData, serverData.code)
     if (serverData.code === 200) {
       return Promise.resolve(serverData.data)
     } else if (serverData.code === undefined) {
