@@ -13,14 +13,14 @@ export async function loadAppConf() {
   resp.data?.data?.kvs.forEach((item: { key: string; value: string }) => {
     const { key, value } = item
     let valObj = JSON.parse(value)
-    if (key === 'app/ui/common') {
+    if (key === '/app/ui/common') {
       conf.common = valObj
     }
     valObj = !Array.isArray(valObj) ? [valObj] : valObj
-    if (key.startsWith('app/ui/menu/')) {
+    if (key.startsWith('/app/ui/menu/')) {
       conf.menus.push(...valObj)
     }
-    if (key.startsWith('app/ui/serve/')) {
+    if (key.startsWith('/app/ui/serve/')) {
       conf.serves.push(...valObj)
     }
   })
