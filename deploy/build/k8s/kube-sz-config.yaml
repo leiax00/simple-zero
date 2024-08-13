@@ -41,3 +41,7 @@ items:
               env:
                 - name: TZ
                   value: Asia/Shanghai
+              command:
+                - /app/cmd
+                - --conf=/data/conf
+                - --etcd=10.1.0.7:2379
