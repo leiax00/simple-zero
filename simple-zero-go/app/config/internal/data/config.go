@@ -14,7 +14,7 @@ type configRepo struct {
 }
 
 func (cRepo *configRepo) SetUIServe(ctx context.Context, serve *api.UIServe) error {
-	key := fmt.Sprintf("%s/%s", "app/ui/serve", serve.Name)
+	key := fmt.Sprintf("%s/%s", "/app/ui/serve", serve.Name)
 	c, cancel := context.WithTimeout(ctx, 2*time.Second)
 	defer cancel()
 	bytes, err := json.Marshal(serve)
@@ -30,7 +30,7 @@ func (cRepo *configRepo) SetUIServe(ctx context.Context, serve *api.UIServe) err
 }
 
 func (cRepo *configRepo) SetUIMenu(ctx context.Context, config *api.UIConfig) error {
-	key := fmt.Sprintf("%s/%s", "app/ui/menu", config.Serve.Name)
+	key := fmt.Sprintf("%s/%s", "/app/ui/menu", config.Serve.Name)
 	c, cancel := context.WithTimeout(ctx, 2*time.Second)
 	defer cancel()
 	bytes, err := json.Marshal(config.Menus)
