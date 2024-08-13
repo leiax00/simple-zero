@@ -13,7 +13,7 @@ from szpy.config.data_source import SourceData, DataGetter
 
 
 class NacosConfig(BaseSettings):
-    nacos_addr: str = '10.1.0.3:8848'
+    nacos_addr: str = '10.1.0.7:8848'
     nacos_ns: Optional[str] = None
     nacos_props_group: str = 'DEFAULT_GROUP'
     nacos_props_id: str = 'sz-novel.yaml'

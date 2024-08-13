@@ -19,10 +19,10 @@ spring:
     nacos:
       discovery:
         # 服务注册地址
-        server-addr: 10.1.0.3:8848
+        server-addr: 10.1.0.7:8848
       config:
         # 配置中心地址
-        server-addr: 10.1.0.3:8848
+        server-addr: 10.1.0.7:8848
         # 配置文件格式
         file-extension: yaml
         # 共享配置
