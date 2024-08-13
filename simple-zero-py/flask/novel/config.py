@@ -18,10 +18,10 @@ config = {
     }
 }
 
-helper = DbHelper(user='leiax00', password='lax4832.', host='10.1.0.3', port=3308, database='simple-zero')
+helper = DbHelper(user='leiax00', password='lax4832.', host='10.1.0.7', port=3308, database='simple-zero')
 db = helper.db_session()
 
-redis_pool = redis.ConnectionPool(host='10.1.0.3', port=6379, decode_responses=True, db=1)  # apps/sz-novel/...
+redis_pool = redis.ConnectionPool(host='10.1.0.7', port=6379, decode_responses=True, db=1)  # apps/sz-novel/...
 c_redis = redis.Redis(connection_pool=redis_pool)
 REDIS_KEY_PREFIX = 'apps/sz-novel'
 
